@@ -16,13 +16,15 @@ namespace NUBEAccounts.BLL
         private String _EntryNo;
         private string _RefNo;
         private Ledger _Ledger;
-        private decimal _CrAmt;
-        private decimal _DrAmt;
-        private decimal _BalAmt;
+        private decimal? _CrAmt;
+        private decimal? _DrAmt;
+        private decimal? _BalAmt;
         private string _AccountName;
         private string _Particular;
         private string _RefEntryNo;
         private string _RefCode;
+        private int? _SNo;
+        private string _VoucherNo;
         #endregion
 
         #region Property
@@ -132,6 +134,21 @@ namespace NUBEAccounts.BLL
                 }
             }
         }
+        public string VoucherNo
+        {
+            get
+            {
+                return _VoucherNo;
+            }
+            set
+            {
+                if (_VoucherNo != value)
+                {
+                    _VoucherNo = value;
+                    NotifyPropertyChanged(nameof(VoucherNo));
+                }
+            }
+        }
         public Ledger Ledger
         {
             get
@@ -147,7 +164,7 @@ namespace NUBEAccounts.BLL
                 }
             }
         }
-        public decimal CrAmt
+        public decimal? CrAmt
         {
             get
             {
@@ -162,7 +179,7 @@ namespace NUBEAccounts.BLL
                 }
             }
         }
-        public decimal DrAmt
+        public decimal? DrAmt
         {
             get
             {
@@ -177,7 +194,7 @@ namespace NUBEAccounts.BLL
                 }
             }
         }
-        public decimal BalAmt
+        public decimal? BalAmt
         {
             get
             {
@@ -208,7 +225,6 @@ namespace NUBEAccounts.BLL
                 }
             }
         }
-
         public string Particular
         {
             get
@@ -221,6 +237,21 @@ namespace NUBEAccounts.BLL
                 {
                     _Particular = value;
                     NotifyPropertyChanged(nameof(Particular));
+                }
+            }
+        }
+        public int? SNo
+        {
+            get
+            {
+                return _SNo;
+            }
+            set
+            {
+                if (_SNo != value)
+                {
+                    _SNo = value;
+                    NotifyPropertyChanged(nameof(SNo));
                 }
             }
         }
@@ -248,7 +279,10 @@ namespace NUBEAccounts.BLL
         {
             return NubeAccountClient.NubeAccountHub.Invoke<List<GeneralLedger>>("GeneralLedger_List", LedgerId, dtFrom, dtTo).Result;
         }
-
+        public static List<GeneralLedger> Activity_ToList( DateTime dtFrom, DateTime dtTo)
+        {
+            return NubeAccountClient.NubeAccountHub.Invoke<List<GeneralLedger>>("Activity_ToList",  dtFrom, dtTo).Result;
+        }
         #endregion
     }
 }

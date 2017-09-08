@@ -631,19 +631,21 @@ namespace NUBEAccounts.BLL
 
             ReceiptDate = DateTime.Now;
             IsReadOnly = !UserPermission.AllowInsert;
-            EntryNo = NubeAccountClient.NubeAccountHub.Invoke<string>("Receipt_NewRefNo",ReceiptDate).Result;
+            VoucherNo = NubeAccountClient.NubeAccountHub.Invoke<string>("Receipt_NewRefNo",ReceiptDate).Result;
+            EntryNo = NubeAccountClient.NubeAccountHub.Invoke<string>("Receipt_NewEntryNo").Result;
             NotifyAllPropertyChanged();
         }
 
         public void SetEntryNo()
         {
-            EntryNo = NubeAccountClient.NubeAccountHub.Invoke<string>("Receipt_NewRefNo", ReceiptDate).Result;
+            VoucherNo = NubeAccountClient.NubeAccountHub.Invoke<string>("Receipt_NewRefNo", ReceiptDate).Result;
+            EntryNo = NubeAccountClient.NubeAccountHub.Invoke<string>("Receipt_NewEntryNo").Result;
         }
         public bool Find()
         {
             try
             {
-                Receipt po = NubeAccountClient.NubeAccountHub.Invoke<Receipt>("Receipt_Find", SearchText).Result;
+                Receipt po = NubeAccountClient.NubeAccountHub.Invoke<Receipt>("Receipt_Find", EntryNo).Result;
                 if (po.Id == 0) return false;
                 po.toCopy<Receipt>(this);
                 this.RDetails = po.RDetails;
@@ -730,7 +732,10 @@ namespace NUBEAccounts.BLL
             return rv;
         }
 
-
+        public static List<Receipt> ToList(int? LedgerId, DateTime dtFrom, DateTime dtTo, string Status)
+        {
+            return NubeAccountClient.NubeAccountHub.Invoke<List<Receipt>>("Receipt_List", LedgerId, dtFrom, dtTo, Status).Result;
+        }
 
         #region Property  Changed Event
 

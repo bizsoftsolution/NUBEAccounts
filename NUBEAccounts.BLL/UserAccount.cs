@@ -14,7 +14,10 @@ namespace NUBEAccounts.BLL
         #region Field
 
         public static UserAccount User = new UserAccount();
-
+        public static string LoginedACYear;
+        public static string CurrentACYear;
+        public static bool IsCurrentACYear;
+        
         private static UserTypeDetail _UserPermission;
         private bool _IsReadOnly;
         private bool _IsEnabled;
@@ -224,7 +227,11 @@ namespace NUBEAccounts.BLL
             {
                 try
                 {
+                    DateTime dt = DateTime.Now;
                     User = ua;
+                    LoginedACYear = AccYear;
+                    CurrentACYear = dt.Month <= 3 ? string.Format("{0} - {1}", dt.Year, dt.Year + 1) : string.Format("{0} - {1}",dt.Year-1,dt.Year);
+                    IsCurrentACYear = LoginedACYear.StartsWith(CurrentACYear.Substring(0, 4));
                     Data_Init();
                     return "";
                 }

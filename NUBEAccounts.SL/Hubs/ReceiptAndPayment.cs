@@ -244,6 +244,7 @@ namespace NUBEAccounts.SL.Hubs
                             rp.EDate = pd.Payment.PaymentDate;
                             rp.RefNo = pd.Payment.PaymentMode == "Cheque" ? pd.Payment.ChequeNo : pd.Payment.RefNo;
                             rp.EntryNo = pd.Payment.EntryNo;
+                            rp.VoucherNo = pd.Payment.VoucherNo;
                             rp.AmountDr = pd.Amount;
                             AmountDr = AmountDr + pd.Amount;
                             rp.Status = pd.Payment.Status;
@@ -279,6 +280,7 @@ namespace NUBEAccounts.SL.Hubs
                                     rp.EDate = p.PaymentDate;
                                     rp.RefNo = p.PaymentMode == "Cheque" ? p.ChequeNo : p.RefNo;
                                     rp.EntryNo = p.EntryNo;
+                                    rp.VoucherNo = p.VoucherNo;
                                     rp.AmountDr = pd.Amount;
                                     AmountDr = AmountDr + pd.Amount;
                                     rp.Particular = pd.Particular;
@@ -319,6 +321,7 @@ namespace NUBEAccounts.SL.Hubs
                                     rp.EDate = r.ReceiptDate;
                                     rp.RefNo = r.ReceiptMode == "Cheque" ? r.ChequeNo : r.RefNo;
                                     rp.EntryNo = r.EntryNo;
+                                    rp.VoucherNo = r.VoucherNo;
                                     rp.AmountCr = rd.Amount;
                                     AmountCr = AmountCr + rd.Amount;
                                     rp.Status = rd.Receipt.Status;
@@ -358,6 +361,7 @@ namespace NUBEAccounts.SL.Hubs
                             rp.EDate = rd.Receipt.ReceiptDate;
                             rp.RefNo = rd.Receipt.ReceiptMode == "Cheque" ? rd.Receipt.ChequeNo : rd.Receipt.RefNo;
                             rp.EntryNo = rd.Receipt.EntryNo;
+                            rp.VoucherNo = rd.Receipt.VoucherNo;
                             rp.AmountCr = rd.Amount;
                             AmountCr = AmountCr + rd.Amount;
                             rp.Status = rd.Receipt.Status;

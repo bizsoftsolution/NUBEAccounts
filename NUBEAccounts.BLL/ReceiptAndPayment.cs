@@ -24,6 +24,7 @@ namespace NUBEAccounts.BLL
         public string _PayTo;
         public string _Status;
         public string _Particulars;
+        private string _VoucherNo;
 
         #endregion
 
@@ -101,6 +102,21 @@ namespace NUBEAccounts.BLL
                 {
                     _EntryNo = value;
                     NotifyPropertyChanged(nameof(EntryNo));
+                }
+            }
+        }
+        public string VoucherNo
+        {
+            get
+            {
+                return _VoucherNo;
+            }
+            set
+            {
+                if (_VoucherNo != value)
+                {
+                    _VoucherNo = value;
+                    NotifyPropertyChanged(nameof(VoucherNo));
                 }
             }
         }

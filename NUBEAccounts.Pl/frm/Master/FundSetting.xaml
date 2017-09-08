@@ -5,8 +5,67 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:NUBEAccounts.Pl.frm.Master"
              mc:Ignorable="d" 
-             d:DesignHeight="300" d:DesignWidth="300">
+              xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"                        
+             xmlns:Conversion="clr-namespace:NUBEAccounts.Pl.Conversion"
+             d:DesignHeight="700" d:DesignWidth="1100" Background="white" Loaded="UserControl_Loaded" Unloaded="UserControl_Unloaded" >
     <Grid>
-            
+        <Grid.RowDefinitions>
+            <RowDefinition Height="{DynamicResource FormHeadHeight}"/>
+            <RowDefinition Height="300"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+        <Border BorderBrush="Black" BorderThickness="1" Grid.RowSpan="3" />
+        <!--#region Form Head -->
+        <Grid Grid.Row="0" Background="{DynamicResource bgFormHead}" Margin="0,0,0,295" Grid.RowSpan="2">
+            <TextBlock x:Name="lblHead" Foreground="{DynamicResource fgFormHead}" HorizontalAlignment="Center"  VerticalAlignment="Center" FontFamily="{DynamicResource ftfFormHead}" FontSize="{DynamicResource fnsFormHead}"><Run Text="Fund Detail"/></TextBlock>
+
+        </Grid>
+        <!--#endregion-->
+        <!--#region Form Body-->
+        <Grid Grid.Row="1" Margin="250,100,100,0">
+           
+            <!--#region Form Left-->
+            <Grid Grid.Column="0" Margin="10,0,10,0" Grid.Row="0">
+
+                <!--#endregion-->
+                <!--#region Form Design-->
+                <Grid Grid.Row="0"  >
+                    <StackPanel Orientation="Vertical" Margin="0,0,10,0">
+
+                        <TextBox x:Name="txtCompanyName" MaxLength="100" IsReadOnly="{Binding IsReadOnly,Mode=OneWay}" Text="{Binding CompanyName, Mode=TwoWay}" Style="{StaticResource MaterialDesignFloatingHintTextBox}" FontWeight="Bold" FontSize="14" Width="450">
+                            <materialDesign:HintAssist.Hint>
+                                <StackPanel Orientation="Horizontal">
+                                    <materialDesign:PackIcon Kind="Cash" Foreground="{Binding BorderBrush, ElementName=PhoneTextBox}"  Height="25" Width="25" />
+                                    <TextBlock Text="Fund Name"/>
+                                </StackPanel>
+                            </materialDesign:HintAssist.Hint>
+                        </TextBox>
+                        
+                    </StackPanel>
+                </Grid>
+                <!--#endregion-->
+
+                <!--#endregion-->
+            </Grid>
+            <Grid Grid.Row="1" Margin="100,100,100,0" >
+                <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" VerticalAlignment="Center">
+                    <Button Width="80" Height="30" x:Name="btnSave" Content="SAVE"  Margin="10" Click="btnSave_Click"  />
+                    <Button Width="80" Height="30" x:Name="btnUser" Content="USERS"  Margin="10" Click="btnUser_Click"  />
+                    <Button Width="80" Height="30" Visibility="Collapsed" x:Name="btnDelete" Content="DELETE"  Margin="10" Click="btnDelete_Click" />
+                    <Button Width="88" Height="30" Visibility="Collapsed" x:Name="btnSetting" Content="SETTING"  Margin="10" Click="btnSetting_Click" />
+                    <!--<Button x:Name="btnSetting" HorizontalAlignment="Right"  Background="Transparent" ToolTip="Setting" Height="30" Width="50" BorderThickness="0" BorderBrush="Transparent" Click="btnSetting_Click" Margin="0,0,5,0">
+                            <materialDesign:PackIcon  Kind="Settings" Foreground="{DynamicResource PrimaryHueLightBrush}" >
+                            </materialDesign:PackIcon>
+                        </Button>-->
+                </StackPanel>
+            </Grid>
+
+
+            <!--#endregion-->
+         
+        </Grid>
+        
+
+
     </Grid>
 </UserControl>

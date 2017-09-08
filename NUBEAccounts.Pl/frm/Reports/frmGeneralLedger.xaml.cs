@@ -57,7 +57,7 @@ namespace NUBEAccounts.Pl.frm.Reports
             {
                 List<BLL.GeneralLedger> list = BLL.GeneralLedger.ToList((int)cmbAccountName.SelectedValue, dtpDateFrom.SelectedDate.Value, dtpDateTo.SelectedDate.Value);
                 list = list.Select(x => new BLL.GeneralLedger()
-                { AccountName = x.Ledger.AccountName, Particular = x.Particular, CrAmt = x.CrAmt, DrAmt = x.DrAmt, BalAmt = x.BalAmt, EDate = x.EDate, EntryNo = x.EntryNo, EType = x.EType, Ledger = x.Ledger, RefNo = x.RefNo }).ToList();
+                { AccountName = x.Ledger.AccountName, Particular = x.Particular, CrAmt = x.CrAmt, DrAmt = x.DrAmt, BalAmt = x.BalAmt, EDate = x.EDate, VoucherNo = x.VoucherNo, EType = x.EType, Ledger = x.Ledger, RefNo = x.RefNo }).ToList();
 
                 try
                 {
@@ -115,7 +115,7 @@ namespace NUBEAccounts.Pl.frm.Reports
                         Transaction.frmPayment f = new Transaction.frmPayment();
                         App.frmHome.ShowForm(f);
                         System.Windows.Forms.Application.DoEvents();
-                        f.data.SearchText = gl.EntryNo;
+                        f.data.EntryNo = gl.EntryNo;
                         System.Windows.Forms.Application.DoEvents();
                         f.data.Find();
                         f.btnPrint.IsEnabled = true;
@@ -130,7 +130,7 @@ namespace NUBEAccounts.Pl.frm.Reports
                         Transaction.frmReceipt f = new Transaction.frmReceipt();
                         App.frmHome.ShowForm(f);
                         System.Windows.Forms.Application.DoEvents();
-                        f.data.SearchText = gl.EntryNo;
+                        f.data.EntryNo = gl.EntryNo;
                         System.Windows.Forms.Application.DoEvents();
                         f.data.Find();
                         f.btnPrint.IsEnabled = true;
@@ -145,8 +145,7 @@ namespace NUBEAccounts.Pl.frm.Reports
                         Transaction.frmJournal f = new Transaction.frmJournal();
                         App.frmHome.ShowForm(f);
                         System.Windows.Forms.Application.DoEvents();
-                        f.data.SearchText = gl.EntryNo;
-
+                        f.data.EntryNo = gl.EntryNo;
                         System.Windows.Forms.Application.DoEvents();
                         f.data.Find();
                         f.btnPrint.IsEnabled = true;
@@ -163,7 +162,7 @@ namespace NUBEAccounts.Pl.frm.Reports
                     Transaction.frmJournal f = new Transaction.frmJournal();
                     App.frmHome.ShowForm(f);
                     System.Windows.Forms.Application.DoEvents();
-                    f.data.SearchText = gl.EntryNo;
+                    f.data.EntryNo = gl.EntryNo;
                     System.Windows.Forms.Application.DoEvents();
                     f.data.Find();
                     f.btnPrint.IsEnabled = true;

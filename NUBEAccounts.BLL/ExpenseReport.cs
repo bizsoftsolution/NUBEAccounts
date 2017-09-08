@@ -22,6 +22,7 @@ namespace NUBEAccounts.BLL
         private decimal? _Amt;
 
         private string _AccountName;
+        private string _VoucherNo;
         #endregion
 
         #region Property
@@ -52,6 +53,21 @@ namespace NUBEAccounts.BLL
                 {
                     _EntryNo = value;
                     NotifyPropertyChanged(nameof(EntryNo));
+                }
+            }
+        }
+        public string VoucherNo
+        {
+            get
+            {
+                return _VoucherNo;
+            }
+            set
+            {
+                if (_VoucherNo != value)
+                {
+                    _VoucherNo = value;
+                    NotifyPropertyChanged(nameof(VoucherNo));
                 }
             }
         }

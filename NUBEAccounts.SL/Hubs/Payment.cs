@@ -14,16 +14,31 @@ namespace NUBEAccounts.SL.Hubs
             //  string Prefix = string.Format("{0}{1:yy}{2:X}", BLL.FormPrefix.Payment, dt, dt.Month);
             string Prefix = string.Format("{0}/{1}/", BLL.FormPrefix.Payment, dt.Month);
             long No = 0;
-           
 
-            var d = DB.Payments.Where(x => x.Ledger.AccountGroup.CompanyId == Caller.CompanyId && x.EntryNo.StartsWith(Prefix) && x.PaymentDate.Year==dt.Year)
-                                     .OrderByDescending(x => x.EntryNo)
+
+            var d = DB.Payments.Where(x => x.Ledger.AccountGroup.CompanyId == Caller.CompanyId && x.VoucherNo.StartsWith(Prefix) && x.PaymentDate.Year == dt.Year)
+                                     .OrderByDescending(x => x.VoucherNo)
                                      .FirstOrDefault();
 
-            if (d != null) No = Convert.ToInt64(d.EntryNo.Substring(Prefix.Length), 10);
+            if (d != null) No = Convert.ToInt64(d.VoucherNo.Substring(Prefix.Length), 10);
 
             return string.Format("{0}{1}", Prefix, No + 1);
         }
+        public string Payment_NewEntryNo()
+        {
+            DateTime dt = DateTime.Now;
+            string Prefix = string.Format("{0}{1:yy}{2:X}", BLL.FormPrefix.Payment, dt, dt.Month);
+            long No = 0;
+
+            var d = DB.Payments.Where(x => x.Ledger.AccountGroup.CompanyId == Caller.CompanyId && x.EntryNo.StartsWith(Prefix))
+                                     .OrderByDescending(x => x.EntryNo)
+                                     .FirstOrDefault();
+
+            if (d != null) No = Convert.ToInt64(d.EntryNo.Substring(Prefix.Length), 16);
+
+            return string.Format("{0}{1:X5}", Prefix, No + 1);
+        }
+
         public bool Payment_Save(BLL.Payment PO)
         {
             try
@@ -70,7 +85,7 @@ namespace NUBEAccounts.SL.Hubs
                     LogDetailStore(PO, LogDetailType.UPDATE);
                 }
                 Clients.Clients(OtherLoginClientsOnGroup).Payment_RefNoRefresh(Payment_NewRefNo(DateTime.Now));
-                Journal_SaveByPayment(PO);
+                //Journal_SaveByPayment(PO);
                 return true;
             }
             catch (Exception ex) { }
@@ -117,7 +132,7 @@ namespace NUBEAccounts.SL.Hubs
                     DB.Payments.Remove(d);
                     DB.SaveChanges();
                     LogDetailStore(P, LogDetailType.DELETE);
-                   // Journal_DeleteByPayment(P);
+                    // Journal_DeleteByPayment(P);
                 }
 
                 return true;
@@ -149,8 +164,56 @@ namespace NUBEAccounts.SL.Hubs
             }
 
         }
+        public List<BLL.Payment> Payment_List(int? LedgerId, DateTime dtFrom, DateTime dtTo, string Status)
+        {
+            List<BLL.Payment> lstPayment = new List<BLL.Payment>();
+            BLL.Payment rp = new BLL.Payment();
+          
+                foreach(var l in  DB.Payments.
+                      Where(x => x.PaymentDate >= dtFrom && x.PaymentDate <= dtTo
+                      && (x.LedgerId == LedgerId || LedgerId == null) && (Status == "" || x.Status == Status)).ToList())
+                {
+                    rp = new BLL.Payment();
+                    rp.Amount = l.Amount;
+                    rp.ChequeDate = l.ChequeDate;
+                    rp.ChequeNo = l.ChequeNo;
+                    rp.ClearDate = l.ClearDate;
+                    rp.EntryNo = l.EntryNo;
+                    rp.ExtraCharge = l.ExtraCharge;
+                    rp.Id = l.Id;
+                    rp.LedgerId = l.LedgerId;
+                    rp.LedgerName = l.Ledger.LedgerName;
+                    rp.Particulars = l.Particulars;
+                    rp.PaymentDate = l.PaymentDate;
+                    rp.PaymentMode = l.PaymentMode;
+                    rp.PayTo = l.PayTo;
+                    rp.RefCode = l.RefCode;
+                    rp.RefNo = l.RefNo;
+                    rp.Status = l.Status;
+                    rp.VoucherNo = l.VoucherNo;
+                    //foreach(var l1 in l.PaymentDetails)
+                    //{
+                    //    rp.PDetail = new BLL.PaymentDetail();
+                    //    rp.PDetail.Amount = l1.Amount;
+                    //    rp.PDetail.Id = l1.Id;
+                    //    rp.PDetail.LedgerId = l1.LedgerId;
+                    //    rp.PDetail.LedgerName = l1.Ledger.LedgerName;
+                    //    rp.PDetail.Particular = l1.Particular;
+                    //    rp.PDetail.PaymentId = l1.PaymentId;
 
+                    //}
+                    lstPayment.Add(rp);       
+
+                    }
+
+
+                
+                return lstPayment;
+               
+            }
+        }
 
         #endregion
     }
-}
+
+    

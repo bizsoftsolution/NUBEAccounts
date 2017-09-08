@@ -35,6 +35,8 @@
   <ItemGroup>
     <Reference Include="System" />
     <Reference Include="System.Core" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.Windows.Forms" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="Microsoft.CSharp" />
@@ -52,6 +54,7 @@
     <None Include="Properties\DataSources\NUBEAccounts.BLL.BalanceSheet.datasource" />
     <None Include="Properties\DataSources\NUBEAccounts.BLL.CompanyDetail.datasource" />
     <None Include="Properties\DataSources\NUBEAccounts.BLL.ExpenseReport.datasource" />
+    <None Include="Properties\DataSources\NUBEAccounts.BLL.GeneralLedger.datasource" />
     <None Include="Properties\DataSources\NUBEAccounts.BLL.IncomeExpenditure.datasource" />
     <None Include="Properties\DataSources\NUBEAccounts.BLL.IncomeReport.datasource" />
     <None Include="Properties\DataSources\NUBEAccounts.BLL.Journal.datasource" />
@@ -62,12 +65,16 @@
     <None Include="Properties\DataSources\NUBEAccounts.BLL.ReceiptAndPayment.datasource" />
     <None Include="Properties\DataSources\NUBEAccounts.BLL.SubsidaryAccounts.datasource" />
     <None Include="Properties\DataSources\NUBEAccounts.BLL.TrialBalance.datasource" />
+    <None Include="Properties\DataSources\NUBEAccounts.BLL.VoucherReport.datasource" />
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="Master\rptAccountGroup.rdlc">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </EmbeddedResource>
     <EmbeddedResource Include="Master\RptLedger.rdlc">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Reports\rptActivityReport.rdlc">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </EmbeddedResource>
     <EmbeddedResource Include="Reports\rptBalanceSheet.rdlc">
@@ -97,6 +104,9 @@
     <EmbeddedResource Include="Reports\rptTrialBalance.rdlc">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </EmbeddedResource>
+    <EmbeddedResource Include="Reports\rptVoucherReport.rdlc">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </EmbeddedResource>
     <EmbeddedResource Include="Transaction\rptJournalReceipt.rdlc">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </EmbeddedResource>
@@ -116,7 +126,6 @@
       <Name>NUBEAccounts.BLL</Name>
     </ProjectReference>
   </ItemGroup>
-  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

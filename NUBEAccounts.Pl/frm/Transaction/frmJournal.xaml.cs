@@ -34,11 +34,11 @@ namespace NUBEAccounts.Pl.frm.Transaction
         }
         private void onClientEvents()
         {
-            BLL.NubeAccountClient.NubeAccountHub.On<String>("Journal_RefNoRefresh", (EntryNo) =>
+            BLL.NubeAccountClient.NubeAccountHub.On<String>("Journal_RefNoRefresh", (VoucherNo) =>
             {
                 this.Dispatcher.Invoke(() =>
                 {
-                    data.EntryNo = EntryNo;
+                    data.VoucherNo = VoucherNo;
                 });
             });
         }
@@ -81,7 +81,7 @@ namespace NUBEAccounts.Pl.frm.Transaction
             {
                 MessageBox.Show(string.Format(Message.PL.DenyUpdate, FormName));
             }
-            else if (data.EntryNo == null)
+            else if (data.VoucherNo == null)
             {
                 MessageBox.Show("Enter Entry No");
             }
@@ -158,18 +158,21 @@ namespace NUBEAccounts.Pl.frm.Transaction
 
         private void btnsearch_Click(object sender, RoutedEventArgs e)
         {
-            var rv = data.Find();
-            if (data.Id != 0)
-            {
-                btnPrint.IsEnabled = true;
-            }
+            //var rv = data.Find();
+            //if (data.Id != 0)
+            //{
+            //    btnPrint.IsEnabled = true;
+            //}
 
-            if (data.RefCode != null)
-            {
-                btnSave.IsEnabled = true;
-                btnDelete.IsEnabled = true;
-            }
-            if (rv == false) MessageBox.Show(String.Format("Data Not Found"));
+            //if (data.RefCode != null)
+            //{
+            //    btnSave.IsEnabled = true;
+            //    btnDelete.IsEnabled = true;
+            //}
+            //if (rv == false) MessageBox.Show(String.Format("Data Not Found"));
+            frmJournalSearch frm = new frmJournalSearch();
+            frm.ShowDialog();
+            frm.Close();
         }
 
         private void dgvDetails_SelectionChanged(object sender, SelectionChangedEventArgs e)

@@ -31,7 +31,6 @@ namespace NUBEAccounts.Pl.frm.Reports
             InitializeComponent();
             RptViewer.SetDisplayMode(DisplayMode.PrintLayout);
         }
-
         private void UserControl_Loaded(object sender, RoutedEventArgs e)
         {
 
@@ -71,7 +70,6 @@ namespace NUBEAccounts.Pl.frm.Reports
 
             }
         }
-
 
     }
 

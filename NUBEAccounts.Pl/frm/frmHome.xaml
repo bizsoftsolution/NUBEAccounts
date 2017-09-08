@@ -85,11 +85,11 @@
                                         </DataTemplate>
                                     </ListBox.ItemTemplate>
 
-                                    <!--<Menu:NavMenuItem MenuName="Company Setting" FormName="Company Setting">
+                                    <Menu:NavMenuItem MenuName="Fund Setting" FormName="Fund Setting">
                                         <Menu:NavMenuItem.Content>
-                                            <Master:frmCompanySetting/>
+                                            <Master:FundSetting/>
                                         </Menu:NavMenuItem.Content>
-                                    </Menu:NavMenuItem>-->
+                                    </Menu:NavMenuItem>
 
                                     <Menu:NavMenuItem MenuName="Account Group" FormName ="Account Group">
                                         <Menu:NavMenuItem.Content>
@@ -200,6 +200,26 @@
                                     <Menu:NavMenuItem MenuName="Subsidary Accounts" FormName="Subsidary Accounts">
                                         <Menu:NavMenuItem.Content>
                                             <Report:frmSubsidaryAccounts/>
+                                        </Menu:NavMenuItem.Content>
+                                    </Menu:NavMenuItem>
+                                    <Menu:NavMenuItem MenuName="Voucher Report" FormName="Voucher Report">
+                                        <Menu:NavMenuItem.Content>
+                                            <Report:VoucherReport/>
+                                        </Menu:NavMenuItem.Content>
+                                    </Menu:NavMenuItem>
+                                    <Menu:NavMenuItem MenuName="Activity Report" FormName="Activity Report">
+                                        <Menu:NavMenuItem.Content>
+                                            <Report:frmActivityReport/>
+                                        </Menu:NavMenuItem.Content>
+                                    </Menu:NavMenuItem>
+                                    <Menu:NavMenuItem MenuName="Daily Bank Balance" FormName="Daily Bank Balance">
+                                        <Menu:NavMenuItem.Content>
+                                            <Report:frmDailyBankBalance/>
+                                        </Menu:NavMenuItem.Content>
+                                    </Menu:NavMenuItem>
+                                    <Menu:NavMenuItem MenuName="Individual Report" FormName="Individual Report">
+                                        <Menu:NavMenuItem.Content>
+                                            <Report:frmIndividualReport/>
                                         </Menu:NavMenuItem.Content>
                                     </Menu:NavMenuItem>
                                 </ListBox>

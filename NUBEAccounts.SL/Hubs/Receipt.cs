@@ -15,15 +15,28 @@ namespace NUBEAccounts.SL.Hubs
             string Prefix = string.Format("{0}/{1}/", BLL.FormPrefix.Receipt,  dt.Month);
             long No = 0;
 
-            var d = DB.Receipts.Where(x => x.Ledger.AccountGroup.CompanyId == Caller.CompanyId && x.EntryNo.StartsWith(Prefix) && x.ReceiptDate.Year == dt.Year)
-                                     .OrderByDescending(x => x.EntryNo)
+            var d = DB.Receipts.Where(x => x.Ledger.AccountGroup.CompanyId == Caller.CompanyId && x.VoucherNo.StartsWith(Prefix) && x.ReceiptDate.Year == dt.Year)
+                                     .OrderByDescending(x => x.VoucherNo)
                                      .FirstOrDefault();
 
-            if (d != null) No = Convert.ToInt64(d.EntryNo.Substring(Prefix.Length), 10);
+            if (d != null) No = Convert.ToInt64(d.VoucherNo.Substring(Prefix.Length), 10);
 
             return string.Format("{0}{1}", Prefix, No + 1);
         }
+        public string Receipt_NewEntryNo()
+        {
+            DateTime dt = DateTime.Now;
+            string Prefix = string.Format("{0}{1:yy}{2:X}", BLL.FormPrefix.Receipt, dt, dt.Month);
+            long No = 0;
 
+            var d = DB.Receipts.Where(x => x.Ledger.AccountGroup.CompanyId == Caller.CompanyId && x.EntryNo.StartsWith(Prefix))
+                                     .OrderByDescending(x => x.EntryNo)
+                                     .FirstOrDefault();
+
+            if (d != null) No = Convert.ToInt64(d.EntryNo.Substring(Prefix.Length), 16);
+
+            return string.Format("{0}{1:X5}", Prefix, No + 1);
+        }
         public bool Receipt_Save(BLL.Receipt PO)
         {
             try
@@ -65,7 +78,7 @@ namespace NUBEAccounts.SL.Hubs
                     DB.SaveChanges();
                     Clients.Clients(OtherLoginClientsOnGroup).Receipt_RefNoRefresh(Receipt_NewRefNo(DateTime.Now));
                     LogDetailStore(PO, LogDetailType.UPDATE);
-                   Journal_SaveByReceipt(PO);
+                   //Journal_SaveByReceipt(PO);
                 }
                 return true;
             }
@@ -147,6 +160,43 @@ namespace NUBEAccounts.SL.Hubs
 
         }
 
+        public List<BLL.Receipt> Receipt_List(int? LedgerId, DateTime dtFrom, DateTime dtTo, string Status)
+        {
+            List<BLL.Receipt> lstReceipt = new List<BLL.Receipt>();
+            BLL.Receipt rp = new BLL.Receipt();
+
+            foreach (var l in DB.Receipts.
+                  Where(x => x.ReceiptDate >= dtFrom && x.ReceiptDate <= dtTo
+                  && (x.LedgerId == LedgerId || LedgerId == null) && (Status == "" || x.Status == Status)).ToList())
+            {
+                rp = new BLL.Receipt();
+                rp.Amount = l.Amount;
+                rp.ChequeDate = l.ChequeDate;
+                rp.ChequeNo = l.ChequeNo;
+                rp.CleareDate = l.CleareDate;
+                rp.EntryNo = l.EntryNo;
+                rp.ExtraCharge = l.Extracharge;
+                rp.Id = l.Id;
+                rp.LedgerId = l.LedgerId;
+                rp.LedgerName = l.Ledger.LedgerName;
+                rp.Particulars = l.Particulars;
+                rp.ReceiptDate = l.ReceiptDate;
+                rp.ReceiptMode = l.ReceiptMode;
+                rp.ReceivedFrom = l.ReceivedFrom;
+                rp.RefCode = l.RefCode;
+                rp.RefNo = l.RefNo;
+                rp.Status = l.Status;
+                rp.VoucherNo = l.VoucherNo;
+               
+                lstReceipt.Add(rp);
+
+            }
+
+
+
+            return lstReceipt;
+
+        }
 
         #endregion
     }

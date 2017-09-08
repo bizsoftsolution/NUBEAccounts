@@ -56,7 +56,7 @@ namespace NUBEAccounts.Pl.frm
             if (RValue == "")
             {
                 App.frmHome = new frmHome();
-                App.frmHome.Title = String.Format("{0} - {1}", BLL.UserAccount.User.UserName, BLL.UserAccount.User.UserType.Company.CompanyName);
+                App.frmHome.Title = String.Format("NUBE ACCOUNTS : {0} - {1} [ {2} ]", BLL.UserAccount.User.UserName, BLL.UserAccount.User.UserType.Company.CompanyName,BLL.UserAccount.LoginedACYear);
                 this.Hide();
                 cmbFund.Text = "";
                 txtUserId.Text = "";
@@ -106,6 +106,18 @@ namespace NUBEAccounts.Pl.frm
             {
                 e.Cancel = true;
             }
+        }
+
+        
+
+        private void btnAddNewFund_Click(object sender, RoutedEventArgs e)
+        {
+            frmNewFund f = new frmNewFund();
+            f.data.Clear();
+            f.data.CompanyType = "Company";         
+            f.ShowDialog();
+         
+
         }
     }
 }

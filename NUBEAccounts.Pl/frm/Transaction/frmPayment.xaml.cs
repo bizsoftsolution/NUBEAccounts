@@ -147,17 +147,20 @@ namespace NUBEAccounts.Pl.frm.Transaction
 
         private void btnsearch_Click(object sender, RoutedEventArgs e)
         {
-            var rv = data.Find();
-            if (data.Id != 0)
-            {
-                btnPrint.IsEnabled = true;
-            }
-            if (data.RefCode != null)
-            {
-                btnSave.IsEnabled = true;
-                btnDelete.IsEnabled = true;
-            }
-            if (rv == false) MessageBox.Show(String.Format("Data Not Found"));
+            //var rv = data.Find();
+            //if (data.Id != 0)
+            //{
+            //    btnPrint.IsEnabled = true;
+            //}
+            //if (data.RefCode != null)
+            //{
+            //    btnSave.IsEnabled = true;
+            //    btnDelete.IsEnabled = true;
+            //}
+            //if (rv == false) MessageBox.Show(String.Format("Data Not Found"));
+            frm.Transaction.frmPaymentSearch frm = new frmPaymentSearch();
+            frm.ShowDialog();
+            frm.Close();
         }
 
         private void dgvDetails_SelectionChanged(object sender, SelectionChangedEventArgs e)

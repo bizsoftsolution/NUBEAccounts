@@ -51,7 +51,6 @@ namespace NUBEAccounts.Pl.frm.Reports
 
         }
 
-
         private void LoadReport()
         {
             try
@@ -106,7 +105,6 @@ namespace NUBEAccounts.Pl.frm.Reports
             }
 
         }
-
 
         private void btnSearch_Click(object sender, RoutedEventArgs e)
         {

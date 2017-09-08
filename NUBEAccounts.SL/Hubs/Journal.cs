@@ -11,25 +11,41 @@ namespace NUBEAccounts.SL.Hubs
         #region Journal        
         public string Journal_NewRefNo(DateTime dt)
         {
-            return Journal_NewRefNoByCompanyId(Caller.CompanyId,dt);
+            return Journal_NewRefNoByCompanyId(Caller.CompanyId, dt);
         }
 
-        public string Journal_NewRefNoByCompanyId(int CompanyId,DateTime dt)
+        public string Journal_NewRefNoByCompanyId(int CompanyId, DateTime dt)
         {
-           // DateTime dt = DateTime.Now;
-            // string Prefix = string.Format("{0}{1:yy}{2:X}", BLL.FormPrefix.Journal, dt, dt.Month);
             string Prefix = string.Format("{0}/{1:X}/", BLL.FormPrefix.Journal, dt.Month);
             long No = 0;
 
-            var d = DB.Journals.Where(x => x.JournalDetails.FirstOrDefault().Ledger.AccountGroup.CompanyId == CompanyId && x.EntryNo.StartsWith(Prefix)&& x.JournalDate.Year == dt.Year)
+            var d = DB.Journals.Where(x => x.JournalDetails.FirstOrDefault().Ledger.AccountGroup.CompanyId == CompanyId && x.VoucherNo.StartsWith(Prefix) && x.JournalDate.Year == dt.Year)
+                                     .OrderByDescending(x => x.VoucherNo)
+                                     .FirstOrDefault();
+
+            if (d != null) No = Convert.ToInt64(d.VoucherNo.Substring(Prefix.Length), 10);
+
+            return string.Format("{0}{1}", Prefix, No + 1);
+        }
+        public string Journal_NewEntryNo()
+        {
+            return Journal_NewEntryNoByCompanyId(Caller.CompanyId);
+        }
+
+        public string Journal_NewEntryNoByCompanyId(int CompanyId)
+        {
+            DateTime dt = DateTime.Now;
+            string Prefix = string.Format("{0}{1:yy}{2:X}", BLL.FormPrefix.Journal, dt, dt.Month);
+            long No = 0;
+
+            var d = DB.Journals.Where(x => x.JournalDetails.FirstOrDefault().Ledger.AccountGroup.CompanyId == CompanyId && x.EntryNo.StartsWith(Prefix))
                                      .OrderByDescending(x => x.EntryNo)
                                      .FirstOrDefault();
 
-            if (d != null) No = Convert.ToInt64(d.EntryNo.Substring(Prefix.Length), 10);
+            if (d != null) No = Convert.ToInt64(d.EntryNo.Substring(Prefix.Length), 16);
 
-            return string.Format("{0}{1:X3}", Prefix, No + 1);
+            return string.Format("{0}{1:X5}", Prefix, No + 1);
         }
-
         public bool Journal_Save(BLL.Journal PO)
         {
             try
@@ -181,6 +197,37 @@ namespace NUBEAccounts.SL.Hubs
             }
 
         }
+        public List<BLL.Journal> Journal_List(int? LedgerId, DateTime dtFrom, DateTime dtTo)
+        {
+            List<BLL.Journal> lstJournal = new List<BLL.Journal>();
+            BLL.Journal rp = new BLL.Journal();
+
+         
+                foreach (var l1 in DB.JournalDetails.Where(x => x.Journal.JournalDate >= dtFrom && x.Journal.JournalDate <= dtTo &&( LedgerId == null||x.LedgerId == LedgerId )).ToList())
+                {
+
+                    rp = new BLL.Journal();
+                    rp.JDetail.CrAmt = l1.CrAmt;
+                    rp.JDetail.DrAmt = l1.DrAmt;
+                    rp.EntryNo = l1.Journal.EntryNo;
+                    rp.Id = l1.Journal.Id;
+                    rp.JDetail.LedgerId = l1.LedgerId;
+                    rp.JDetail.LedgerName = l1.Ledger.LedgerName;
+                    rp.Particular = l1.Journal.Particular;
+                    rp.JournalDate = l1.Journal.JournalDate;
+                
+                    rp.RefCode = l1.Journal.RefCode;
+                    rp.VoucherNo = l1.Journal.VoucherNo;
+                lstJournal.Add(rp);
+            }
+
+               
+
+            
+
+            return lstJournal;
+
+        }
 
         int LedgerIdByKey(string key)
         {
@@ -222,7 +269,7 @@ namespace NUBEAccounts.SL.Hubs
                 if (ld.LedgerName.StartsWith("CM-") || ld.LedgerName.StartsWith("WH-") || ld.LedgerName.StartsWith("DL-"))
                 {
                     j = new DAL.Journal();
-                    j.EntryNo = P.EntryNo;
+                    j.EntryNo = Journal_NewRefNo(DateTime.Now);
                     j.JournalDate = P.PaymentDate;
 
                     var CId = CompanyIdByLedgerName(ld.LedgerName);
@@ -336,7 +383,7 @@ namespace NUBEAccounts.SL.Hubs
         }
         #endregion
 
-      
+
         #endregion
     }
 }

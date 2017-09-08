@@ -36,8 +36,6 @@ namespace NUBEAccounts.SL.Hubs
             tb.DrAmtOP = GTotalDrOP;
             lstBalanceSheet.Add(tb);
 
-
-
             tb = new BLL.BalanceSheet();
             tb.LedgerList = new BLL.Ledger();
             tb.LedgerList.AccountName = "Balance";

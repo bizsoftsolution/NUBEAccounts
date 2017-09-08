@@ -18,8 +18,11 @@ namespace NUBEAccounts.BLL
         private decimal? _DrAmtOP;
         private string _Particulars;
         private string _EntryNo;
-        private DateTime _VDate;
+        private DateTime? _VDate;
         private string _PayTo;
+        private string _AccountName;
+        private string _EType;
+        private string _VoucherNo;
         #endregion
 
         #region Property
@@ -129,6 +132,21 @@ namespace NUBEAccounts.BLL
                 }
             }
         }
+        public string VoucherNo
+        {
+            get
+            {
+                return _VoucherNo;
+            }
+            set
+            {
+                if (_VoucherNo != value)
+                {
+                    _VoucherNo = value;
+                    NotifyPropertyChanged(nameof(VoucherNo));
+                }
+            }
+        }
         public string PayTo
         {
             get
@@ -144,7 +162,7 @@ namespace NUBEAccounts.BLL
                 }
             }
         }
-        public DateTime VDate
+        public DateTime? VDate
         {
             get
             {
@@ -159,8 +177,38 @@ namespace NUBEAccounts.BLL
                 }
             }
         }
+        public string AccountName
+        {
+            get
+            {
+                return _AccountName;
+            }
+            set
+            {
+                if (_AccountName != value)
+                {
+                    _AccountName = value;
+                    NotifyPropertyChanged(nameof(_AccountName));
+                }
+            }
+        }
+        public string EType
+        {
+            get
+            {
+                return _EType;
+            }
+            set
+            {
+                if (_EType != value)
+                {
+                    _EType = value;
+                    NotifyPropertyChanged(nameof(_EType));
+                }
+            }
+        }
 
-        #endregion        
+        #endregion
 
         #region Property  Changed Event
 

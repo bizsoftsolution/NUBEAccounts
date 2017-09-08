@@ -14,8 +14,7 @@ namespace NUBEAccounts.BLL
         #region Fileds
 
         private static ObservableCollection<Ledger> _toList;
-        private static ObservableCollection<Ledger> _Sd_toList;
-        private static ObservableCollection<Ledger> _Sc_toList;
+      
         private static List<string> _ACTypeList;
 
         private int _Id;
@@ -120,6 +119,7 @@ namespace NUBEAccounts.BLL
                 _toList = value;
             }
         }
+       
 
 
         public static List<string> ACTypeList
@@ -540,6 +540,7 @@ namespace NUBEAccounts.BLL
                 {
                     _LedgerCode = value;
                     NotifyPropertyChanged(nameof(LedgerCode));
+                    SetAccountName();
                 }
             }
         }
@@ -649,15 +650,15 @@ namespace NUBEAccounts.BLL
         public static void Init()
         {
             _toList = null;
-            _Sd_toList = null;
-            _Sc_toList = null;
+          
         }
 
         private void SetAccountName()
         {
             try
             {
-                AccountName = string.Format("{0}{1}{2}{3}{4}", AccountGroup.GroupCode, string.IsNullOrWhiteSpace(AccountGroup.GroupCode) ? "" : "-", LedgerCode, string.IsNullOrWhiteSpace(LedgerCode) ? "" : "-", LedgerName);
+                //AccountName = string.Format("{0}{1}{2}{3}{4}", AccountGroup.GroupCode, string.IsNullOrWhiteSpace(AccountGroup.GroupCode) ? "" : "-", LedgerCode, string.IsNullOrWhiteSpace(LedgerCode) ? "" : "-", LedgerName);
+                AccountName = string.Format("{0}{1}{2}", LedgerCode, string.IsNullOrWhiteSpace(LedgerCode) ? "" : "-", LedgerName);
             }
             catch (Exception ex)
             {

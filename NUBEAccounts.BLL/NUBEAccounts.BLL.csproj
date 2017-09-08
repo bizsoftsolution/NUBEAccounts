@@ -57,16 +57,19 @@
     <Compile Include="CompanyDetail.cs" />
     <Compile Include="CreditLimitType.cs" />
     <Compile Include="CustomFormat.cs" />
+    <Compile Include="DailyBankBalance.cs" />
     <Compile Include="DataKeyValue.cs" />
     <Compile Include="ExpenseReport.cs" />
     <Compile Include="FormPrefix.cs" />
     <Compile Include="GeneralLedger.cs" />
     <Compile Include="IncomeExpenditure.cs" />
     <Compile Include="IncomeReport.cs" />
+    <Compile Include="IndividualReport.cs" />
     <Compile Include="Journal.cs" />
     <Compile Include="JournalDetail.cs" />
     <Compile Include="Ledger.cs" />
     <Compile Include="NubeAccountClient.cs" />
+    <Compile Include="PayeeList.cs" />
     <Compile Include="Payment.cs" />
     <Compile Include="PaymentDetail.cs" />
     <Compile Include="Program.cs" />
@@ -88,6 +91,8 @@
     <None Include="packages.config" />
     <None Include="Properties\DataSources\ExpenseReport.datasource" />
     <None Include="Properties\DataSources\GeneralLedger.datasource" />
+    <None Include="Properties\DataSources\IncomeReport.datasource" />
+    <None Include="Properties\DataSources\VoucherReport.datasource" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\NUBEAccounts.Common\NUBEAccounts.Common.csproj">

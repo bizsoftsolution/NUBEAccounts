@@ -272,7 +272,6 @@ namespace NUBEAccounts.BLL
                 }
             }
         }
-
         public bool IsLedgerEditable
         {
             get
@@ -288,8 +287,6 @@ namespace NUBEAccounts.BLL
                 }
             }
         }
-
-
         public bool IsShowComplete
         {
             get
@@ -305,7 +302,6 @@ namespace NUBEAccounts.BLL
                 }
             }
         }
-
         public bool IsShowReturn
         {
             get
@@ -661,15 +657,16 @@ namespace NUBEAccounts.BLL
             PaymentDate = DateTime.Now;
             IsReadOnly = !UserPermission.AllowInsert;
             var r = NubeAccountClient.NubeAccountHub.Invoke<string>("Payment_NewRefNo",PaymentDate).Result;
-            EntryNo = r;
-            NotifyAllPropertyChanged();
+            VoucherNo = r;
+            var e = NubeAccountClient.NubeAccountHub.Invoke<string>("Payment_NewEntryNo").Result;
+            VoucherNo = r; NotifyAllPropertyChanged();
         }
 
         public bool Find()
         {
             try
             {
-                Payment po = NubeAccountClient.NubeAccountHub.Invoke<Payment>("Payment_Find", SearchText).Result;
+                Payment po = NubeAccountClient.NubeAccountHub.Invoke<Payment>("Payment_Find", EntryNo).Result;
                 if (po.Id == 0) return false;
                 po.toCopy<Payment>(this);
                 this.PDetails = po.PDetails;
@@ -698,7 +695,8 @@ namespace NUBEAccounts.BLL
     
         public void SetEntryNo()
         {
-            EntryNo = NubeAccountClient.NubeAccountHub.Invoke<string>("Payment_NewRefNo",PaymentDate).Result;
+            VoucherNo = NubeAccountClient.NubeAccountHub.Invoke<string>("Payment_NewRefNo",PaymentDate).Result;
+            EntryNo = NubeAccountClient.NubeAccountHub.Invoke<string>("Payment_NewEntryNo").Result;
         }
         #endregion
 
@@ -763,6 +761,10 @@ namespace NUBEAccounts.BLL
                 rv = true;
             }
             return rv;
+        }
+        public static List<Payment> ToList(int? LedgerId, DateTime dtFrom, DateTime dtTo, string Status)
+        {
+            return NubeAccountClient.NubeAccountHub.Invoke<List<Payment>>("Payment_List", LedgerId, dtFrom, dtTo, Status).Result;
         }
 
 

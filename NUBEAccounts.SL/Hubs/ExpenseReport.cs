@@ -43,6 +43,7 @@ namespace NUBEAccounts.SL.Hubs
 
                             rp = new BLL.ExpenseReport();
                             rp.EntryNo = pd.Payment.EntryNo;
+                            rp.VoucherNo = pd.Payment.VoucherNo;
                             rp.Particulars = pd.Particular;
                             rp.DrAmt = pd.Amount;
                             rp.CrAmt = 0;
@@ -77,6 +78,7 @@ namespace NUBEAccounts.SL.Hubs
                                 rp.DrAmt = pd.Amount;
                                 rp.CrAmt = 0;
                                 rp.EntryNo = pd.Payment.EntryNo;
+                                rp.VoucherNo = pd.Payment.VoucherNo;
                                 rp.Particulars = pd.Particular;
                                 lstExpenseReport.Add(rp);
                             }
@@ -106,6 +108,7 @@ namespace NUBEAccounts.SL.Hubs
 
                                 rp = new BLL.ExpenseReport();
                                 rp.EntryNo = r.EntryNo;
+                                rp.VoucherNo = r.VoucherNo;
                                 rp.DrAmt = 0;
                                 rp.CrAmt = r.Amount;
                                 rp.Particulars = r.Particulars;
@@ -140,8 +143,9 @@ namespace NUBEAccounts.SL.Hubs
 
                             rp = new BLL.ExpenseReport();
                             rp.EntryNo = rd.Receipt.EntryNo;
+                            rp.VoucherNo = rd.Receipt.VoucherNo;
                             rp.DrAmt = 0;
-                           rp.CrAmt = rd.Amount;
+                            rp.CrAmt = rd.Amount;
                             rp.Particulars = rd.Particulars;
                             lstExpenseReport.Add(rp);
                             rp = new BLL.ExpenseReport();
@@ -164,6 +168,7 @@ namespace NUBEAccounts.SL.Hubs
 
                             rp = new BLL.ExpenseReport();
                             rp.EntryNo = rd.Journal.EntryNo;
+                            rp.VoucherNo = rd.Journal.VoucherNo;
                             rp.DrAmt = rd.DrAmt;
                             rp.CrAmt = rd.CrAmt;
                             rp.Particulars = rd.Particulars;
@@ -203,6 +208,7 @@ namespace NUBEAccounts.SL.Hubs
                             rp = new BLL.ExpenseReport();
                             rp.Particulars = l.LedgerName;
                             rp.EntryNo = pd.Payment.EntryNo;
+                            rp.VoucherNo = pd.Payment.VoucherNo;
                             rp.DrAmt = pd.Amount;
                             rp.CrAmt =0;
                             lstExpenseReport.Add(rp);
@@ -224,6 +230,7 @@ namespace NUBEAccounts.SL.Hubs
                                 rp = new BLL.ExpenseReport();
                                 rp.Particulars = l.LedgerName;
                                 rp.EntryNo = pd.Payment.EntryNo;
+                                rp.VoucherNo = pd.Payment.VoucherNo;
                                 rp.DrAmt = pd.Amount;
                                 rp.CrAmt = 0;
                                 lstExpenseReport.Add(rp);
@@ -245,8 +252,9 @@ namespace NUBEAccounts.SL.Hubs
                                 rp = new BLL.ExpenseReport();
                                 rp.Particulars = r.Ledger.LedgerName;
                                 rp.EntryNo = r.EntryNo;
+                                rp.VoucherNo = r.VoucherNo;
                                 rp.DrAmt = 0;
-                               rp.CrAmt = r.Amount;
+                                rp.CrAmt = r.Amount;
                                 lstExpenseReport.Add(rp);
                             }
                         }
@@ -266,6 +274,7 @@ namespace NUBEAccounts.SL.Hubs
                             rp = new BLL.ExpenseReport();
                             rp.Particulars = rd.Ledger.LedgerName;
                             rp.EntryNo = rd.Receipt.EntryNo;
+                            rp.VoucherNo = rd.Receipt.VoucherNo;
                             rp.DrAmt = 0;
                             rp.CrAmt = rd.Amount;
                             lstExpenseReport.Add(rp);
@@ -284,6 +293,7 @@ namespace NUBEAccounts.SL.Hubs
                             rp = new BLL.ExpenseReport();
                             rp.Particulars = rd.Ledger.LedgerName;
                             rp.EntryNo = rd.Journal.EntryNo;
+                            rp.VoucherNo = rd.Journal.VoucherNo;
                             rp.DrAmt = rd.DrAmt;
                             rp.CrAmt = rd.CrAmt;
                             lstExpenseReport.Add(rp);

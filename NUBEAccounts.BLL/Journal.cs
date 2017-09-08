@@ -346,19 +346,23 @@ namespace NUBEAccounts.BLL
 
             JournalDate = DateTime.Now;
             IsReadOnly = !UserPermission.AllowInsert;
-            var e = NubeAccountClient.NubeAccountHub.Invoke<string>("Journal_NewRefNo",JournalDate).Result;
+            var v = NubeAccountClient.NubeAccountHub.Invoke<string>("Journal_NewRefNo", JournalDate).Result;
+            VoucherNo = v;
+            var e = NubeAccountClient.NubeAccountHub.Invoke<string>("Journal_NewEntryNo").Result;
             EntryNo = e;
+
             NotifyAllPropertyChanged();
         }
         public void SetEntryNo()
         {
-            EntryNo = NubeAccountClient.NubeAccountHub.Invoke<string>("Journal_NewRefNo", JournalDate).Result;
+            VoucherNo = NubeAccountClient.NubeAccountHub.Invoke<string>("Journal_NewRefNo", JournalDate).Result;
+            EntryNo = NubeAccountClient.NubeAccountHub.Invoke<string>("Journal_NewEntryNo").Result;
         }
         public bool Find()
         {
             try
             {
-                Journal po = NubeAccountClient.NubeAccountHub.Invoke<Journal>("Journal_Find", SearchText).Result;
+                Journal po = NubeAccountClient.NubeAccountHub.Invoke<Journal>("Journal_Find", EntryNo).Result;
                 if (po.Id == 0) return false;
                 po.toCopy<Journal>(this);
                 this.JDetails = po.JDetails;
@@ -408,7 +412,7 @@ namespace NUBEAccounts.BLL
         {
             try
             {
-                return NubeAccountClient.NubeAccountHub.Invoke<bool>("FindEntryNo", EntryNo, this).Result;
+                return NubeAccountClient.NubeAccountHub.Invoke<bool>("FindEntryNo", VoucherNo, this).Result;
             }
             catch (Exception ex)
             {
@@ -461,7 +465,10 @@ namespace NUBEAccounts.BLL
                 pod.toCopy<JournalDetail>(JDetail);
             }
         }
-
+        public static List<Journal> ToList(int? LedgerId, DateTime dtFrom, DateTime dtTo)
+        {
+            return NubeAccountClient.NubeAccountHub.Invoke<List<Journal>>("Journal_List", LedgerId, dtFrom, dtTo).Result;
+        }
         #endregion
     }
 }

@@ -49,7 +49,7 @@
                                 <materialDesign:HintAssist.Hint>
                                     <StackPanel Orientation="Horizontal">
                                         <materialDesign:PackIcon Kind="AccountNetwork" Foreground="{Binding BorderBrush, ElementName=PhoneTextBox}"  Height="25" Width="25" />
-                                        <TextBlock Text="Category"/>
+                                        <TextBlock Text="Under Group"/>
                                     </StackPanel>
                                 </materialDesign:HintAssist.Hint>
                             </ComboBox>
@@ -158,7 +158,7 @@
                                             <DataGrid.Columns>
                                                 <DataGridTextColumn Header="Order Code" FontWeight="Bold" Width="100" Binding="{Binding GroupCode}" IsReadOnly="True"  EditingElementStyle="{StaticResource MaterialDesignDataGridTextColumnEditingStyle}" />
                                                 <DataGridTextColumn Header="Group Name" FontWeight="Bold" Width="200" Binding="{Binding GroupName}" IsReadOnly="True"  EditingElementStyle="{StaticResource MaterialDesignDataGridTextColumnEditingStyle}" />
-                                                <DataGridTextColumn Header="Category" FontWeight="Bold" Width="200" Binding="{Binding UnderAccountGroup.GroupName}" IsReadOnly="True"  EditingElementStyle="{StaticResource MaterialDesignDataGridTextColumnEditingStyle}"/>
+                                                <DataGridTextColumn Header="Under Group" FontWeight="Bold" Width="200" Binding="{Binding UnderAccountGroup.GroupName}" IsReadOnly="True"  EditingElementStyle="{StaticResource MaterialDesignDataGridTextColumnEditingStyle}"/>
                                             </DataGrid.Columns>
                                         </DataGrid>
  

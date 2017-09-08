@@ -48,7 +48,8 @@ namespace NUBEAccounts.Pl.frm.Master
 
         private void UserControl_Loaded(object sender, RoutedEventArgs e)
         {
-            BLL.Ledger.Init();
+            //BLL.Ledger.Init();
+            rptContain.IsChecked = true;
             dgvLedger.ItemsSource = BLL.Ledger.toList;
 
             CollectionViewSource.GetDefaultView(dgvLedger.ItemsSource).Filter = Ledger_Filter;
@@ -56,7 +57,8 @@ namespace NUBEAccounts.Pl.frm.Master
 
             var AUGIds = BLL.AccountGroup.toList.Select(x => x.UnderGroupId).ToList();
 
-            cmbAccountGroupId.ItemsSource = BLL.AccountGroup.toList.Where(x => !AUGIds.Contains(x.Id)).ToList();
+            //cmbAccountGroupId.ItemsSource = BLL.AccountGroup.toList.Where(x => !AUGIds.Contains(x.Id)).ToList();
+            cmbAccountGroupId.ItemsSource = BLL.AccountGroup.toList.ToList();
             cmbAccountGroupId.DisplayMemberPath = "GroupName";
             cmbAccountGroupId.SelectedValuePath = "Id";
 
@@ -213,38 +215,35 @@ namespace NUBEAccounts.Pl.frm.Master
             if (!string.IsNullOrEmpty(txtSearch.Text))
             {
                 string strSearch = cbxCase.IsChecked == true ? txtSearch.Text : txtSearch.Text.ToLower();
-                string strValue = "";
 
-                foreach (var p in d.GetType().GetProperties())
-                {
-                    if (p.Name.ToLower().Contains("id") || p.GetValue(d) == null
-                       || (p.Name != nameof(d.LedgerName) &&
-                                p.Name != nameof(d.PersonIncharge) &&
-                                p.Name != nameof(d.OPCr) &&
-                                p.Name != nameof(d.OPDr) &&
-                                p.Name != nameof(d.CityName))
-                        ) continue;
-                    strValue = p.GetValue(d).ToString();
-                    if (cbxCase.IsChecked == false)
-                    {
-                        strValue = strValue.ToLower();
-                    }
-                    if (rptStartWith.IsChecked == true && strValue.StartsWith(strSearch))
-                    {
-                        RValue = true;
-                        break;
-                    }
-                    else if (rptContain.IsChecked == true && strValue.Contains(strSearch))
-                    {
-                        RValue = true;
-                        break;
-                    }
-                    else if (rptEndWith.IsChecked == true && strValue.EndsWith(strSearch))
-                    {
-                        RValue = true;
-                        break;
-                    }
+                if (rptStartWith.IsChecked == true)
+                {                    
+                    if (
+                            (cbxCase.IsChecked == true ? d.LedgerCode : d.LedgerCode.ToLower()).StartsWith(strSearch) ||
+                            (cbxCase.IsChecked == true ? d.LedgerName : d.LedgerName.ToLower()).StartsWith(strSearch) ||
+                            (cbxCase.IsChecked == true ? d.AccountGroup.GroupName : d.AccountGroup.GroupName.ToLower()).StartsWith(strSearch) 
+
+                        ) RValue = true;                
                 }
+                else if (rptContain.IsChecked == true)
+                {
+                    if (
+                           (cbxCase.IsChecked == true ? d.LedgerCode : d.LedgerCode.ToLower()).Contains(strSearch) ||
+                           (cbxCase.IsChecked == true ? d.LedgerName : d.LedgerName.ToLower()).Contains(strSearch) ||
+                           (cbxCase.IsChecked == true ? d.AccountGroup.GroupName : d.AccountGroup.GroupName.ToLower()).Contains(strSearch)
+
+                       ) RValue = true;
+                }
+                else if (rptEndWith.IsChecked == true )
+                {
+                    if (
+                           (cbxCase.IsChecked == true ? d.LedgerCode : d.LedgerCode.ToLower()).EndsWith(strSearch) ||
+                           (cbxCase.IsChecked == true ? d.LedgerName : d.LedgerName.ToLower()).EndsWith(strSearch) ||
+                           (cbxCase.IsChecked == true ? d.AccountGroup.GroupName : d.AccountGroup.GroupName.ToLower()).EndsWith(strSearch)
+
+                       ) RValue = true;
+                }
+                
             }
             else
             {
@@ -268,7 +267,7 @@ namespace NUBEAccounts.Pl.frm.Master
             try
             {
                 RptLedger.Reset();
-                ReportDataSource data = new ReportDataSource("Ledger", BLL.Ledger.toList.Where(x => Ledger_Filter(x)).Select(x => new { LedgerName = x.AccountName, x.PersonIncharge, x.AddressLine1, x.AddressLine2, x.CityName, x.OPCr, x.OPDr }).OrderBy(x => x.LedgerName).ToList());
+                ReportDataSource data = new ReportDataSource("Ledger", BLL.Ledger.toList.Where(x => Ledger_Filter(x)).Select(x => new { x.LedgerName, x.AddressLine1, x.AddressLine2, x.CityName, x.OPCr, x.OPDr,x.LedgerCode,PersonIncharge = x.AccountGroup.GroupName }).OrderBy(x => x.LedgerCode).ToList());
                 ReportDataSource data1 = new ReportDataSource("CompanyDetail", BLL.CompanyDetail.toList.Where(x => x.Id == BLL.UserAccount.User.UserType.Company.Id).ToList());
                 RptLedger.LocalReport.DataSources.Add(data);
                 RptLedger.LocalReport.DataSources.Add(data1);
@@ -322,6 +321,7 @@ namespace NUBEAccounts.Pl.frm.Master
             Int32 selectionLength = textBox.SelectionLength;
           //  textBox.Text = AppLib.NumericOnly(txtCreditAmount.Text);
             textBox.SelectionStart = selectionStart <= textBox.Text.Length ? selectionStart : textBox.Text.Length;
+                       
         }
 
         private void rptStartWith_Unchecked(object sender, RoutedEventArgs e)

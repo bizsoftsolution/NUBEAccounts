@@ -42,6 +42,7 @@ namespace NUBEAccounts.SL.Hubs
 
                             rp = new BLL.IncomeReport();
                             rp.EntryNo = pd.Payment.EntryNo;
+                            rp.VoucherNo = pd.Payment.VoucherNo;
                             rp.Particulars = pd.Particular;
                             rp.DrAmt = pd.Amount;
                             rp.CrAmt = 0;
@@ -79,6 +80,7 @@ namespace NUBEAccounts.SL.Hubs
                                 rp.DrAmt = pd.Amount;
                                 rp.CrAmt = 0;
                                 rp.EntryNo = pd.Payment.EntryNo;
+                                rp.VoucherNo = pd.Payment.VoucherNo;
                                 rp.Particulars = pd.Particular;
                                 lstIncomeReport.Add(rp);
                             }
@@ -109,6 +111,7 @@ namespace NUBEAccounts.SL.Hubs
 
                                 rp = new BLL.IncomeReport();
                                 rp.EntryNo = r.EntryNo;
+                                rp.VoucherNo = r.VoucherNo;
                                 rp.DrAmt = 0;
                                 rp.CrAmt = r.Amount;
                                 rp.Particulars = r.Particulars;
@@ -144,6 +147,7 @@ namespace NUBEAccounts.SL.Hubs
 
                             rp = new BLL.IncomeReport();
                             rp.EntryNo = rd.Receipt.EntryNo;
+                            rp.VoucherNo = rd.Receipt.VoucherNo;
                             rp.DrAmt = 0;
                             rp.CrAmt = rd.Amount;
                             rp.Particulars = rd.Particulars;
@@ -168,6 +172,7 @@ namespace NUBEAccounts.SL.Hubs
 
                             rp = new BLL.IncomeReport();
                             rp.EntryNo = rd.Journal.EntryNo;
+                            rp.VoucherNo = rd.Journal.VoucherNo;
                             rp.DrAmt = rd.DrAmt;
                             rp.CrAmt = rd.CrAmt;
                             rp.Particulars = rd.Particulars;
@@ -205,6 +210,7 @@ namespace NUBEAccounts.SL.Hubs
                             rp = new BLL.IncomeReport();
                             rp.Particulars = l.LedgerName;
                             rp.EntryNo = pd.Payment.EntryNo;
+                            rp.VoucherNo = pd.Payment.VoucherNo;
                             rp.DrAmt = pd.Amount;
                             rp.CrAmt = 0;
                             lstIncomeReport.Add(rp);
@@ -226,6 +232,7 @@ namespace NUBEAccounts.SL.Hubs
                                 rp = new BLL.IncomeReport();
                                 rp.Particulars = l.LedgerName;
                                 rp.EntryNo = pd.Payment.EntryNo;
+                                rp.VoucherNo = pd.Payment.VoucherNo;
                                 rp.DrAmt = pd.Amount;
                                 rp.CrAmt = 0;
                                 lstIncomeReport.Add(rp);
@@ -247,6 +254,7 @@ namespace NUBEAccounts.SL.Hubs
                                 rp = new BLL.IncomeReport();
                                 rp.Particulars = r.Ledger.LedgerName;
                                 rp.EntryNo = rd.Receipt.EntryNo;
+                                rp.VoucherNo = rd.Receipt.VoucherNo;
                                 rp.DrAmt = 0;
                                 rp.CrAmt = r.Amount;
                                 lstIncomeReport.Add(rp);
@@ -264,10 +272,10 @@ namespace NUBEAccounts.SL.Hubs
                     {
                         if (rd.Amount != 0)
                         {
-
                             rp = new BLL.IncomeReport();
                             rp.Particulars = rd.Ledger.LedgerName;
                             rp.EntryNo = rd.Receipt.EntryNo;
+                            rp.VoucherNo = rd.Receipt.VoucherNo;
                             rp.DrAmt = 0;
                             rp.CrAmt = rd.Amount;
                             lstIncomeReport.Add(rp);
@@ -286,6 +294,7 @@ namespace NUBEAccounts.SL.Hubs
                             rp = new BLL.IncomeReport();
                             rp.Particulars = rd.Ledger.LedgerName;
                             rp.EntryNo = rd.Journal.EntryNo;
+                            rp.VoucherNo = rd.Journal.VoucherNo;
                             rp.DrAmt = rd.DrAmt;
                             rp.CrAmt = rd.CrAmt;
                             lstIncomeReport.Add(rp);

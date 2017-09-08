@@ -13,12 +13,13 @@ namespace NUBEAccounts.SL.Hubs
         {
             BLL.AccountGroup b = d.toCopy<BLL.AccountGroup>(new BLL.AccountGroup());
             b.Company = d.CompanyDetail == null ? new BLL.CompanyDetail() : d.CompanyDetail.toCopy<BLL.CompanyDetail>(new BLL.CompanyDetail());
-            b.UnderAccountGroup = d.AccountGroup2 == null ? new BLL.AccountGroup() : AccountGroupDAL_BLL(d.AccountGroup2);
+            //b.UnderAccountGroup = d.AccountGroup2 == null ? new BLL.AccountGroup() : AccountGroupDAL_BLL(d.AccountGroup2);
+            b.UnderAccountGroup = d.AccountGroup2 == null ? new BLL.AccountGroup() : new BLL.AccountGroup() { GroupName= d.AccountGroup2.GroupName, GroupCode = d.AccountGroup2.GroupCode };
             return b;
         }
         public List<BLL.AccountGroup> accountGroup_List()
         {
-            return DB.AccountGroups.Where(x => x.CompanyId == Caller.CompanyId).ToList()
+             return DB.AccountGroups.Where(x => x.CompanyId == Caller.CompanyId).ToList()
                                .Select(x => AccountGroupDAL_BLL(x)).ToList();
         }
 

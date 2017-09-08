@@ -32,6 +32,7 @@ namespace NUBEAccounts.SL.Hubs
                     gl.EDate = pd.Payment.PaymentDate;
                     gl.RefNo = pd.Payment.PaymentMode == "Cheque" ? pd.Payment.ChequeNo : pd.Payment.RefNo;
                     gl.EntryNo = pd.Payment.EntryNo;
+                    gl.VoucherNo = pd.Payment.EntryNo;
                     gl.DrAmt = pd.Amount;
                     gl.CrAmt = 0;
 
@@ -51,6 +52,7 @@ namespace NUBEAccounts.SL.Hubs
                         gl.EDate = p.PaymentDate;
                         gl.RefNo = p.PaymentMode == "Cheque" ? p.ChequeNo : p.RefNo;
                         gl.EntryNo = p.EntryNo;
+                        gl.VoucherNo = p.VoucherNo;
                         gl.DrAmt = 0;
                         gl.CrAmt = pd.Amount;
                         lstBankReconcilation.Add(gl);
@@ -70,6 +72,7 @@ namespace NUBEAccounts.SL.Hubs
                         gl.EDate = r.ReceiptDate;
                         gl.RefNo = r.ReceiptMode == "Cheque" ? r.ChequeNo : r.RefNo;
                         gl.EntryNo = r.EntryNo;
+                        gl.VoucherNo = r.VoucherNo;
                         gl.DrAmt = rd.Amount;
                         gl.CrAmt = 0;
                         lstBankReconcilation.Add(gl);
@@ -87,6 +90,7 @@ namespace NUBEAccounts.SL.Hubs
                     gl.EDate = rd.Receipt.ReceiptDate;
                     gl.RefNo = rd.Receipt.ReceiptMode == "Cheque" ? rd.Receipt.ChequeNo : rd.Receipt.RefNo;
                     gl.EntryNo = rd.Receipt.EntryNo;
+                    gl.VoucherNo = rd.Receipt.VoucherNo;
                     gl.DrAmt = 0;
                     gl.CrAmt = rd.Amount;
                     lstBankReconcilation.Add(gl);
