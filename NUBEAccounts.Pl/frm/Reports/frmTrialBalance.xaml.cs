@@ -44,7 +44,6 @@ namespace NUBEAccounts.Pl.frm.Reports
 
         private void UserControl_Loaded(object sender, RoutedEventArgs e)
         {
-            dgvTrialBalance.ItemsSource = BLL.TrialBalance.ToList(dtpDateFrom.SelectedDate.Value, dtpDateTo.SelectedDate.Value);
             LoadReport();
         }
 
@@ -52,6 +51,7 @@ namespace NUBEAccounts.Pl.frm.Reports
         private void LoadReport()
         {
             List<BLL.TrialBalance> list = BLL.TrialBalance.ToList(dtpDateFrom.SelectedDate.Value, dtpDateTo.SelectedDate.Value);
+            dgvTrialBalance.ItemsSource = list;
             list = list.Select(x => new BLL.TrialBalance()
             { AccountName = x.Ledger.AccountName, CrAmt = x.CrAmt, DrAmt = x.DrAmt, CrAmtOP = x.CrAmtOP, DrAmtOP = x.DrAmtOP }).ToList();
 
@@ -83,7 +83,6 @@ namespace NUBEAccounts.Pl.frm.Reports
 
         private void btnSearch_Click(object sender, RoutedEventArgs e)
         {
-            dgvTrialBalance.ItemsSource = BLL.TrialBalance.ToList(dtpDateFrom.SelectedDate.Value, dtpDateTo.SelectedDate.Value);
             LoadReport();
         }
 

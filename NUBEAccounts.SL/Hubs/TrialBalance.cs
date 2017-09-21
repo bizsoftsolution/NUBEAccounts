@@ -91,7 +91,7 @@ namespace NUBEAccounts.SL.Hubs
             List<BLL.TrialBalance> lstTrialBalance = new List<BLL.TrialBalance>();
             BLL.TrialBalance tb = new BLL.TrialBalance();
 
-            var lstLedger = DB.Ledgers.Where(x => x.AccountGroup.CompanyId == Caller.CompanyId).ToList();
+            var lstLedger = DB.Ledgers.Where(x => x.AccountGroup.CompanyId == Caller.CompanyId).OrderBy(x=> x.LedgerCode).ThenBy(x=> x.LedgerName).ToList();
             decimal TotDr = 0, TotCr = 0, TotOPCr = 0, TotOPDr = 0;
 
             foreach (var l in lstLedger)

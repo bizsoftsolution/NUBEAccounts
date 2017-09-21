@@ -19,11 +19,11 @@ namespace NUBEAccounts.SL.Hubs
             string Prefix = string.Format("{0}/{1:X}/", BLL.FormPrefix.Journal, dt.Month);
             long No = 0;
 
-            var d = DB.Journals.Where(x => x.JournalDetails.FirstOrDefault().Ledger.AccountGroup.CompanyId == CompanyId && x.VoucherNo.StartsWith(Prefix) && x.JournalDate.Year == dt.Year)
-                                     .OrderByDescending(x => x.VoucherNo)
-                                     .FirstOrDefault();
-
-            if (d != null) No = Convert.ToInt64(d.VoucherNo.Substring(Prefix.Length), 10);
+            var d1 = DB.Journals.Where(x => x.JournalDetails.FirstOrDefault().Ledger.AccountGroup.CompanyId == Caller.CompanyId && x.VoucherNo.StartsWith(Prefix) && x.JournalDate.Year == dt.Year).Select(x => x.VoucherNo).ToList();
+            if (d1.Count() > 0)
+            {
+                No = d1.Select(x => Convert.ToInt64(x.Substring(Prefix.Length), 10)).Max();
+            }
 
             return string.Format("{0}{1}", Prefix, No + 1);
         }

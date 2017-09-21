@@ -48,8 +48,8 @@ namespace NUBEAccounts.BLL
         public static void HubConnect()
         {
             //string URLPath = "http://ubs3/fmcg/SignalR";
-            //string URLPath = "http://localhost:51707";
-            string URLPath = "http://localhost/NUBEAccountSL/";
+            string URLPath = "http://localhost:51707";
+            //string URLPath = "http://localhost/NUBEAccountSL/";
             // string URLPath = "http://192.168.1.170/fmcg/SignalR"; 
             try
             {
