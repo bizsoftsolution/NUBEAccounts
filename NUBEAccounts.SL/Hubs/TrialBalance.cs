@@ -64,13 +64,17 @@ namespace NUBEAccounts.SL.Hubs
 
         public decimal GetLedgerBalance(int LedgerId)
         {
-            return GetLedgerBalance(DB.Ledgers.Where(x => x.Id == LedgerId).FirstOrDefault());
+            return TrialBalance_GetLedgerBalance(LedgerId, DateTime.Now);
+        }
+        public decimal TrialBalance_GetLedgerBalance(int LedgerId,DateTime dt)
+        {
+            return GetLedgerBalance(DB.Ledgers.Where(x => x.Id == LedgerId).FirstOrDefault(), dt);
         }
 
-        public decimal GetLedgerBalance(DAL.Ledger l)
+        public decimal GetLedgerBalance(DAL.Ledger l,DateTime dt)
         {
             decimal OPDr = 0, OPCr = 0, Dr = 0, Cr = 0;
-            LedgerBalance(l, DateTime.Now, DateTime.Now, ref OPDr, ref OPCr, ref Dr, ref Cr);
+            LedgerBalance(l, dt, dt, ref OPDr, ref OPCr, ref Dr, ref Cr);
             return Dr + Cr;
         }
 
@@ -78,7 +82,7 @@ namespace NUBEAccounts.SL.Hubs
         {
             foreach (var l in ag.Ledgers)
             {
-                total += GetLedgerBalance(l);
+                total += GetLedgerBalance(l,DateTime.Now);
             }
             foreach (var ag1 in ag.AccountGroup1)
             {

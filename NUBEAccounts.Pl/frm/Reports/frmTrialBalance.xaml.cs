@@ -105,8 +105,8 @@ namespace NUBEAccounts.Pl.frm.Reports
         }
         #region Button Events
         private Stream CreateStream(string name,
-  string fileNameExtension, Encoding encoding,
-  string mimeType, bool willSeek)
+        string fileNameExtension, Encoding encoding,
+        string mimeType, bool willSeek)
         {
             Stream stream = new MemoryStream();
             m_streams.Add(stream);

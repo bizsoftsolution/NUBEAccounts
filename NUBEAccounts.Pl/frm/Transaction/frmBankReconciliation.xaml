@@ -106,37 +106,41 @@
                     </Grid>
                     <Grid Grid.Row="1">
 
-                        <Grid Grid.Row="0"  >
+                        <Grid Grid.Row="0"  > <DataGrid x:Name="dgvBankReconciliation" BorderBrush="Black" BorderThickness="1" MouseDoubleClick="dgvBankReconciliation_MouseDoubleClick" ScrollViewer.VerticalScrollBarVisibility="Auto" ScrollViewer.HorizontalScrollBarVisibility="Auto" CanUserSortColumns="True" CanUserAddRows="False"  AutoGenerateColumns="False"  Background="White" Foreground="Black" Margin="20,40,20,60" >
 
-                            <DataGrid x:Name="dgvBankReconciliation" BorderBrush="Black" BorderThickness="1" MouseDoubleClick="dgvBankReconciliation_MouseDoubleClick" ScrollViewer.VerticalScrollBarVisibility="Auto" ScrollViewer.HorizontalScrollBarVisibility="Auto" CanUserSortColumns="True" CanUserAddRows="False"  AutoGenerateColumns="False"  Background="White" Foreground="Black" Margin="20,20,20,40" >
+                                    <DataGrid.ColumnHeaderStyle>
+                                        <Style TargetType="{x:Type DataGridColumnHeader}">
+                                            <Setter Property="FontWeight" Value="Bold" />
+                                            <Setter Property="HorizontalContentAlignment" Value="Left"/>
+                                        </Style>
 
-                                <DataGrid.ColumnHeaderStyle>
-                                    <Style TargetType="{x:Type DataGridColumnHeader}">
-                                        <Setter Property="FontWeight" Value="Bold" />
-                                        <Setter Property="HorizontalContentAlignment" Value="Left"/>
-                                    </Style>
+                                    </DataGrid.ColumnHeaderStyle>
 
-                                </DataGrid.ColumnHeaderStyle>
+                                    <DataGrid.Columns>
+                                        <DataGridTemplateColumn Header="Status" TextBlock.TextAlignment="Center"  Width="75">
+                                            <DataGridTemplateColumn.CellTemplate>
+                                                <DataTemplate>
+                                                    <CheckBox Checked="ckbStatus_Checked" Tag="{Binding}" Unchecked="ckbStatus_Unchecked" x:Name="ckbStatus" IsChecked="{Binding IsCompleted}" HorizontalAlignment="Left" VerticalAlignment="Top" Width="60" >
+                                                    </CheckBox>
+                                                </DataTemplate>
+                                            </DataGridTemplateColumn.CellTemplate>
+                                        </DataGridTemplateColumn>
+                                        <DataGridTextColumn Header="Date" FontWeight="Bold" Width="100" Binding="{Binding EDate,StringFormat={}{0:dd/MM/yyyy}}" IsReadOnly="True"  EditingElementStyle="{StaticResource MaterialDesignDataGridTextColumnEditingStyle}" />
+                                        <DataGridTextColumn Header="Entry No" FontWeight="Bold" Width="70" Binding="{Binding EntryNo}" IsReadOnly="True"  EditingElementStyle="{StaticResource MaterialDesignDataGridTextColumnEditingStyle}" />
+                                        <DataGridTextColumn Header="Cheque/Ref No" FontWeight="Bold" Width="120" Binding="{Binding RefNo}" IsReadOnly="True"  EditingElementStyle="{StaticResource MaterialDesignDataGridTextColumnEditingStyle}" />
+                                        <DataGridTextColumn Header="Account Name" FontWeight="Bold" Width="200" Binding="{Binding Ledger.AccountName}" IsReadOnly="True"  EditingElementStyle="{StaticResource MaterialDesignDataGridTextColumnEditingStyle}" />
+                                        <DataGridTextColumn Header="Particular" FontWeight="Bold" Width="200" Binding="{Binding Particular}" IsReadOnly="True"  EditingElementStyle="{StaticResource MaterialDesignDataGridTextColumnEditingStyle}" />
+                                        <DataGridTextColumn Header="Debit Amount"  ElementStyle="{StaticResource RightCell}" FontWeight="Bold" Width="120" Binding="{Binding DrAmt, Mode=OneWay}" IsReadOnly="True"  EditingElementStyle="{StaticResource MaterialDesignDataGridTextColumnEditingStyle}"/>
+                                        <DataGridTextColumn Header="Credit Amount"  ElementStyle="{StaticResource RightCell}" FontWeight="Bold" Width="120" Binding="{Binding CrAmt, Mode=OneWay}" IsReadOnly="True"  EditingElementStyle="{StaticResource MaterialDesignDataGridTextColumnEditingStyle}"/>
+                                    </DataGrid.Columns>
+                                </DataGrid>
 
-                                <DataGrid.Columns>
-                                    <DataGridTemplateColumn Header="Status" TextBlock.TextAlignment="Center"  Width="75">
-                                        <DataGridTemplateColumn.CellTemplate>
-                                            <DataTemplate>
-                                                <CheckBox Checked="ckbStatus_Checked" Tag="{Binding}" Unchecked="ckbStatus_Unchecked" x:Name="ckbStatus" IsChecked="{Binding IsCompleted}" HorizontalAlignment="Left" VerticalAlignment="Top" Width="60" >
-                                                </CheckBox>
-                                            </DataTemplate>
-                                        </DataGridTemplateColumn.CellTemplate>
-                                    </DataGridTemplateColumn>
-                                    <DataGridTextColumn Header="Date" FontWeight="Bold" Width="100" Binding="{Binding EDate,StringFormat={}{0:dd/MM/yyyy}}" IsReadOnly="True"  EditingElementStyle="{StaticResource MaterialDesignDataGridTextColumnEditingStyle}" />
-                                    <DataGridTextColumn Header="Entry No" FontWeight="Bold" Width="70" Binding="{Binding EntryNo}" IsReadOnly="True"  EditingElementStyle="{StaticResource MaterialDesignDataGridTextColumnEditingStyle}" />
-                                    <DataGridTextColumn Header="Cheque/Ref No" FontWeight="Bold" Width="120" Binding="{Binding RefNo}" IsReadOnly="True"  EditingElementStyle="{StaticResource MaterialDesignDataGridTextColumnEditingStyle}" />
-                                    <DataGridTextColumn Header="Account Name" FontWeight="Bold" Width="200" Binding="{Binding Ledger.AccountName}" IsReadOnly="True"  EditingElementStyle="{StaticResource MaterialDesignDataGridTextColumnEditingStyle}" />
-                                    <DataGridTextColumn Header="Particular" FontWeight="Bold" Width="200" Binding="{Binding Particular}" IsReadOnly="True"  EditingElementStyle="{StaticResource MaterialDesignDataGridTextColumnEditingStyle}" />
-                                    <DataGridTextColumn Header="Debit Amount"  ElementStyle="{StaticResource RightCell}" FontWeight="Bold" Width="120" Binding="{Binding DrAmt, Mode=OneWay}" IsReadOnly="True"  EditingElementStyle="{StaticResource MaterialDesignDataGridTextColumnEditingStyle}"/>
-                                    <DataGridTextColumn Header="Credit Amount"  ElementStyle="{StaticResource RightCell}" FontWeight="Bold" Width="120" Binding="{Binding CrAmt, Mode=OneWay}" IsReadOnly="True"  EditingElementStyle="{StaticResource MaterialDesignDataGridTextColumnEditingStyle}"/>
-                                </DataGrid.Columns>
-                            </DataGrid>
-
+                            <StackPanel Orientation="Horizontal" Height="40" VerticalAlignment="Top">
+                                <TextBlock VerticalAlignment="Center" Margin="20,0,0,0">Ending Balance </TextBlock>
+                                <TextBox Name="txtEndingBalance" Width="200" Margin="20,0,0,0"></TextBox>
+                                <TextBlock VerticalAlignment="Center" Margin="20,0,0,0" Name="lblStatus"></TextBlock>
+                            </StackPanel>
+                            
                         </Grid>
 
 
@@ -149,7 +153,7 @@
                         <StackPanel Orientation="Horizontal" Margin="350,24,300,23" VerticalAlignment="Center">
 
                             <Button  Grid.Column="1" Name="btnSave" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="150,0,25,0"  Click="btnSave_Click" ToolTip="SAVE" Width="134">
-                                SAVE
+                                Reconcilation
                             </Button>
                         </StackPanel>
 

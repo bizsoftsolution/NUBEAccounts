@@ -140,7 +140,10 @@ namespace NUBEAccounts.BLL
         {
             return NubeAccountClient.NubeAccountHub.Invoke<List<TrialBalance>>("TrialBalance_List", dtFrom, dtTo).Result;
         }
-
+        public static decimal GetLedgerBalance(int LedgerId,DateTime dt)
+        {
+            return NubeAccountClient.NubeAccountHub.Invoke<int>("TrialBalance_GetLedgerBalance", LedgerId, dt).Result;
+        }
         #endregion
 
     }

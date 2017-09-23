@@ -27,6 +27,7 @@ namespace NUBEAccounts.Pl.frm.Transaction
     {
         private int m_currentPageIndex;
         private IList<Stream> m_streams;
+        decimal OPBal = 0, CLBal = 0,EDAmt =0, BalAmt = 0, DifAmt = 0;
 
         public frmBankReconciliation()
         {
@@ -61,12 +62,44 @@ namespace NUBEAccounts.Pl.frm.Transaction
             }
             else
             {
-                if (cmbAccountName.SelectedValue != null) dgvBankReconciliation.ItemsSource = BLL.BankReconcilation.ToList((int)cmbAccountName.SelectedValue, dtpDateFrom.SelectedDate.Value, dtpDateTo.SelectedDate.Value);
+                if (cmbAccountName.SelectedValue != null)
+                {
+
+                    int LedgerId = (int)cmbAccountName.SelectedValue;
+                    var l1 = BLL.BankReconcilation.ToList(LedgerId, dtpDateFrom.SelectedDate.Value, dtpDateTo.SelectedDate.Value);
+                    dgvBankReconciliation.ItemsSource = l1;
+                    OPBal = 0;
+                    CLBal = 0;
+                   
+                    try
+                    {
+                        OPBal = BLL.TrialBalance.GetLedgerBalance(LedgerId, dtpDateFrom.SelectedDate.Value);
+                        CLBal = BLL.TrialBalance.GetLedgerBalance(LedgerId, dtpDateTo.SelectedDate.Value);
+                       
+                    }
+                    catch (Exception ex) { }
+
+                }
+                
                 //LoadReport();
             }
 
         }
-
+        void FindBalance()
+        {
+            EDAmt = string.IsNullOrEmpty(txtEndingBalance.Text)?0: Convert.ToDecimal(txtEndingBalance.Text);
+            BalAmt = 0;
+            DifAmt = 0;
+            try
+            {
+                var l1 = dgvBankReconciliation.ItemsSource as List<BLL.BankReconcilation>;
+                BalAmt = OPBal + Math.Abs(l1.Where(x => x.IsCompleted != true).Sum(x => x.DrAmt) - l1.Where(x => x.IsCompleted != true).Sum(x => x.CrAmt));
+                DifAmt = Math.Abs(EDAmt - BalAmt);
+                
+            }
+            catch (Exception ex) { }
+            lblStatus.Text = string.Format(" Opening Balance : {0:0.00}, Closing Balance : {1:0.00}, Cleared Balance : {2:0.00}, Diffrence : {3:0.00}", OPBal, CLBal, BalAmt, DifAmt);
+        }
         private void dgvBankReconciliation_MouseDoubleClick(object sender, MouseButtonEventArgs e)
         {
             var gl = dgvBankReconciliation.SelectedItem as BLL.BankReconcilation;
@@ -273,6 +306,7 @@ namespace NUBEAccounts.Pl.frm.Transaction
                 if (d != null) d.IsCompleted = true;
             }
             catch (Exception ex) { }
+            FindBalance();
         }
 
         private void ckbStatus_Unchecked(object sender, RoutedEventArgs e)
@@ -283,6 +317,7 @@ namespace NUBEAccounts.Pl.frm.Transaction
                 if (d != null) d.IsCompleted = false;
             }
             catch (Exception ex) { }
+            FindBalance();
         }
     }
 }

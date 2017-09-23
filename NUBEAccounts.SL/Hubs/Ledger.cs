@@ -35,7 +35,7 @@ namespace NUBEAccounts.SL.Hubs
 
         public List<BLL.Ledger> Ledger_List()
         {
-            return DB.Ledgers.Where(x => x.AccountGroup.CompanyDetail.Id == Caller.CompanyId).ToList()
+            return DB.Ledgers.Where(x => x.AccountGroup.CompanyDetail.Id == Caller.CompanyId).OrderBy(x=> x.LedgerCode).ThenBy(x=> x.LedgerName).ToList()
                              .Select(x => LedgerDAL_BLL(x)).ToList();
         }
 
