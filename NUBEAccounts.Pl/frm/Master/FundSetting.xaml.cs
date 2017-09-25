@@ -149,7 +149,7 @@ namespace NUBEAccounts.Pl.frm.Master
 
         private void Button_Click(object sender, RoutedEventArgs e)
         {
-
+            
         }
 
         private void UserControl_Unloaded(object sender, RoutedEventArgs e)
@@ -157,6 +157,14 @@ namespace NUBEAccounts.Pl.frm.Master
 
         }
 
-
+        private void btnYearEnd_Click(object sender, RoutedEventArgs e)
+        {
+            try
+            {
+                Tools.frmYearEnd f = new Tools.frmYearEnd();
+                f.ShowDialog();
+            }
+            catch (Exception ex) { }
+        }
     }
 }

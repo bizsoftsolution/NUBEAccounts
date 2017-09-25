@@ -48,7 +48,7 @@ namespace NUBEAccounts.Pl.frm.Master
 
         private void UserControl_Loaded(object sender, RoutedEventArgs e)
         {
-            //BLL.Ledger.Init();
+            BLL.Ledger.Init();
             rptContain.IsChecked = true;
             dgvLedger.ItemsSource = BLL.Ledger.toList;
 

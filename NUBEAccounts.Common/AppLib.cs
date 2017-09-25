@@ -15,20 +15,6 @@ namespace NUBEAccounts.Common
 {
    public static class AppLib
     {
-        public enum Forms
-        {
-            frmCompanySetting,
-            frmUser,
-            frmUserType,
-            frmAccountGroup,
-            frmLedger,
-         
-            frmPayment,
-            frmReceipt,
-            frmJournal,
-            frmCustomFormat
-
-        }
         public static string CurrencyToWordPrefix;
         public static string CurrencyToWordSuffix;
 

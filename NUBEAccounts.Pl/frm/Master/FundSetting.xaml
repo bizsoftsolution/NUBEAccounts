@@ -51,6 +51,7 @@
                 <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" VerticalAlignment="Center">
                     <Button Width="80" Height="30" x:Name="btnSave" Content="SAVE"  Margin="10" Click="btnSave_Click"  />
                     <Button Width="80" Height="30" x:Name="btnUser" Content="USERS"  Margin="10" Click="btnUser_Click"  />
+                    <Button Width="175" Height="30" x:Name="btnYearEnd" Content="YEAR END CLOSING"  Margin="10" Click="btnYearEnd_Click"  />
                     <Button Width="80" Height="30" Visibility="Collapsed" x:Name="btnDelete" Content="DELETE"  Margin="10" Click="btnDelete_Click" />
                     <Button Width="88" Height="30" Visibility="Collapsed" x:Name="btnSetting" Content="SETTING"  Margin="10" Click="btnSetting_Click" />
                     <!--<Button x:Name="btnSetting" HorizontalAlignment="Right"  Background="Transparent" ToolTip="Setting" Height="30" Width="50" BorderThickness="0" BorderBrush="Transparent" Click="btnSetting_Click" Margin="0,0,5,0">

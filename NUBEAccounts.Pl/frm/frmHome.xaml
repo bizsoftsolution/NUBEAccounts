@@ -76,152 +76,33 @@
                                 </Menu:NavMenuItem>
                             </ListBox>
 
-
                             <Expander Header="Master" FontWeight="Bold" FontSize="16">
-                                <ListBox SelectedIndex="0" PreviewMouseLeftButtonUp="ListBox_PreviewMouseLeftButtonUp">
+                                <ListBox SelectedIndex="0" Name="lstMaster" PreviewMouseLeftButtonUp="ListBox_PreviewMouseLeftButtonUp">
                                     <ListBox.ItemTemplate>
                                         <DataTemplate DataType="Menu:NavMenuItem">
                                             <TextBlock Text="{Binding MenuName}" Margin="32 0 32 0" FontSize="16"  />
                                         </DataTemplate>
                                     </ListBox.ItemTemplate>
-
-                                    <Menu:NavMenuItem MenuName="Fund Setting" FormName="Fund Setting">
-                                        <Menu:NavMenuItem.Content>
-                                            <Master:FundSetting/>
-                                        </Menu:NavMenuItem.Content>
-                                    </Menu:NavMenuItem>
-
-                                    <Menu:NavMenuItem MenuName="Account Group" FormName ="Account Group">
-                                        <Menu:NavMenuItem.Content>
-                                            <Master:frmAccountGroup/>
-                                        </Menu:NavMenuItem.Content>
-                                    </Menu:NavMenuItem>
-
-                                    <Menu:NavMenuItem MenuName="Ledger" FormName="Ledger">
-                                        <Menu:NavMenuItem.Content>
-                                            <Master:frmLedger/>
-                                        </Menu:NavMenuItem.Content>
-                                    </Menu:NavMenuItem>
-
                                 </ListBox>
                             </Expander>
 
                             <Expander Header="Transaction" FontWeight="Bold" FontSize="16">
-
-                                <ListBox SelectedIndex="0" PreviewMouseLeftButtonUp="ListBox_PreviewMouseLeftButtonUp">
+                                <ListBox SelectedIndex="0" Name="lstTransaction" PreviewMouseLeftButtonUp="ListBox_PreviewMouseLeftButtonUp">
                                     <ListBox.ItemTemplate>
                                         <DataTemplate DataType="BizMenu:BizMenuItem">
                                             <TextBlock Text="{Binding MenuName}" Margin="32 0 32 0" FontSize="16"  />
                                         </DataTemplate>
                                     </ListBox.ItemTemplate>
-
-                                    <Menu:NavMenuItem MenuName="Payment" FormName="Payment">
-                                        <Menu:NavMenuItem.Content>
-                                            <Transaction:frmPayment/>
-                                        </Menu:NavMenuItem.Content>
-                                    </Menu:NavMenuItem>
-
-                                    <Menu:NavMenuItem MenuName="Receipt" FormName="Receipt">
-                                        <Menu:NavMenuItem.Content>
-                                            <Transaction:frmReceipt/>
-                                        </Menu:NavMenuItem.Content>
-                                    </Menu:NavMenuItem>
-                                    <Menu:NavMenuItem MenuName="Journal" FormName="Journal">
-                                        <Menu:NavMenuItem.Content>
-                                            <Transaction:frmJournal/>
-                                        </Menu:NavMenuItem.Content>
-                                    </Menu:NavMenuItem>
-                                    <Menu:NavMenuItem MenuName="Bank Reconciliation" FormName="Bank Reconciliation">
-                                        <Menu:NavMenuItem.Content>
-                                            <Transaction:frmBankReconciliation/>
-                                        </Menu:NavMenuItem.Content>
-                                    </Menu:NavMenuItem>
-                                    <Menu:NavMenuItem MenuName="Ledger Opening" FormName="Ledger Opening">
-                                        <Menu:NavMenuItem.Content>
-                                            <Transaction:frmLedgerOpening/>
-                                        </Menu:NavMenuItem.Content>
-                                    </Menu:NavMenuItem>
-
                                 </ListBox>
-
                             </Expander>
 
                             <Expander Header="Report" FontWeight="Bold" FontSize="16">
-                                <ListBox SelectedIndex="0" PreviewMouseLeftButtonUp="ListBox_PreviewMouseLeftButtonUp">
+                                <ListBox SelectedIndex="0" Name="lstReport" PreviewMouseLeftButtonUp="ListBox_PreviewMouseLeftButtonUp">
                                     <ListBox.ItemTemplate>
                                         <DataTemplate DataType="BizMenu:BizMenuItem">
                                             <TextBlock Text="{Binding MenuName}" Margin="32 0 32 0" FontSize="16"  />
                                         </DataTemplate>
                                     </ListBox.ItemTemplate>
-
-                                    <Menu:NavMenuItem MenuName="General Ledger" FormName="General Ledger">
-                                        <Menu:NavMenuItem.Content>
-                                            <Report:frmGeneralLedger/>
-                                        </Menu:NavMenuItem.Content>
-                                    </Menu:NavMenuItem>
-
-                                    <Menu:NavMenuItem MenuName="Receipt and Payment Report" FormName="Receipt Payment Report">
-                                        <Menu:NavMenuItem.Content>
-                                            <Report:frmPaymentAndReceipt/>
-                                        </Menu:NavMenuItem.Content>
-                                    </Menu:NavMenuItem>
-
-                                    <Menu:NavMenuItem MenuName="Trial Balance" FormName="Trial Balance">
-                                        <Menu:NavMenuItem.Content>
-                                            <Report:frmTrialBalance/>
-                                        </Menu:NavMenuItem.Content>
-                                    </Menu:NavMenuItem>
-
-                                    <Menu:NavMenuItem MenuName="Balance Sheet" FormName="Balance Sheet" >
-                                        <Menu:NavMenuItem.Content>
-                                            <Report:frmBalanceSheet/>
-                                        </Menu:NavMenuItem.Content>
-                                    </Menu:NavMenuItem>
-                                    <Menu:NavMenuItem MenuName="Income and Expenditure Account" FormName="Income and Expenditure Account">
-                                        <Menu:NavMenuItem.Content>
-                                            <Report:frmIncomeAndExpenditure/>
-                                        </Menu:NavMenuItem.Content>
-                                    </Menu:NavMenuItem>
-                                    <Menu:NavMenuItem MenuName="Income Report" FormName="Income Report">
-                                        <Menu:NavMenuItem.Content>
-                                            <Report:IncomeReport/>
-                                        </Menu:NavMenuItem.Content>
-                                    </Menu:NavMenuItem>
-                                    <Menu:NavMenuItem MenuName="Expense Report" FormName="Expense Report">
-                                        <Menu:NavMenuItem.Content>
-                                            <Report:frmExpenseReport/>
-                                        </Menu:NavMenuItem.Content>
-                                    </Menu:NavMenuItem>
-                                    <Menu:NavMenuItem MenuName="NEC Report" FormName="NEC Report">
-                                        <Menu:NavMenuItem.Content>
-                                            <Report:frmNECReport/>
-                                        </Menu:NavMenuItem.Content>
-                                    </Menu:NavMenuItem>
-                                    <Menu:NavMenuItem MenuName="Subsidary Accounts" FormName="Subsidary Accounts">
-                                        <Menu:NavMenuItem.Content>
-                                            <Report:frmSubsidaryAccounts/>
-                                        </Menu:NavMenuItem.Content>
-                                    </Menu:NavMenuItem>
-                                    <Menu:NavMenuItem MenuName="Voucher Report" FormName="Voucher Report">
-                                        <Menu:NavMenuItem.Content>
-                                            <Report:VoucherReport/>
-                                        </Menu:NavMenuItem.Content>
-                                    </Menu:NavMenuItem>
-                                    <Menu:NavMenuItem MenuName="Activity Report" FormName="Activity Report">
-                                        <Menu:NavMenuItem.Content>
-                                            <Report:frmActivityReport/>
-                                        </Menu:NavMenuItem.Content>
-                                    </Menu:NavMenuItem>
-                                    <Menu:NavMenuItem MenuName="Daily Bank Balance" FormName="Daily Bank Balance">
-                                        <Menu:NavMenuItem.Content>
-                                            <Report:frmDailyBankBalance/>
-                                        </Menu:NavMenuItem.Content>
-                                    </Menu:NavMenuItem>
-                                    <Menu:NavMenuItem MenuName="Individual Report" FormName="Individual Report">
-                                        <Menu:NavMenuItem.Content>
-                                            <Report:frmIndividualReport/>
-                                        </Menu:NavMenuItem.Content>
-                                    </Menu:NavMenuItem>
                                 </ListBox>
                             </Expander>
 

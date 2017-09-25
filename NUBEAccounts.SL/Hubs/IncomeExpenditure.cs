@@ -38,7 +38,7 @@ namespace NUBEAccounts.SL.Hubs
 
             tb = new BLL.IncomeExpenditure();
             tb.Ledger = new BLL.Ledger();
-            tb.Ledger.AccountName = "Balance";
+            tb.Ledger.AccountName = "Surplus/Deficit ";
             tb.CrAmt = GTotalCr > GTotalDr ? Math.Abs(GTotalDr - GTotalCr) : 0;
             tb.DrAmt = GTotalCr < GTotalDr ? Math.Abs(GTotalDr - GTotalCr) : 0; ;
             tb.CrAmtOP = GTotalCrOP > GTotalDrOP ? Math.Abs(GTotalDrOP - GTotalCrOP) : 0;

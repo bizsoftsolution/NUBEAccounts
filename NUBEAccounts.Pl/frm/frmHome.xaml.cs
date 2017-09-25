@@ -13,6 +13,10 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
 using MahApps.Metro.Controls;
+using Microsoft.CSharp;
+using System.CodeDom.Compiler;
+using System.Data;
+using System.Reflection;
 
 namespace NUBEAccounts.Pl.frm
 {
@@ -28,6 +32,40 @@ namespace NUBEAccounts.Pl.frm
             ShowWelcome();
             onClientEvents();
             IsForcedClose = false;
+            var l1 = BLL.UserAccount.User.UserType.UserTypeDetails.Where(x => x.IsViewForm && 
+                                                                              x.UserTypeFormDetail.IsMenu && 
+                                                                              x.UserTypeFormDetail.IsActive && 
+                                                                              x.UserTypeFormDetail.FormType == "Master")
+                                                                  .Select(x=> new Common.NavMenuItem() {
+                                                                                    MenuName=x.UserTypeFormDetail.Description,
+                                                                                    FormName=x.UserTypeFormDetail.FormName
+                                                                              })
+                                                                  .ToList();
+            lstMaster.ItemsSource = l1;
+
+            var l2 = BLL.UserAccount.User.UserType.UserTypeDetails.Where(x => x.IsViewForm &&
+                                                                              x.UserTypeFormDetail.IsMenu &&
+                                                                              x.UserTypeFormDetail.IsActive &&
+                                                                              x.UserTypeFormDetail.FormType == "Transaction")
+                                                                  .Select(x => new Common.NavMenuItem()
+                                                                  {
+                                                                      MenuName = x.UserTypeFormDetail.Description,
+                                                                      FormName = x.UserTypeFormDetail.FormName
+                                                                  })
+                                                                  .ToList();
+            lstTransaction.ItemsSource = l2;
+
+            var l3 = BLL.UserAccount.User.UserType.UserTypeDetails.Where(x => x.IsViewForm &&
+                                                                              x.UserTypeFormDetail.IsMenu &&
+                                                                              x.UserTypeFormDetail.IsActive &&
+                                                                              x.UserTypeFormDetail.FormType == "Report")
+                                                                  .Select(x => new Common.NavMenuItem()
+                                                                  {
+                                                                      MenuName = x.UserTypeFormDetail.Description,
+                                                                      FormName = x.UserTypeFormDetail.FormName
+                                                                  })
+                                                                  .ToList();
+            lstReport.ItemsSource = l3;
         }
         public void ShowWelcome()
         {
@@ -56,18 +94,16 @@ namespace NUBEAccounts.Pl.frm
                 }
                 ListBox lb = sender as ListBox;
                 Common.NavMenuItem mi = lb.SelectedItem as Common.NavMenuItem;
-                if (!BLL.UserAccount.AllowFormShow(mi.FormName))
+                if (mi.Content == null)
                 {
-
-                    MessageBox.Show(string.Format(Message.PL.DenyFormShow, mi.MenuName));
+                    object obj = Activator.CreateInstance(Type.GetType(mi.FormName));
+                    mi.Content = obj;                    
                 }
-                else
-                {
-                    ccContent.Content = mi.Content;
-                }
+                if (mi.Content != null) ccContent.Content = mi.Content;
             }
             catch (Exception ex) { }
             MenuToggleButton.IsChecked = false;
+            
         }
 
         private void CommandBinding_Executed(object sender, ExecutedRoutedEventArgs e)

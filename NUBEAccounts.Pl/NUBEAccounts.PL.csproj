@@ -294,6 +294,10 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="frm\Tools\frmYearEnd.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="frm\Transaction\frmBankReconciliation.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -474,6 +478,9 @@
     </Compile>
     <Compile Include="frm\Reports\VoucherReport.xaml.cs">
       <DependentUpon>VoucherReport.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="frm\Tools\frmYearEnd.xaml.cs">
+      <DependentUpon>frmYearEnd.xaml</DependentUpon>
     </Compile>
     <Compile Include="frm\Transaction\frmBankReconciliation.xaml.cs">
       <DependentUpon>frmBankReconciliation.xaml</DependentUpon>

@@ -1,4 +1,7 @@
-﻿using System;
+﻿using Microsoft.Reporting.WinForms;
+using Microsoft.Win32;
+using NUBEAccounts.Pl.frm.Reports;
+using System;
 using System.Collections.Generic;
 using System.Drawing.Imaging;
 using System.Drawing.Printing;
@@ -13,61 +16,53 @@ using System.Windows.Documents;
 using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
 using System.Windows.Shapes;
-using Microsoft.Reporting.WinForms;
-using Microsoft.Win32;
 
-namespace NUBEAccounts.Pl.frm.Reports
+namespace NUBEAccounts.Pl.frm.Tools
 {
     /// <summary>
-    /// Interaction logic for frmIncomeAndExpenditure.xaml
+    /// Interaction logic for frmYearEnd.xaml
     /// </summary>
-    public partial class frmIncomeAndExpenditure : UserControl
+    public partial class frmYearEnd : Window
     {
         private int m_currentPageIndex;
         private IList<Stream> m_streams;
 
-        public frmIncomeAndExpenditure()
+        public frmYearEnd()
         {
             InitializeComponent();
-            rptViewer.SetDisplayMode(DisplayMode.PrintLayout);
+            this.Title = string.Format("YEAR END CLOSING - [ {0} ]",BLL.UserAccount.LoginedACYear);
 
+            rptViewer.SetDisplayMode(DisplayMode.PrintLayout);
+            LoadReport();        
+            
+        }
+
+        private void LoadReport()
+        {
             int yy = BLL.UserAccount.User.UserType.Company.LoginAccYear;
 
-            DateTime? dtFrom = new DateTime(yy, 4, 1);
-            DateTime? dtTo = new DateTime(yy + 1, 3, 31);
+            DateTime dtFrom = new DateTime(yy, 4, 1);
+            DateTime dtTo = new DateTime(yy + 1, 3, 31);
 
-            dtpDateFrom.SelectedDate = dtFrom;
-            dtpDateTo.SelectedDate = dtTo;
-        }
-
-        private void UserControl_Loaded(object sender, RoutedEventArgs e)
-        {            
-            LoadReport();
-        }
-
-
-        public void LoadReport()
-        {
-            List<BLL.IncomeExpenditure> list = BLL.IncomeExpenditure.ToList(dtpDateFrom.SelectedDate.Value, dtpDateTo.SelectedDate.Value);
-            list = list.Select(x => new BLL.IncomeExpenditure()
-            { AccountName = x.Ledger.AccountName, DrAmt = x.DrAmt+x.CrAmt, DrAmtOP = x.DrAmtOP+x.CrAmtOP }).ToList();
-            dgvIncomeExpenditure.ItemsSource = list;
+            List<BLL.TrialBalance> list = BLL.TrialBalance.ToList(dtFrom, dtTo);
+            
+            list = list.Select(x => new BLL.TrialBalance()
+            { AccountName = x.Ledger.AccountName, CrAmt = x.CrAmt, DrAmt = x.DrAmt, CrAmtOP = x.CrAmtOP, DrAmtOP = x.DrAmtOP }).ToList();
+            dgvTrialBalance.ItemsSource = list;
             try
             {
                 rptViewer.Reset();
-                ReportDataSource data = new ReportDataSource("IncomeExpenditure", list);
+                ReportDataSource data = new ReportDataSource("TrialBalance", list);
                 ReportDataSource data1 = new ReportDataSource("CompanyDetail", BLL.CompanyDetail.toList.Where(x => x.Id == BLL.UserAccount.User.UserType.Company.Id).ToList());
                 rptViewer.LocalReport.DataSources.Add(data);
                 rptViewer.LocalReport.DataSources.Add(data1);
-                rptViewer.LocalReport.ReportPath = @"Reports\rptIncomeAndExpenditure.rdlc";
+                rptViewer.LocalReport.ReportPath = @"Reports\rptTrialBalance.rdlc";
 
                 ReportParameter[] par = new ReportParameter[2];
-                par[0] = new ReportParameter("DateFrom", dtpDateFrom.SelectedDate.Value.ToString());
-                par[1] = new ReportParameter("DateTo", dtpDateTo.SelectedDate.Value.ToString());
+                par[0] = new ReportParameter("DateFrom", dtFrom.ToString());
+                par[1] = new ReportParameter("DateTo", dtTo.ToString());
                 rptViewer.LocalReport.SetParameters(par);
-
 
                 rptViewer.RefreshReport();
 
@@ -80,17 +75,38 @@ namespace NUBEAccounts.Pl.frm.Reports
 
         }
 
+        private void dgvTrialBalance_MouseDoubleClick(object sender, MouseButtonEventArgs e)
+        {
+            var tb = dgvTrialBalance.SelectedItem as BLL.TrialBalance;
+            if (tb != null)
+            {
+                int yy = BLL.UserAccount.User.UserType.Company.LoginAccYear;
 
+                DateTime dtFrom = new DateTime(yy, 4, 1);
+                DateTime dtTo = new DateTime(yy + 1, 3, 31);
 
-        private void btnSearch_Click(object sender, RoutedEventArgs e)
-        {            
-            LoadReport();
+                frmGeneralLedger frm = new frmGeneralLedger();
+                App.frmHome.ShowForm(frm);
+
+                System.Windows.Forms.Application.DoEvents();
+                frm.cmbAccountName.SelectedValue = tb.Ledger.Id;
+                frm.dtpDateFrom.SelectedDate = dtFrom;
+                frm.dtpDateTo.SelectedDate = dtTo;
+                System.Windows.Forms.Application.DoEvents();
+                frm.dgvGeneralLedger.ItemsSource = BLL.GeneralLedger.ToList((int)tb.Ledger.Id, dtFrom, dtTo);
+            }
+
+        }
+
+        private void btnYearEnd_Click(object sender, RoutedEventArgs e)
+        {
+
         }
 
         #region Button Events
         private Stream CreateStream(string name,
-  string fileNameExtension, Encoding encoding,
-  string mimeType, bool willSeek)
+        string fileNameExtension, Encoding encoding,
+        string mimeType, bool willSeek)
         {
             Stream stream = new MemoryStream();
             m_streams.Add(stream);
@@ -209,39 +225,16 @@ namespace NUBEAccounts.Pl.frm.Reports
 
         private void btnPrintPreview_Click(object sender, RoutedEventArgs e)
         {
-            frmIncomeAndExpenditurePrint f = new frmIncomeAndExpenditurePrint();
-            f.LoadReport(dtpDateFrom.SelectedDate.Value, dtpDateTo.SelectedDate.Value);
+            int yy = BLL.UserAccount.User.UserType.Company.LoginAccYear;
+
+            DateTime dtFrom = new DateTime(yy, 4, 1);
+            DateTime dtTo = new DateTime(yy + 1, 3, 31);
+
+            frmTrialBalancePrint f = new frmTrialBalancePrint();
+            f.LoadReport(dtFrom, dtTo);
             f.ShowDialog();
         }
 
         #endregion
-
-        private void dgvIncomeExpenditure_MouseDoubleClick(object sender, MouseButtonEventArgs e)
-        {
-            try
-            {
-                var PL = dgvIncomeExpenditure.SelectedItem as BLL.IncomeExpenditure;
-                if (PL != null)
-                {
-                    if (PL.Ledger.Id != 0)
-                    {
-                        frmGeneralLedger frm = new frmGeneralLedger();
-                        App.frmHome.ShowForm(frm);
-
-                        System.Windows.Forms.Application.DoEvents();
-                        frm.cmbAccountName.SelectedValue = PL.Ledger.Id;
-                        frm.dtpDateFrom.SelectedDate = dtpDateFrom.SelectedDate;
-                        frm.dtpDateTo.SelectedDate = dtpDateTo.SelectedDate;
-                        System.Windows.Forms.Application.DoEvents();
-                        frm.dgvGeneralLedger.ItemsSource = BLL.GeneralLedger.ToList((int)PL.Ledger.Id, dtpDateFrom.SelectedDate.Value, dtpDateTo.SelectedDate.Value);
-
-                    }
-                }
-            }
-            catch (Exception ex)
-            {
-
-            }
-        }
     }
 }

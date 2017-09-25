@@ -41,7 +41,7 @@ namespace NUBEAccounts.BLL
             {
                 if (_UserPermission == null)
                 {
-                    _UserPermission = UserAccount.User.UserType == null ? new UserTypeDetail() : UserAccount.User.UserType.UserTypeDetails.Where(x => x.UserTypeFormDetail.FormName == AppLib.Forms.frmUser.ToString()).FirstOrDefault();
+                    _UserPermission = UserAccount.User.UserType == null ? new UserTypeDetail() : UserAccount.User.UserType.UserTypeDetails.Where(x => x.UserTypeFormDetail.FormName == Forms.frmUser).FirstOrDefault();
                 }
                 return _UserPermission;
             }
@@ -232,7 +232,7 @@ namespace NUBEAccounts.BLL
                     LoginedACYear = AccYear;
                     CurrentACYear = dt.Month <= 3 ? string.Format("{0} - {1}", dt.Year, dt.Year + 1) : string.Format("{0} - {1}",dt.Year-1,dt.Year);
                     IsCurrentACYear = LoginedACYear.StartsWith(CurrentACYear.Substring(0, 4));
-                    Data_Init();
+                    //Data_Init();
                     return "";
                 }
                 catch (Exception ex)
