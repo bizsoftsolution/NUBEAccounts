@@ -12,18 +12,15 @@ namespace NUBEAccounts.DAL
     using System;
     using System.Collections.Generic;
     
-    public partial class CreditLimitType
+    public partial class ACYearLedgerBalance
     {
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
-        public CreditLimitType()
-        {
-            this.Ledgers = new HashSet<Ledger>();
-        }
-    
         public int Id { get; set; }
-        public string LimitType { get; set; }
+        public Nullable<short> ACYearMasterId { get; set; }
+        public Nullable<int> LedgerId { get; set; }
+        public Nullable<decimal> DrAmt { get; set; }
+        public Nullable<decimal> CrAmt { get; set; }
     
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<Ledger> Ledgers { get; set; }
+        public virtual ACYearMaster ACYearMaster { get; set; }
+        public virtual Ledger Ledger { get; set; }
     }
 }

@@ -17,7 +17,7 @@ namespace NUBEAccounts.Pl
         public static frmHome frmHome;
         private void Application_Startup(object sender, StartupEventArgs e)
         {
-
+            BLL.NubeAccountClient.URLPath = ConfigurationManager.AppSettings["SLPath"];
             Window frm = new frmLogin();
             frm.Show();
 

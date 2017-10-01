@@ -13,33 +13,33 @@
           <Property Name="GroupName" Type="nvarchar" MaxLength="100" Nullable="false" />
           <Property Name="UnderGroupId" Type="int" />
           <Property Name="GroupCode" Type="nvarchar" MaxLength="10" />
-          <Property Name="CompanyId" Type="int" Nullable="false" />
+          <Property Name="FundMasterId" Type="int" Nullable="false" />
         </EntityType>
-        <EntityType Name="CompanyDetail">
+        <EntityType Name="ACYearLedgerBalance">
           <Key>
             <PropertyRef Name="Id" />
           </Key>
           <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-          <Property Name="CompanyName" Type="nvarchar" MaxLength="100" Nullable="false" />
-          <Property Name="AddressLine1" Type="nvarchar" MaxLength="100" />
-          <Property Name="AddressLine2" Type="nvarchar" MaxLength="100" />
-          <Property Name="CityName" Type="nvarchar" MaxLength="50" />
-          <Property Name="PostalCode" Type="nvarchar" MaxLength="10" />
-          <Property Name="TelephoneNo" Type="nvarchar" MaxLength="50" />
-          <Property Name="MobileNo" Type="nvarchar" MaxLength="50" />
-          <Property Name="EMailId" Type="nvarchar" MaxLength="100" />
-          <Property Name="GSTNo" Type="nvarchar" MaxLength="20" />
-          <Property Name="Logo" Type="image" />
-          <Property Name="IsActive" Type="bit" Nullable="false" />
-          <Property Name="UnderCompanyId" Type="int" />
-          <Property Name="CompanyType" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="ACYearMasterId" Type="smallint" />
+          <Property Name="LedgerId" Type="int" />
+          <Property Name="DrAmt" Type="money" />
+          <Property Name="CrAmt" Type="money" />
         </EntityType>
-        <EntityType Name="CreditLimitType">
+        <EntityType Name="ACYearMaster">
           <Key>
             <PropertyRef Name="Id" />
           </Key>
-          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-          <Property Name="LimitType" Type="nvarchar" MaxLength="50" />
+          <Property Name="Id" Type="smallint" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="ACYear" Type="varchar" MaxLength="50" />
+          <Property Name="ACYearStatusId" Type="smallint" />
+          <Property Name="FundMasterId" Type="int" />
+        </EntityType>
+        <EntityType Name="ACYearStatus">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="smallint" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Status" Type="nvarchar" MaxLength="50" />
         </EntityType>
         <EntityType Name="CustomFormat">
           <Key>
@@ -60,7 +60,7 @@
           <Property Name="DigitGroupingBy" Type="int" />
           <Property Name="CurrencyCaseSensitive" Type="int" />
           <Property Name="IsDisplayWithOnlyOnSuffix" Type="bit" />
-          <Property Name="CompanyId" Type="int" />
+          <Property Name="FundMasterId" Type="int" />
         </EntityType>
         <EntityType Name="DataKeyValue">
           <Key>
@@ -69,7 +69,7 @@
           <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="DataKey" Type="nvarchar" MaxLength="250" Nullable="false" />
           <Property Name="DataValue" Type="int" Nullable="false" />
-          <Property Name="CompanyId" Type="int" Nullable="false" />
+          <Property Name="FundMasterId" Type="int" Nullable="false" />
         </EntityType>
         <EntityType Name="EntityType">
           <Key>
@@ -84,10 +84,17 @@
           </Key>
           <Property Name="Id" Type="int" Nullable="false" />
           <Property Name="EntityTypeId" Type="int" />
-          <Property Name="CompanyId" Type="int" />
           <Property Name="ErrorBy" Type="int" />
           <Property Name="ErrorAt" Type="datetime" />
           <Property Name="ErrorMessage" Type="nvarchar(max)" />
+        </EntityType>
+        <EntityType Name="FundMaster">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="FundName" Type="nvarchar" MaxLength="100" Nullable="false" />
+          <Property Name="IsActive" Type="bit" Nullable="false" />
         </EntityType>
         <EntityType Name="Journal">
           <Key>
@@ -120,19 +127,6 @@
           </Key>
           <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="LedgerName" Type="nvarchar" MaxLength="100" Nullable="false" />
-          <Property Name="PersonIncharge" Type="nvarchar" MaxLength="50" />
-          <Property Name="AddressLine1" Type="nvarchar" MaxLength="100" />
-          <Property Name="AddressLine2" Type="nvarchar" MaxLength="100" />
-          <Property Name="CityName" Type="nvarchar" MaxLength="50" />
-          <Property Name="TelephoneNo" Type="nvarchar" MaxLength="20" />
-          <Property Name="MobileNo" Type="nvarchar" MaxLength="20" />
-          <Property Name="EMailId" Type="nvarchar" MaxLength="100" />
-          <Property Name="GSTNo" Type="nvarchar" MaxLength="20" />
-          <Property Name="CreditLimit" Type="smallint" />
-          <Property Name="CreditLimitTypeId" Type="int" />
-          <Property Name="CreditAmount" Type="float" />
-          <Property Name="OPDr" Type="money" />
-          <Property Name="OPCr" Type="money" />
           <Property Name="LedgerCode" Type="nvarchar" MaxLength="10" />
           <Property Name="AccountGroupId" Type="int" Nullable="false" />
         </EntityType>
@@ -247,7 +241,7 @@
           <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="TypeOfUser" Type="nvarchar" MaxLength="50" Nullable="false" />
           <Property Name="Description" Type="nvarchar" MaxLength="500" />
-          <Property Name="CompanyId" Type="int" Nullable="false" />
+          <Property Name="FundMasterId" Type="int" Nullable="false" />
         </EntityType>
         <EntityType Name="UserTypeDetail">
           <Key>
@@ -289,38 +283,74 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_AccountGroup_CompanyDetail">
-          <End Role="CompanyDetail" Type="Self.CompanyDetail" Multiplicity="1" />
+          <End Role="FundMaster" Type="Self.FundMaster" Multiplicity="1" />
           <End Role="AccountGroup" Type="Self.AccountGroup" Multiplicity="*" />
           <ReferentialConstraint>
-            <Principal Role="CompanyDetail">
+            <Principal Role="FundMaster">
               <PropertyRef Name="Id" />
             </Principal>
             <Dependent Role="AccountGroup">
-              <PropertyRef Name="CompanyId" />
+              <PropertyRef Name="FundMasterId" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK_CompanyDetail_CompanyDetail">
-          <End Role="CompanyDetail" Type="Self.CompanyDetail" Multiplicity="0..1" />
-          <End Role="CompanyDetail1" Type="Self.CompanyDetail" Multiplicity="*" />
+        <Association Name="FK_ACYearLedgerBalance_ACYearMaster">
+          <End Role="ACYearMaster" Type="Self.ACYearMaster" Multiplicity="0..1" />
+          <End Role="ACYearLedgerBalance" Type="Self.ACYearLedgerBalance" Multiplicity="*" />
           <ReferentialConstraint>
-            <Principal Role="CompanyDetail">
+            <Principal Role="ACYearMaster">
               <PropertyRef Name="Id" />
             </Principal>
-            <Dependent Role="CompanyDetail1">
-              <PropertyRef Name="UnderCompanyId" />
+            <Dependent Role="ACYearLedgerBalance">
+              <PropertyRef Name="ACYearMasterId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_ACYearLedgerBalance_Ledger">
+          <End Role="Ledger" Type="Self.Ledger" Multiplicity="0..1" />
+          <End Role="ACYearLedgerBalance" Type="Self.ACYearLedgerBalance" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Ledger">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="ACYearLedgerBalance">
+              <PropertyRef Name="LedgerId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_ACYearMaster_ACYearStatus">
+          <End Role="ACYearStatus" Type="Self.ACYearStatus" Multiplicity="0..1" />
+          <End Role="ACYearMaster" Type="Self.ACYearMaster" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="ACYearStatus">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="ACYearMaster">
+              <PropertyRef Name="ACYearStatusId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_ACYearMaster_CompanyDetail">
+          <End Role="FundMaster" Type="Self.FundMaster" Multiplicity="0..1" />
+          <End Role="ACYearMaster" Type="Self.ACYearMaster" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="FundMaster">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="ACYearMaster">
+              <PropertyRef Name="FundMasterId" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_CustomFormat_CompanyDetail">
-          <End Role="CompanyDetail" Type="Self.CompanyDetail" Multiplicity="0..1" />
+          <End Role="FundMaster" Type="Self.FundMaster" Multiplicity="0..1" />
           <End Role="CustomFormat" Type="Self.CustomFormat" Multiplicity="*" />
           <ReferentialConstraint>
-            <Principal Role="CompanyDetail">
+            <Principal Role="FundMaster">
               <PropertyRef Name="Id" />
             </Principal>
             <Dependent Role="CustomFormat">
-              <PropertyRef Name="CompanyId" />
+              <PropertyRef Name="FundMasterId" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -357,18 +387,6 @@
             </Principal>
             <Dependent Role="Ledger">
               <PropertyRef Name="AccountGroupId" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_Ledger_CreditLimitType">
-          <End Role="CreditLimitType" Type="Self.CreditLimitType" Multiplicity="0..1" />
-          <End Role="Ledger" Type="Self.Ledger" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="CreditLimitType">
-              <PropertyRef Name="Id" />
-            </Principal>
-            <Dependent Role="Ledger">
-              <PropertyRef Name="CreditLimitTypeId" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -517,14 +535,14 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_UserType_CompanyDetail">
-          <End Role="CompanyDetail" Type="Self.CompanyDetail" Multiplicity="1" />
+          <End Role="FundMaster" Type="Self.FundMaster" Multiplicity="1" />
           <End Role="UserType" Type="Self.UserType" Multiplicity="*" />
           <ReferentialConstraint>
-            <Principal Role="CompanyDetail">
+            <Principal Role="FundMaster">
               <PropertyRef Name="Id" />
             </Principal>
             <Dependent Role="UserType">
-              <PropertyRef Name="CompanyId" />
+              <PropertyRef Name="FundMasterId" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -554,12 +572,14 @@
         </Association>
         <EntityContainer Name="DBNUBEAccountsModelStoreContainer">
           <EntitySet Name="AccountGroup" EntityType="Self.AccountGroup" Schema="dbo" store:Type="Tables" />
-          <EntitySet Name="CompanyDetail" EntityType="Self.CompanyDetail" Schema="dbo" store:Type="Tables" />
-          <EntitySet Name="CreditLimitType" EntityType="Self.CreditLimitType" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="ACYearLedgerBalance" EntityType="Self.ACYearLedgerBalance" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="ACYearMaster" EntityType="Self.ACYearMaster" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="ACYearStatus" EntityType="Self.ACYearStatus" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="CustomFormat" EntityType="Self.CustomFormat" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="DataKeyValue" EntityType="Self.DataKeyValue" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="EntityType" EntityType="Self.EntityType" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="ErrorLog" EntityType="Self.ErrorLog" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="FundMaster" EntityType="Self.FundMaster" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Journal" EntityType="Self.Journal" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="JournalDetail" EntityType="Self.JournalDetail" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Ledger" EntityType="Self.Ledger" Schema="dbo" store:Type="Tables" />
@@ -579,15 +599,27 @@
             <End Role="AccountGroup1" EntitySet="AccountGroup" />
           </AssociationSet>
           <AssociationSet Name="FK_AccountGroup_CompanyDetail" Association="Self.FK_AccountGroup_CompanyDetail">
-            <End Role="CompanyDetail" EntitySet="CompanyDetail" />
+            <End Role="FundMaster" EntitySet="FundMaster" />
             <End Role="AccountGroup" EntitySet="AccountGroup" />
           </AssociationSet>
-          <AssociationSet Name="FK_CompanyDetail_CompanyDetail" Association="Self.FK_CompanyDetail_CompanyDetail">
-            <End Role="CompanyDetail" EntitySet="CompanyDetail" />
-            <End Role="CompanyDetail1" EntitySet="CompanyDetail" />
+          <AssociationSet Name="FK_ACYearLedgerBalance_ACYearMaster" Association="Self.FK_ACYearLedgerBalance_ACYearMaster">
+            <End Role="ACYearMaster" EntitySet="ACYearMaster" />
+            <End Role="ACYearLedgerBalance" EntitySet="ACYearLedgerBalance" />
+          </AssociationSet>
+          <AssociationSet Name="FK_ACYearLedgerBalance_Ledger" Association="Self.FK_ACYearLedgerBalance_Ledger">
+            <End Role="Ledger" EntitySet="Ledger" />
+            <End Role="ACYearLedgerBalance" EntitySet="ACYearLedgerBalance" />
+          </AssociationSet>
+          <AssociationSet Name="FK_ACYearMaster_ACYearStatus" Association="Self.FK_ACYearMaster_ACYearStatus">
+            <End Role="ACYearStatus" EntitySet="ACYearStatus" />
+            <End Role="ACYearMaster" EntitySet="ACYearMaster" />
+          </AssociationSet>
+          <AssociationSet Name="FK_ACYearMaster_CompanyDetail" Association="Self.FK_ACYearMaster_CompanyDetail">
+            <End Role="FundMaster" EntitySet="FundMaster" />
+            <End Role="ACYearMaster" EntitySet="ACYearMaster" />
           </AssociationSet>
           <AssociationSet Name="FK_CustomFormat_CompanyDetail" Association="Self.FK_CustomFormat_CompanyDetail">
-            <End Role="CompanyDetail" EntitySet="CompanyDetail" />
+            <End Role="FundMaster" EntitySet="FundMaster" />
             <End Role="CustomFormat" EntitySet="CustomFormat" />
           </AssociationSet>
           <AssociationSet Name="FK_JournalDetail_Journal" Association="Self.FK_JournalDetail_Journal">
@@ -600,10 +632,6 @@
           </AssociationSet>
           <AssociationSet Name="FK_Ledger_AccountGroup" Association="Self.FK_Ledger_AccountGroup">
             <End Role="AccountGroup" EntitySet="AccountGroup" />
-            <End Role="Ledger" EntitySet="Ledger" />
-          </AssociationSet>
-          <AssociationSet Name="FK_Ledger_CreditLimitType" Association="Self.FK_Ledger_CreditLimitType">
-            <End Role="CreditLimitType" EntitySet="CreditLimitType" />
             <End Role="Ledger" EntitySet="Ledger" />
           </AssociationSet>
           <AssociationSet Name="FK_LogDetail_LogDetailType" Association="Self.FK_LogDetail_LogDetailType">
@@ -655,7 +683,7 @@
             <End Role="UserAccount" EntitySet="UserAccount" />
           </AssociationSet>
           <AssociationSet Name="FK_UserType_CompanyDetail" Association="Self.FK_UserType_CompanyDetail">
-            <End Role="CompanyDetail" EntitySet="CompanyDetail" />
+            <End Role="FundMaster" EntitySet="FundMaster" />
             <End Role="UserType" EntitySet="UserType" />
           </AssociationSet>
           <AssociationSet Name="FK_UserTypeDetail_UserType" Association="Self.FK_UserTypeDetail_UserType">
@@ -673,12 +701,14 @@
       <Schema Namespace="DBNUBEAccountsModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
         <EntityContainer Name="DBNUBEAccountsEntities" annotation:LazyLoadingEnabled="true">
           <EntitySet Name="AccountGroups" EntityType="DBNUBEAccountsModel.AccountGroup" />
-          <EntitySet Name="CompanyDetails" EntityType="DBNUBEAccountsModel.CompanyDetail" />
-          <EntitySet Name="CreditLimitTypes" EntityType="DBNUBEAccountsModel.CreditLimitType" />
+          <EntitySet Name="ACYearLedgerBalances" EntityType="DBNUBEAccountsModel.ACYearLedgerBalance" />
+          <EntitySet Name="ACYearMasters" EntityType="DBNUBEAccountsModel.ACYearMaster" />
+          <EntitySet Name="ACYearStatus" EntityType="DBNUBEAccountsModel.ACYearStatu" />
           <EntitySet Name="CustomFormats" EntityType="DBNUBEAccountsModel.CustomFormat" />
           <EntitySet Name="DataKeyValues" EntityType="DBNUBEAccountsModel.DataKeyValue" />
           <EntitySet Name="EntityTypes" EntityType="DBNUBEAccountsModel.EntityType" />
           <EntitySet Name="ErrorLogs" EntityType="DBNUBEAccountsModel.ErrorLog" />
+          <EntitySet Name="FundMasters" EntityType="DBNUBEAccountsModel.FundMaster" />
           <EntitySet Name="Journals" EntityType="DBNUBEAccountsModel.Journal" />
           <EntitySet Name="JournalDetails" EntityType="DBNUBEAccountsModel.JournalDetail" />
           <EntitySet Name="Ledgers" EntityType="DBNUBEAccountsModel.Ledger" />
@@ -698,32 +728,40 @@
             <End Role="AccountGroup1" EntitySet="AccountGroups" />
           </AssociationSet>
           <AssociationSet Name="FK_AccountGroup_CompanyDetail" Association="DBNUBEAccountsModel.FK_AccountGroup_CompanyDetail">
-            <End Role="CompanyDetail" EntitySet="CompanyDetails" />
+            <End Role="FundMaster" EntitySet="FundMasters" />
             <End Role="AccountGroup" EntitySet="AccountGroups" />
           </AssociationSet>
           <AssociationSet Name="FK_Ledger_AccountGroup" Association="DBNUBEAccountsModel.FK_Ledger_AccountGroup">
             <End Role="AccountGroup" EntitySet="AccountGroups" />
             <End Role="Ledger" EntitySet="Ledgers" />
           </AssociationSet>
-          <AssociationSet Name="FK_CompanyDetail_CompanyDetail" Association="DBNUBEAccountsModel.FK_CompanyDetail_CompanyDetail">
-            <End Role="CompanyDetail" EntitySet="CompanyDetails" />
-            <End Role="CompanyDetail1" EntitySet="CompanyDetails" />
+          <AssociationSet Name="FK_ACYearLedgerBalance_ACYearMaster" Association="DBNUBEAccountsModel.FK_ACYearLedgerBalance_ACYearMaster">
+            <End Role="ACYearMaster" EntitySet="ACYearMasters" />
+            <End Role="ACYearLedgerBalance" EntitySet="ACYearLedgerBalances" />
+          </AssociationSet>
+          <AssociationSet Name="FK_ACYearLedgerBalance_Ledger" Association="DBNUBEAccountsModel.FK_ACYearLedgerBalance_Ledger">
+            <End Role="Ledger" EntitySet="Ledgers" />
+            <End Role="ACYearLedgerBalance" EntitySet="ACYearLedgerBalances" />
+          </AssociationSet>
+          <AssociationSet Name="FK_ACYearMaster_ACYearStatus" Association="DBNUBEAccountsModel.FK_ACYearMaster_ACYearStatus">
+            <End Role="ACYearStatu" EntitySet="ACYearStatus" />
+            <End Role="ACYearMaster" EntitySet="ACYearMasters" />
+          </AssociationSet>
+          <AssociationSet Name="FK_ACYearMaster_CompanyDetail" Association="DBNUBEAccountsModel.FK_ACYearMaster_CompanyDetail">
+            <End Role="FundMaster" EntitySet="FundMasters" />
+            <End Role="ACYearMaster" EntitySet="ACYearMasters" />
           </AssociationSet>
           <AssociationSet Name="FK_CustomFormat_CompanyDetail" Association="DBNUBEAccountsModel.FK_CustomFormat_CompanyDetail">
-            <End Role="CompanyDetail" EntitySet="CompanyDetails" />
+            <End Role="FundMaster" EntitySet="FundMasters" />
             <End Role="CustomFormat" EntitySet="CustomFormats" />
-          </AssociationSet>
-          <AssociationSet Name="FK_UserType_CompanyDetail" Association="DBNUBEAccountsModel.FK_UserType_CompanyDetail">
-            <End Role="CompanyDetail" EntitySet="CompanyDetails" />
-            <End Role="UserType" EntitySet="UserTypes" />
-          </AssociationSet>
-          <AssociationSet Name="FK_Ledger_CreditLimitType" Association="DBNUBEAccountsModel.FK_Ledger_CreditLimitType">
-            <End Role="CreditLimitType" EntitySet="CreditLimitTypes" />
-            <End Role="Ledger" EntitySet="Ledgers" />
           </AssociationSet>
           <AssociationSet Name="FK_LogMaster_EntityType" Association="DBNUBEAccountsModel.FK_LogMaster_EntityType">
             <End Role="EntityType" EntitySet="EntityTypes" />
             <End Role="LogMaster" EntitySet="LogMasters" />
+          </AssociationSet>
+          <AssociationSet Name="FK_UserType_CompanyDetail" Association="DBNUBEAccountsModel.FK_UserType_CompanyDetail">
+            <End Role="FundMaster" EntitySet="FundMasters" />
+            <End Role="UserType" EntitySet="UserTypes" />
           </AssociationSet>
           <AssociationSet Name="FK_JournalDetail_Journal" Association="DBNUBEAccountsModel.FK_JournalDetail_Journal">
             <End Role="Journal" EntitySet="Journals" />
@@ -794,43 +832,43 @@
           <Property Name="GroupName" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="true" />
           <Property Name="UnderGroupId" Type="Int32" />
           <Property Name="GroupCode" Type="String" MaxLength="10" FixedLength="false" Unicode="true" />
-          <Property Name="CompanyId" Type="Int32" Nullable="false" />
+          <Property Name="FundMasterId" Type="Int32" Nullable="false" />
           <NavigationProperty Name="AccountGroup1" Relationship="DBNUBEAccountsModel.FK_AccountGroup_AccountGroup" FromRole="AccountGroup" ToRole="AccountGroup1" />
           <NavigationProperty Name="AccountGroup2" Relationship="DBNUBEAccountsModel.FK_AccountGroup_AccountGroup" FromRole="AccountGroup1" ToRole="AccountGroup" />
-          <NavigationProperty Name="CompanyDetail" Relationship="DBNUBEAccountsModel.FK_AccountGroup_CompanyDetail" FromRole="AccountGroup" ToRole="CompanyDetail" />
+          <NavigationProperty Name="FundMaster" Relationship="DBNUBEAccountsModel.FK_AccountGroup_CompanyDetail" FromRole="AccountGroup" ToRole="FundMaster" />
           <NavigationProperty Name="Ledgers" Relationship="DBNUBEAccountsModel.FK_Ledger_AccountGroup" FromRole="AccountGroup" ToRole="Ledger" />
         </EntityType>
-        <EntityType Name="CompanyDetail">
+        <EntityType Name="ACYearLedgerBalance">
           <Key>
             <PropertyRef Name="Id" />
           </Key>
           <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="CompanyName" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="true" />
-          <Property Name="AddressLine1" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
-          <Property Name="AddressLine2" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
-          <Property Name="CityName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Name="PostalCode" Type="String" MaxLength="10" FixedLength="false" Unicode="true" />
-          <Property Name="TelephoneNo" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Name="MobileNo" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Name="EMailId" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
-          <Property Name="GSTNo" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
-          <Property Name="Logo" Type="Binary" MaxLength="Max" FixedLength="false" />
-          <Property Name="IsActive" Type="Boolean" Nullable="false" />
-          <Property Name="UnderCompanyId" Type="Int32" />
-          <Property Name="CompanyType" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
-          <NavigationProperty Name="AccountGroups" Relationship="DBNUBEAccountsModel.FK_AccountGroup_CompanyDetail" FromRole="CompanyDetail" ToRole="AccountGroup" />
-          <NavigationProperty Name="CompanyDetail1" Relationship="DBNUBEAccountsModel.FK_CompanyDetail_CompanyDetail" FromRole="CompanyDetail" ToRole="CompanyDetail1" />
-          <NavigationProperty Name="CompanyDetail2" Relationship="DBNUBEAccountsModel.FK_CompanyDetail_CompanyDetail" FromRole="CompanyDetail1" ToRole="CompanyDetail" />
-          <NavigationProperty Name="CustomFormats" Relationship="DBNUBEAccountsModel.FK_CustomFormat_CompanyDetail" FromRole="CompanyDetail" ToRole="CustomFormat" />
-          <NavigationProperty Name="UserTypes" Relationship="DBNUBEAccountsModel.FK_UserType_CompanyDetail" FromRole="CompanyDetail" ToRole="UserType" />
+          <Property Name="ACYearMasterId" Type="Int16" />
+          <Property Name="LedgerId" Type="Int32" />
+          <Property Name="DrAmt" Type="Decimal" Precision="19" Scale="4" />
+          <Property Name="CrAmt" Type="Decimal" Precision="19" Scale="4" />
+          <NavigationProperty Name="ACYearMaster" Relationship="DBNUBEAccountsModel.FK_ACYearLedgerBalance_ACYearMaster" FromRole="ACYearLedgerBalance" ToRole="ACYearMaster" />
+          <NavigationProperty Name="Ledger" Relationship="DBNUBEAccountsModel.FK_ACYearLedgerBalance_Ledger" FromRole="ACYearLedgerBalance" ToRole="Ledger" />
         </EntityType>
-        <EntityType Name="CreditLimitType">
+        <EntityType Name="ACYearMaster">
           <Key>
             <PropertyRef Name="Id" />
           </Key>
-          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="LimitType" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-          <NavigationProperty Name="Ledgers" Relationship="DBNUBEAccountsModel.FK_Ledger_CreditLimitType" FromRole="CreditLimitType" ToRole="Ledger" />
+          <Property Name="Id" Type="Int16" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="ACYear" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="ACYearStatusId" Type="Int16" />
+          <Property Name="FundMasterId" Type="Int32" />
+          <NavigationProperty Name="ACYearLedgerBalances" Relationship="DBNUBEAccountsModel.FK_ACYearLedgerBalance_ACYearMaster" FromRole="ACYearMaster" ToRole="ACYearLedgerBalance" />
+          <NavigationProperty Name="ACYearStatu" Relationship="DBNUBEAccountsModel.FK_ACYearMaster_ACYearStatus" FromRole="ACYearMaster" ToRole="ACYearStatu" />
+          <NavigationProperty Name="FundMaster" Relationship="DBNUBEAccountsModel.FK_ACYearMaster_CompanyDetail" FromRole="ACYearMaster" ToRole="FundMaster" />
+        </EntityType>
+        <EntityType Name="ACYearStatu">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int16" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Status" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="ACYearMasters" Relationship="DBNUBEAccountsModel.FK_ACYearMaster_ACYearStatus" FromRole="ACYearStatu" ToRole="ACYearMaster" />
         </EntityType>
         <EntityType Name="CustomFormat">
           <Key>
@@ -851,8 +889,8 @@
           <Property Name="DigitGroupingBy" Type="Int32" />
           <Property Name="CurrencyCaseSensitive" Type="Int32" />
           <Property Name="IsDisplayWithOnlyOnSuffix" Type="Boolean" />
-          <Property Name="CompanyId" Type="Int32" />
-          <NavigationProperty Name="CompanyDetail" Relationship="DBNUBEAccountsModel.FK_CustomFormat_CompanyDetail" FromRole="CustomFormat" ToRole="CompanyDetail" />
+          <Property Name="FundMasterId" Type="Int32" />
+          <NavigationProperty Name="FundMaster" Relationship="DBNUBEAccountsModel.FK_CustomFormat_CompanyDetail" FromRole="CustomFormat" ToRole="FundMaster" />
         </EntityType>
         <EntityType Name="DataKeyValue">
           <Key>
@@ -861,7 +899,7 @@
           <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="DataKey" Type="String" Nullable="false" MaxLength="250" FixedLength="false" Unicode="true" />
           <Property Name="DataValue" Type="Int32" Nullable="false" />
-          <Property Name="CompanyId" Type="Int32" Nullable="false" />
+          <Property Name="FundMasterId" Type="Int32" Nullable="false" />
         </EntityType>
         <EntityType Name="EntityType">
           <Key>
@@ -877,10 +915,21 @@
           </Key>
           <Property Name="Id" Type="Int32" Nullable="false" />
           <Property Name="EntityTypeId" Type="Int32" />
-          <Property Name="CompanyId" Type="Int32" />
           <Property Name="ErrorBy" Type="Int32" />
           <Property Name="ErrorAt" Type="DateTime" Precision="3" />
           <Property Name="ErrorMessage" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+        </EntityType>
+        <EntityType Name="FundMaster">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="FundName" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="IsActive" Type="Boolean" Nullable="false" />
+          <NavigationProperty Name="AccountGroups" Relationship="DBNUBEAccountsModel.FK_AccountGroup_CompanyDetail" FromRole="FundMaster" ToRole="AccountGroup" />
+          <NavigationProperty Name="ACYearMasters" Relationship="DBNUBEAccountsModel.FK_ACYearMaster_CompanyDetail" FromRole="FundMaster" ToRole="ACYearMaster" />
+          <NavigationProperty Name="CustomFormats" Relationship="DBNUBEAccountsModel.FK_CustomFormat_CompanyDetail" FromRole="FundMaster" ToRole="CustomFormat" />
+          <NavigationProperty Name="UserTypes" Relationship="DBNUBEAccountsModel.FK_UserType_CompanyDetail" FromRole="FundMaster" ToRole="UserType" />
         </EntityType>
         <EntityType Name="Journal">
           <Key>
@@ -916,23 +965,10 @@
           </Key>
           <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="LedgerName" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="true" />
-          <Property Name="PersonIncharge" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Name="AddressLine1" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
-          <Property Name="AddressLine2" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
-          <Property Name="CityName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Name="TelephoneNo" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
-          <Property Name="MobileNo" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
-          <Property Name="EMailId" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
-          <Property Name="GSTNo" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
-          <Property Name="CreditLimit" Type="Int16" />
-          <Property Name="CreditLimitTypeId" Type="Int32" />
-          <Property Name="CreditAmount" Type="Double" />
-          <Property Name="OPDr" Type="Decimal" Precision="19" Scale="4" />
-          <Property Name="OPCr" Type="Decimal" Precision="19" Scale="4" />
           <Property Name="LedgerCode" Type="String" MaxLength="10" FixedLength="false" Unicode="true" />
           <Property Name="AccountGroupId" Type="Int32" Nullable="false" />
           <NavigationProperty Name="AccountGroup" Relationship="DBNUBEAccountsModel.FK_Ledger_AccountGroup" FromRole="Ledger" ToRole="AccountGroup" />
-          <NavigationProperty Name="CreditLimitType" Relationship="DBNUBEAccountsModel.FK_Ledger_CreditLimitType" FromRole="Ledger" ToRole="CreditLimitType" />
+          <NavigationProperty Name="ACYearLedgerBalances" Relationship="DBNUBEAccountsModel.FK_ACYearLedgerBalance_Ledger" FromRole="Ledger" ToRole="ACYearLedgerBalance" />
           <NavigationProperty Name="JournalDetails" Relationship="DBNUBEAccountsModel.FK_JournalDetail_Ledger" FromRole="Ledger" ToRole="JournalDetail" />
           <NavigationProperty Name="Payments" Relationship="DBNUBEAccountsModel.FK_Payment_Ledger" FromRole="Ledger" ToRole="Payment" />
           <NavigationProperty Name="PaymentDetails" Relationship="DBNUBEAccountsModel.FK_PaymentDetail_Ledger" FromRole="Ledger" ToRole="PaymentDetail" />
@@ -1068,8 +1104,8 @@
           <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="TypeOfUser" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Name="Description" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
-          <Property Name="CompanyId" Type="Int32" Nullable="false" />
-          <NavigationProperty Name="CompanyDetail" Relationship="DBNUBEAccountsModel.FK_UserType_CompanyDetail" FromRole="UserType" ToRole="CompanyDetail" />
+          <Property Name="FundMasterId" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="FundMaster" Relationship="DBNUBEAccountsModel.FK_UserType_CompanyDetail" FromRole="UserType" ToRole="FundMaster" />
           <NavigationProperty Name="UserAccounts" Relationship="DBNUBEAccountsModel.FK_UserAccount_UserType" FromRole="UserType" ToRole="UserAccount" />
           <NavigationProperty Name="UserTypeDetails" Relationship="DBNUBEAccountsModel.FK_UserTypeDetail_UserType" FromRole="UserType" ToRole="UserTypeDetail" />
         </EntityType>
@@ -1116,14 +1152,14 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_AccountGroup_CompanyDetail">
-          <End Type="DBNUBEAccountsModel.CompanyDetail" Role="CompanyDetail" Multiplicity="1" />
+          <End Type="DBNUBEAccountsModel.FundMaster" Role="FundMaster" Multiplicity="1" />
           <End Type="DBNUBEAccountsModel.AccountGroup" Role="AccountGroup" Multiplicity="*" />
           <ReferentialConstraint>
-            <Principal Role="CompanyDetail">
+            <Principal Role="FundMaster">
               <PropertyRef Name="Id" />
             </Principal>
             <Dependent Role="AccountGroup">
-              <PropertyRef Name="CompanyId" />
+              <PropertyRef Name="FundMasterId" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -1139,51 +1175,63 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK_CompanyDetail_CompanyDetail">
-          <End Type="DBNUBEAccountsModel.CompanyDetail" Role="CompanyDetail" Multiplicity="0..1" />
-          <End Type="DBNUBEAccountsModel.CompanyDetail" Role="CompanyDetail1" Multiplicity="*" />
+        <Association Name="FK_ACYearLedgerBalance_ACYearMaster">
+          <End Type="DBNUBEAccountsModel.ACYearMaster" Role="ACYearMaster" Multiplicity="0..1" />
+          <End Type="DBNUBEAccountsModel.ACYearLedgerBalance" Role="ACYearLedgerBalance" Multiplicity="*" />
           <ReferentialConstraint>
-            <Principal Role="CompanyDetail">
+            <Principal Role="ACYearMaster">
               <PropertyRef Name="Id" />
             </Principal>
-            <Dependent Role="CompanyDetail1">
-              <PropertyRef Name="UnderCompanyId" />
+            <Dependent Role="ACYearLedgerBalance">
+              <PropertyRef Name="ACYearMasterId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_ACYearLedgerBalance_Ledger">
+          <End Type="DBNUBEAccountsModel.Ledger" Role="Ledger" Multiplicity="0..1" />
+          <End Type="DBNUBEAccountsModel.ACYearLedgerBalance" Role="ACYearLedgerBalance" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Ledger">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="ACYearLedgerBalance">
+              <PropertyRef Name="LedgerId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_ACYearMaster_ACYearStatus">
+          <End Type="DBNUBEAccountsModel.ACYearStatu" Role="ACYearStatu" Multiplicity="0..1" />
+          <End Type="DBNUBEAccountsModel.ACYearMaster" Role="ACYearMaster" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="ACYearStatu">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="ACYearMaster">
+              <PropertyRef Name="ACYearStatusId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_ACYearMaster_CompanyDetail">
+          <End Type="DBNUBEAccountsModel.FundMaster" Role="FundMaster" Multiplicity="0..1" />
+          <End Type="DBNUBEAccountsModel.ACYearMaster" Role="ACYearMaster" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="FundMaster">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="ACYearMaster">
+              <PropertyRef Name="FundMasterId" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_CustomFormat_CompanyDetail">
-          <End Type="DBNUBEAccountsModel.CompanyDetail" Role="CompanyDetail" Multiplicity="0..1" />
+          <End Type="DBNUBEAccountsModel.FundMaster" Role="FundMaster" Multiplicity="0..1" />
           <End Type="DBNUBEAccountsModel.CustomFormat" Role="CustomFormat" Multiplicity="*" />
           <ReferentialConstraint>
-            <Principal Role="CompanyDetail">
+            <Principal Role="FundMaster">
               <PropertyRef Name="Id" />
             </Principal>
             <Dependent Role="CustomFormat">
-              <PropertyRef Name="CompanyId" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_UserType_CompanyDetail">
-          <End Type="DBNUBEAccountsModel.CompanyDetail" Role="CompanyDetail" Multiplicity="1" />
-          <End Type="DBNUBEAccountsModel.UserType" Role="UserType" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="CompanyDetail">
-              <PropertyRef Name="Id" />
-            </Principal>
-            <Dependent Role="UserType">
-              <PropertyRef Name="CompanyId" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_Ledger_CreditLimitType">
-          <End Type="DBNUBEAccountsModel.CreditLimitType" Role="CreditLimitType" Multiplicity="0..1" />
-          <End Type="DBNUBEAccountsModel.Ledger" Role="Ledger" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="CreditLimitType">
-              <PropertyRef Name="Id" />
-            </Principal>
-            <Dependent Role="Ledger">
-              <PropertyRef Name="CreditLimitTypeId" />
+              <PropertyRef Name="FundMasterId" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -1196,6 +1244,18 @@
             </Principal>
             <Dependent Role="LogMaster">
               <PropertyRef Name="EntityTypeId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_UserType_CompanyDetail">
+          <End Type="DBNUBEAccountsModel.FundMaster" Role="FundMaster" Multiplicity="1" />
+          <End Type="DBNUBEAccountsModel.UserType" Role="UserType" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="FundMaster">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="UserType">
+              <PropertyRef Name="FundMasterId" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -1388,7 +1448,7 @@
           <EntitySetMapping Name="AccountGroups">
             <EntityTypeMapping TypeName="DBNUBEAccountsModel.AccountGroup">
               <MappingFragment StoreEntitySet="AccountGroup">
-                <ScalarProperty Name="CompanyId" ColumnName="CompanyId" />
+                <ScalarProperty Name="FundMasterId" ColumnName="FundMasterId" />
                 <ScalarProperty Name="GroupCode" ColumnName="GroupCode" />
                 <ScalarProperty Name="UnderGroupId" ColumnName="UnderGroupId" />
                 <ScalarProperty Name="GroupName" ColumnName="GroupName" />
@@ -1396,30 +1456,31 @@
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-          <EntitySetMapping Name="CompanyDetails">
-            <EntityTypeMapping TypeName="DBNUBEAccountsModel.CompanyDetail">
-              <MappingFragment StoreEntitySet="CompanyDetail">
-                <ScalarProperty Name="CompanyType" ColumnName="CompanyType" />
-                <ScalarProperty Name="UnderCompanyId" ColumnName="UnderCompanyId" />
-                <ScalarProperty Name="IsActive" ColumnName="IsActive" />
-                <ScalarProperty Name="Logo" ColumnName="Logo" />
-                <ScalarProperty Name="GSTNo" ColumnName="GSTNo" />
-                <ScalarProperty Name="EMailId" ColumnName="EMailId" />
-                <ScalarProperty Name="MobileNo" ColumnName="MobileNo" />
-                <ScalarProperty Name="TelephoneNo" ColumnName="TelephoneNo" />
-                <ScalarProperty Name="PostalCode" ColumnName="PostalCode" />
-                <ScalarProperty Name="CityName" ColumnName="CityName" />
-                <ScalarProperty Name="AddressLine2" ColumnName="AddressLine2" />
-                <ScalarProperty Name="AddressLine1" ColumnName="AddressLine1" />
-                <ScalarProperty Name="CompanyName" ColumnName="CompanyName" />
+          <EntitySetMapping Name="ACYearLedgerBalances">
+            <EntityTypeMapping TypeName="DBNUBEAccountsModel.ACYearLedgerBalance">
+              <MappingFragment StoreEntitySet="ACYearLedgerBalance">
+                <ScalarProperty Name="CrAmt" ColumnName="CrAmt" />
+                <ScalarProperty Name="DrAmt" ColumnName="DrAmt" />
+                <ScalarProperty Name="LedgerId" ColumnName="LedgerId" />
+                <ScalarProperty Name="ACYearMasterId" ColumnName="ACYearMasterId" />
                 <ScalarProperty Name="Id" ColumnName="Id" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-          <EntitySetMapping Name="CreditLimitTypes">
-            <EntityTypeMapping TypeName="DBNUBEAccountsModel.CreditLimitType">
-              <MappingFragment StoreEntitySet="CreditLimitType">
-                <ScalarProperty Name="LimitType" ColumnName="LimitType" />
+          <EntitySetMapping Name="ACYearMasters">
+            <EntityTypeMapping TypeName="DBNUBEAccountsModel.ACYearMaster">
+              <MappingFragment StoreEntitySet="ACYearMaster">
+                <ScalarProperty Name="FundMasterId" ColumnName="FundMasterId" />
+                <ScalarProperty Name="ACYearStatusId" ColumnName="ACYearStatusId" />
+                <ScalarProperty Name="ACYear" ColumnName="ACYear" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="ACYearStatus">
+            <EntityTypeMapping TypeName="DBNUBEAccountsModel.ACYearStatu">
+              <MappingFragment StoreEntitySet="ACYearStatus">
+                <ScalarProperty Name="Status" ColumnName="Status" />
                 <ScalarProperty Name="Id" ColumnName="Id" />
               </MappingFragment>
             </EntityTypeMapping>
@@ -1427,7 +1488,7 @@
           <EntitySetMapping Name="CustomFormats">
             <EntityTypeMapping TypeName="DBNUBEAccountsModel.CustomFormat">
               <MappingFragment StoreEntitySet="CustomFormat">
-                <ScalarProperty Name="CompanyId" ColumnName="CompanyId" />
+                <ScalarProperty Name="FundMasterId" ColumnName="FundMasterId" />
                 <ScalarProperty Name="IsDisplayWithOnlyOnSuffix" ColumnName="IsDisplayWithOnlyOnSuffix" />
                 <ScalarProperty Name="CurrencyCaseSensitive" ColumnName="CurrencyCaseSensitive" />
                 <ScalarProperty Name="DigitGroupingBy" ColumnName="DigitGroupingBy" />
@@ -1449,7 +1510,7 @@
           <EntitySetMapping Name="DataKeyValues">
             <EntityTypeMapping TypeName="DBNUBEAccountsModel.DataKeyValue">
               <MappingFragment StoreEntitySet="DataKeyValue">
-                <ScalarProperty Name="CompanyId" ColumnName="CompanyId" />
+                <ScalarProperty Name="FundMasterId" ColumnName="FundMasterId" />
                 <ScalarProperty Name="DataValue" ColumnName="DataValue" />
                 <ScalarProperty Name="DataKey" ColumnName="DataKey" />
                 <ScalarProperty Name="Id" ColumnName="Id" />
@@ -1470,8 +1531,16 @@
                 <ScalarProperty Name="ErrorMessage" ColumnName="ErrorMessage" />
                 <ScalarProperty Name="ErrorAt" ColumnName="ErrorAt" />
                 <ScalarProperty Name="ErrorBy" ColumnName="ErrorBy" />
-                <ScalarProperty Name="CompanyId" ColumnName="CompanyId" />
                 <ScalarProperty Name="EntityTypeId" ColumnName="EntityTypeId" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="FundMasters">
+            <EntityTypeMapping TypeName="DBNUBEAccountsModel.FundMaster">
+              <MappingFragment StoreEntitySet="FundMaster">
+                <ScalarProperty Name="IsActive" ColumnName="IsActive" />
+                <ScalarProperty Name="FundName" ColumnName="FundName" />
                 <ScalarProperty Name="Id" ColumnName="Id" />
               </MappingFragment>
             </EntityTypeMapping>
@@ -1508,19 +1577,6 @@
               <MappingFragment StoreEntitySet="Ledger">
                 <ScalarProperty Name="AccountGroupId" ColumnName="AccountGroupId" />
                 <ScalarProperty Name="LedgerCode" ColumnName="LedgerCode" />
-                <ScalarProperty Name="OPCr" ColumnName="OPCr" />
-                <ScalarProperty Name="OPDr" ColumnName="OPDr" />
-                <ScalarProperty Name="CreditAmount" ColumnName="CreditAmount" />
-                <ScalarProperty Name="CreditLimitTypeId" ColumnName="CreditLimitTypeId" />
-                <ScalarProperty Name="CreditLimit" ColumnName="CreditLimit" />
-                <ScalarProperty Name="GSTNo" ColumnName="GSTNo" />
-                <ScalarProperty Name="EMailId" ColumnName="EMailId" />
-                <ScalarProperty Name="MobileNo" ColumnName="MobileNo" />
-                <ScalarProperty Name="TelephoneNo" ColumnName="TelephoneNo" />
-                <ScalarProperty Name="CityName" ColumnName="CityName" />
-                <ScalarProperty Name="AddressLine2" ColumnName="AddressLine2" />
-                <ScalarProperty Name="AddressLine1" ColumnName="AddressLine1" />
-                <ScalarProperty Name="PersonIncharge" ColumnName="PersonIncharge" />
                 <ScalarProperty Name="LedgerName" ColumnName="LedgerName" />
                 <ScalarProperty Name="Id" ColumnName="Id" />
               </MappingFragment>
@@ -1641,7 +1697,7 @@
           <EntitySetMapping Name="UserTypes">
             <EntityTypeMapping TypeName="DBNUBEAccountsModel.UserType">
               <MappingFragment StoreEntitySet="UserType">
-                <ScalarProperty Name="CompanyId" ColumnName="CompanyId" />
+                <ScalarProperty Name="FundMasterId" ColumnName="FundMasterId" />
                 <ScalarProperty Name="Description" ColumnName="Description" />
                 <ScalarProperty Name="TypeOfUser" ColumnName="TypeOfUser" />
                 <ScalarProperty Name="Id" ColumnName="Id" />

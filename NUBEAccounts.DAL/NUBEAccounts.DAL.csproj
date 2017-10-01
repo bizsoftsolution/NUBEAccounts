@@ -57,10 +57,13 @@
     <Compile Include="AccountGroup.cs">
       <DependentUpon>DBNUBEAccountsModel.tt</DependentUpon>
     </Compile>
-    <Compile Include="CompanyDetail.cs">
+    <Compile Include="ACYearLedgerBalance.cs">
       <DependentUpon>DBNUBEAccountsModel.tt</DependentUpon>
     </Compile>
-    <Compile Include="CreditLimitType.cs">
+    <Compile Include="ACYearMaster.cs">
+      <DependentUpon>DBNUBEAccountsModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="ACYearStatu.cs">
       <DependentUpon>DBNUBEAccountsModel.tt</DependentUpon>
     </Compile>
     <Compile Include="CustomFormat.cs">
@@ -88,6 +91,9 @@
       <DependentUpon>DBNUBEAccountsModel.tt</DependentUpon>
     </Compile>
     <Compile Include="ErrorLog.cs">
+      <DependentUpon>DBNUBEAccountsModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="FundMaster.cs">
       <DependentUpon>DBNUBEAccountsModel.tt</DependentUpon>
     </Compile>
     <Compile Include="Journal.cs">
