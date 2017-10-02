@@ -9,12 +9,13 @@ using NUBEAccounts.Common;
 
 namespace NUBEAccounts.BLL
 {
-    public class CompanyDetail : INotifyPropertyChanged
-    {
+    public class FundMaster : INotifyPropertyChanged
+    {       
+
         #region Field
         bool isServerCall = false;
 
-        private static ObservableCollection<CompanyDetail> _toList;
+        private static ObservableCollection<FundMaster> _toList;
 
         private static UserTypeDetail _UserPermission;
         private bool _IsReadOnly;
@@ -24,25 +25,14 @@ namespace NUBEAccounts.BLL
         private static ObservableCollection<string> _AcYearList;
         public List<BLL.Validation> lstValidation = new List<BLL.Validation>();
         private int _id;
-        private string _CompanyName;
-        private string _addressLine1;
-        private string _addressLine2;
-        private string _CityName;
-        private string _postalCode;
-        private string _telephoneNo;
-        private string _mobileNo;
-        private string _eMailId;
-        private string _gstNo;
-        private byte[] _logo;
+        private string _FundName;
         private bool _IsActive;
+
         private string _UserId;
         private string _Password;
 
-        private int? _UnderCompanyId;
-        private string _CompanyType;
 
         #endregion
-
         #region Property
         public static UserTypeDetail UserPermission
         {
@@ -50,7 +40,7 @@ namespace NUBEAccounts.BLL
             {
                 if (_UserPermission == null)
                 {
-                    _UserPermission = UserAccount.User.UserType == null ? new UserTypeDetail() : UserAccount.User.UserType.UserTypeDetails.Where(x => x.UserTypeFormDetail.FormName == Forms.frmCompanySetting).FirstOrDefault();
+                    _UserPermission = UserAccount.User.UserType == null ? new UserTypeDetail() : UserAccount.User.UserType.UserTypeDetails.Where(x => x.UserTypeFormDetail.FormName == Forms.frmFundMaster).FirstOrDefault();
                 }
                 return _UserPermission;
             }
@@ -64,33 +54,19 @@ namespace NUBEAccounts.BLL
             }
         }
 
-        public static ObservableCollection<CompanyDetail> toList
+        public static ObservableCollection<FundMaster> toList
         {
             get
             {
                 if (_toList == null)
                 {
-                    var l1 = NubeAccountClient.NubeAccountHub.Invoke<List<CompanyDetail>>("CompanyDetail_List").Result;
-                    _toList = new ObservableCollection<CompanyDetail>(l1);
+                    var l1 = NubeAccountClient.NubeAccountHub.Invoke<List<FundMaster>>(Message.SL.FundMaster_List).Result;
+                    _toList = new ObservableCollection<FundMaster>(l1);
                 }
 
                 return _toList;
             }
-        }
-
-        public static ObservableCollection<string> AcYearList
-        {
-            get
-            {
-                if (_AcYearList == null)
-                {
-                    var l1 = NubeAccountClient.NubeAccountHub.Invoke<List<string>>("CompanyDetail_AcYearList").Result;
-                    _AcYearList = new ObservableCollection<string>(l1);
-                }
-
-                return _AcYearList;
-            }
-        }
+        }        
 
         public bool IsReadOnly
         {
@@ -123,38 +99,6 @@ namespace NUBEAccounts.BLL
                 {
                     _IsEnabled = value;
                     NotifyPropertyChanged(nameof(IsEnabled));
-                }
-            }
-        }
-
-        public int? UnderCompanyId
-        {
-            get
-            {
-                return _UnderCompanyId;
-            }
-            set
-            {
-                if (_UnderCompanyId != value)
-                {
-                    _UnderCompanyId = value;
-                    NotifyPropertyChanged(nameof(UnderCompanyId));
-                }
-            }
-        }
-
-        public string CompanyType
-        {
-            get
-            {
-                return _CompanyType;
-            }
-            set
-            {
-                if (_CompanyType != value)
-                {
-                    _CompanyType = value;
-                    NotifyPropertyChanged(nameof(CompanyType));
                 }
             }
         }
@@ -192,19 +136,19 @@ namespace NUBEAccounts.BLL
                 }
             }
         }
-        public string CompanyName
+        public string FundName
         {
             get
             {
-                return _CompanyName;
+                return _FundName;
             }
 
             set
             {
-                if (_CompanyName != value)
+                if (_FundName != value)
                 {
-                    _CompanyName = value;
-                    NotifyPropertyChanged(nameof(CompanyName));
+                    _FundName = value;
+                    NotifyPropertyChanged(nameof(FundName));
                 }
             }
         }
@@ -259,154 +203,7 @@ namespace NUBEAccounts.BLL
                 }
             }
         }
-
-        public string AddressLine1
-        {
-            get
-            {
-                return _addressLine1;
-            }
-
-            set
-            {
-                if (_addressLine1 != value)
-                {
-                    _addressLine1 = value;
-                    NotifyPropertyChanged(nameof(AddressLine1));
-                }
-            }
-        }
-        public string AddressLine2
-        {
-            get
-            {
-                return _addressLine2;
-            }
-
-            set
-            {
-                if (_addressLine2 != value)
-                {
-                    _addressLine2 = value;
-                    NotifyPropertyChanged(nameof(AddressLine2));
-                }
-            }
-        }
-
-        public string PostalCode
-        {
-            get
-            {
-                return _postalCode;
-            }
-
-            set
-            {
-                if (_postalCode != value)
-                {
-                    _postalCode = value;
-                    NotifyPropertyChanged(nameof(PostalCode));
-                }
-            }
-        }
-        public string TelephoneNo
-        {
-            get
-            {
-                return _telephoneNo;
-            }
-
-            set
-            {
-                if (_telephoneNo != value)
-                {
-                    _telephoneNo = value;
-                    NotifyPropertyChanged(nameof(TelephoneNo));
-                }
-            }
-        }
-        public string MobileNo
-        {
-            get
-            {
-                return _mobileNo;
-            }
-
-            set
-            {
-                if (_mobileNo != value)
-                {
-                    _mobileNo = value;
-                    NotifyPropertyChanged(nameof(MobileNo));
-                }
-            }
-        }
-        public string EMailId
-        {
-            get
-            {
-                return _eMailId;
-            }
-
-            set
-            {
-                if (_eMailId != value)
-                {
-                    _eMailId = value;
-                    NotifyPropertyChanged(nameof(EMailId));
-                }
-            }
-        }
-        public string GSTNo
-        {
-            get
-            {
-                return _gstNo;
-            }
-
-            set
-            {
-                if (_gstNo != value)
-                {
-                    _gstNo = value;
-                    NotifyPropertyChanged(nameof(GSTNo));
-                }
-            }
-        }
-        public byte[] Logo
-        {
-            get
-            {
-                return _logo;
-            }
-
-            set
-            {
-                if (_logo != value)
-                {
-                    _logo = value;
-                    NotifyPropertyChanged(nameof(Logo));
-                }
-            }
-        }
-
-
-        public string CityName
-        {
-            get
-            {
-                return _CityName;
-            }
-            set
-            {
-                if (_CityName != value)
-                {
-                    _CityName = value;
-                    NotifyPropertyChanged(nameof(CityName));
-                }
-            }
-        }
-
+        
         #endregion
 
         #region Property  Changed Event
@@ -432,18 +229,18 @@ namespace NUBEAccounts.BLL
             if (!isValid()) return false;
             try
             {
-                CompanyDetail d = toList.Where(x => x.Id == Id).FirstOrDefault();
+                FundMaster d = toList.Where(x => x.Id == Id).FirstOrDefault();
                 int i = 0;
                 if (d == null)
                 {
-                    d = new CompanyDetail();
+                    d = new FundMaster();
                     toList.Add(d);
                 }
 
-                this.toCopy<CompanyDetail>(d);
+                this.toCopy<FundMaster>(d);
                 if (isServerCall == false)
                 {
-                    i = NubeAccountClient.NubeAccountHub.Invoke<int>("CompanyDetail_Save", this).Result;
+                    i = NubeAccountClient.NubeAccountHub.Invoke<int>(Message.SL.FundMaster_Save, this).Result;
                     d.Id = i;
                 }
 
@@ -460,7 +257,7 @@ namespace NUBEAccounts.BLL
 
         public void Clear()
         {
-            new CompanyDetail().toCopy<CompanyDetail>(this);
+            new FundMaster().toCopy<FundMaster>(this);
             IsReadOnly = !UserPermission.AllowInsert;
             IsActive = true;
             NotifyAllPropertyChanged();
@@ -471,7 +268,7 @@ namespace NUBEAccounts.BLL
             var d = toList.Where(x => x.Id == pk).FirstOrDefault();
             if (d != null)
             {
-                d.toCopy<CompanyDetail>(this);
+                d.toCopy<FundMaster>(this);
                 IsReadOnly = !UserPermission.AllowUpdate;
                 return true;
             }
@@ -484,28 +281,28 @@ namespace NUBEAccounts.BLL
             bool RValue = true;
 
             lstValidation.Clear();
-            var cm = toList.Where(x => x.CompanyName == CompanyName && x.CompanyType == CompanyType && x.UnderCompanyId == UnderCompanyId).FirstOrDefault();
+            var cm = toList.Where(x => x.FundName == FundName).FirstOrDefault();
 
-            var user = BLL.UserAccount.toList.Where(x => x.UserType.Company.UnderCompanyId == (UnderCompanyId == null ? null : UnderCompanyId) && x.UserName == UserId && x.UserType.Company.CompanyName == CompanyName).FirstOrDefault();
-
-
+            var user = BLL.UserAccount.toList.Where(x => x.UserName == UserId && x.UserType.Fund.FundName == FundName).FirstOrDefault();
 
 
-            if (string.IsNullOrWhiteSpace(CompanyName))
+
+
+            if (string.IsNullOrWhiteSpace(FundName))
             {
-                lstValidation.Add(new Validation() { Name = nameof(CompanyName), Message = string.Format(Message.BLL.Required_Data, nameof(CompanyName)) });
+                lstValidation.Add(new Validation() { Name = nameof(FundName), Message = string.Format(Message.BLL.Required_Data, nameof(FundName)) });
                 RValue = false;
             }
             else if (cm != null)
             {
                 if (cm.IsActive == false)
                 {
-                    lstValidation.Add(new Validation() { Name = nameof(CompanyName), Message = string.Format("{0} is Deleted {1}. Please Contact DENARIUSOFT Administrator.", CompanyName, CompanyType) });
+                    lstValidation.Add(new Validation() { Name = nameof(FundName), Message = string.Format("{0} is Deleted. Please Contact DENARIUSOFT Administrator.", FundName) });
                     RValue = false;
                 }
                 else if (cm.Id != Id)
                 {
-                    lstValidation.Add(new Validation() { Name = nameof(CompanyName), Message = string.Format(Message.BLL.Existing_Data, CompanyName) });
+                    lstValidation.Add(new Validation() { Name = nameof(FundName), Message = string.Format(Message.BLL.Existing_Data, FundName) });
                     RValue = false;
                 }
 
@@ -515,7 +312,7 @@ namespace NUBEAccounts.BLL
             {
                 if (user.UserName == UserId)
                 {
-                    lstValidation.Add(new Validation() { Name = nameof(CompanyName), Message = string.Format(Message.PL.User_Id_Exist, CompanyName) });
+                    lstValidation.Add(new Validation() { Name = nameof(FundName), Message = string.Format(Message.PL.User_Id_Exist, FundName) });
                     RValue = false;
                 }
             }
@@ -547,7 +344,7 @@ namespace NUBEAccounts.BLL
             if (d != null)
             {
                 toList.Remove(d);
-                if (isServerCall == false) NubeAccountClient.NubeAccountHub.Invoke<int>("CompanyDetail_Delete", this.Id);
+                if (isServerCall == false) NubeAccountClient.NubeAccountHub.Invoke<int>("FundMaster_Delete", this.Id);
                 return true;
             }
 
@@ -560,7 +357,7 @@ namespace NUBEAccounts.BLL
             if (c != null)
             {
                 toList.Remove(c);
-                if (isServerCall == false) NubeAccountClient.NubeAccountHub.Invoke<int>("CompanyDetail_Delete", c.Id);
+                if (isServerCall == false) NubeAccountClient.NubeAccountHub.Invoke<int>("FundMaster_Delete", c.Id);
                 return true;
             }
             return false;
@@ -569,6 +366,12 @@ namespace NUBEAccounts.BLL
         {
             _toList = null;
         }
+
+        public static List<string> AcYearList(int FundId)
+        {
+            return NubeAccountClient.NubeAccountHub.Invoke<List<string>>(Message.SL.FundMaster_AcYearList,FundId).Result;            
+        }
+
         #endregion
     }
 }

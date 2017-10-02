@@ -12,7 +12,7 @@ namespace NUBEAccounts.SL.Hubs
         BLL.CustomFormat CustomFormatDAL_BLL(DAL.CustomFormat d)
         {
             BLL.CustomFormat b = d.toCopy<BLL.CustomFormat>(new BLL.CustomFormat());
-            b.Company = d.CompanyDetail == null ? new BLL.CompanyDetail() : d.CompanyDetail.toCopy<BLL.CompanyDetail>(new BLL.CompanyDetail());
+            b.Fund = d.FundMaster == null ? new BLL.FundMaster() : d.FundMaster.toCopy<BLL.FundMaster>(new BLL.FundMaster());
             return b;
         }
         public List<BLL.CustomFormat> CustomFormat_List()
@@ -25,7 +25,7 @@ namespace NUBEAccounts.SL.Hubs
         {
             try
             {
-                agp.CompanyId = Caller.CompanyId;
+                agp.FundMasterId = Caller.FundMasterId;
                 DAL.CustomFormat d = DB.CustomFormats.Where(x => x.Id == agp.Id).FirstOrDefault();
 
                 if (d == null)

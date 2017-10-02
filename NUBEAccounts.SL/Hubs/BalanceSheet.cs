@@ -12,7 +12,7 @@ namespace NUBEAccounts.SL.Hubs
         public List<BLL.BalanceSheet> Balancesheet_List(DateTime dtFrom, DateTime dtTo)
         {
             List<BLL.BalanceSheet> lstBalanceSheet = new List<BLL.BalanceSheet>();
-            var l1 = DB.AccountGroups.Where(x => x.CompanyId == Caller.CompanyId && (x.GroupName == "Assets" || x.GroupName == "Liabilities"|| x.GroupName=="Equity")).ToList();
+            var l1 = DB.AccountGroups.Where(x => x.FundMasterId == Caller.FundMasterId && (x.GroupName == "Assets" || x.GroupName == "Liabilities"|| x.GroupName=="Equity")).ToList();
             decimal GTotalDr = 0, GTotalCr = 0, GTotalDrOP = 0, GTotalCrOP = 0;
             foreach (var ag in l1)
             {

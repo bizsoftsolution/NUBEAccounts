@@ -32,14 +32,14 @@ namespace NUBEAccounts.Pl.frm.Vouchers
             {
 
                 List<BLL.Payment> PList = new List<BLL.Payment>();
-                List<BLL.CompanyDetail> CList = new List<BLL.CompanyDetail>();
+                List<BLL.FundMaster> CList = new List<BLL.FundMaster>();
 
                 PList.Add(data);
-                CList.Add(BLL.UserAccount.User.UserType.Company);
+                CList.Add(BLL.UserAccount.User.UserType.Fund);
 
                 rptQuickPayment.Reset();
                 ReportDataSource data1 = new ReportDataSource("Payment", PList);
-                ReportDataSource data2 = new ReportDataSource("CompanyDetail", CList);
+                ReportDataSource data2 = new ReportDataSource("FundMaster", CList);
                 ReportDataSource data3 = new ReportDataSource("PDetails", data.PDetails);
 
                 rptQuickPayment.LocalReport.DataSources.Add(data1);
@@ -49,7 +49,7 @@ namespace NUBEAccounts.Pl.frm.Vouchers
 
                 ReportParameter[] par = new ReportParameter[2];
                 par[0] = new ReportParameter("AmountInWords", data.AmountInwords);
-                par[1] = new ReportParameter("Fund",BLL.UserAccount.User.UserType.Company.CompanyName);
+                par[1] = new ReportParameter("Fund",BLL.UserAccount.User.UserType.Fund.FundName);
 
                 rptQuickPayment.LocalReport.SetParameters(par);
 

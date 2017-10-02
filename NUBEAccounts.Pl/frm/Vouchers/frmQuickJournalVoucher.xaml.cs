@@ -32,17 +32,17 @@ namespace NUBEAccounts.Pl.frm.Vouchers
             {
 
                 List<BLL.Journal> JList = new List<BLL.Journal>();
-                List<BLL.CompanyDetail> CList = new List<BLL.CompanyDetail>();
+                List<BLL.FundMaster> CList = new List<BLL.FundMaster>();
                 List<BLL.JournalDetail> JDList = new List<BLL.JournalDetail>();
 
                 JList.Add(data);
                 JDList.Add(data.JDetail);
-                CList.Add(BLL.UserAccount.User.UserType.Company);
+                CList.Add(BLL.UserAccount.User.UserType.Fund);
 
 
                 rptQuickJournal.Reset();
                 ReportDataSource data1 = new ReportDataSource("Journal", JList);
-                ReportDataSource data2 = new ReportDataSource("CompanyDetail", CList);
+                ReportDataSource data2 = new ReportDataSource("FundMaster", CList);
                 ReportDataSource data3 = new ReportDataSource("JDetails", data.JDetails);
 
                 rptQuickJournal.LocalReport.DataSources.Add(data1);
@@ -51,7 +51,7 @@ namespace NUBEAccounts.Pl.frm.Vouchers
                 rptQuickJournal.LocalReport.ReportPath = @"Transaction\rptJournalReceipt.rdlc";
 
                 ReportParameter[] par = new ReportParameter[1];
-               par[0] = new ReportParameter("Fund", BLL.UserAccount.User.UserType.Company.CompanyName);
+               par[0] = new ReportParameter("Fund", BLL.UserAccount.User.UserType.Fund.FundName);
                 rptQuickJournal.LocalReport.SetParameters(par);
 
 

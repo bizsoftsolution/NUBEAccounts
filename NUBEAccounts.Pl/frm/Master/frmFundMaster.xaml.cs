@@ -20,11 +20,10 @@ namespace NUBEAccounts.Pl.frm.Master
     /// <summary>
     /// Interaction logic for FundSetting.xaml
     /// </summary>
-    public partial class FundSetting : UserControl
+    public partial class frmFundMaster : UserControl
     {
-        BLL.CompanyDetail data = new BLL.CompanyDetail();
-        public string FormName = "CompanySetting";
-        public FundSetting()
+        BLL.FundMaster data = new BLL.FundMaster();
+        public frmFundMaster()
         {
             InitializeComponent();
             this.DataContext = data;
@@ -34,7 +33,7 @@ namespace NUBEAccounts.Pl.frm.Master
 
         private void onClientEvents()
         {
-            BLL.NubeAccountClient.NubeAccountHub.On<BLL.CompanyDetail>("CompanyDetail_Save", (cs) =>
+            BLL.NubeAccountClient.NubeAccountHub.On<BLL.FundMaster>("FundMaster_Save", (cs) =>
             {
 
                 this.Dispatcher.Invoke(() =>
@@ -58,8 +57,8 @@ namespace NUBEAccounts.Pl.frm.Master
         }
         private void UserControl_Loaded(object sender, RoutedEventArgs e)
         {
-            BLL.CompanyDetail.Init();
-            data.Find(BLL.UserAccount.User.UserType.Company.Id);
+            BLL.FundMaster.Init();
+            data.Find(BLL.UserAccount.User.UserType.Fund.Id);
                      
         }
        
@@ -70,13 +69,13 @@ namespace NUBEAccounts.Pl.frm.Master
         private void btnSave_Click(object sender, RoutedEventArgs e)
         {
 
-            if (!BLL.UserAccount.AllowInsert(FormName))
+            if (!BLL.UserAccount.AllowInsert(Forms.frmFundMaster))
             {
-                MessageBox.Show(string.Format(Message.PL.DenyInsert, FormName));
+                MessageBox.Show(string.Format(Message.PL.DenyInsert, Forms.frmFundMaster));
             }
-            else if (!BLL.UserAccount.AllowUpdate(FormName))
+            else if (!BLL.UserAccount.AllowUpdate(Forms.frmFundMaster))
             {
-                MessageBox.Show(string.Format(Message.PL.DenyUpdate, FormName));
+                MessageBox.Show(string.Format(Message.PL.DenyUpdate, Forms.frmFundMaster));
             }
            
             else
@@ -92,7 +91,7 @@ namespace NUBEAccounts.Pl.frm.Master
 
         private void btnDelete_Click(object sender, RoutedEventArgs e)
         {
-            if (!BLL.CompanyDetail.UserPermission.AllowDelete)
+            if (!BLL.FundMaster.UserPermission.AllowDelete)
                 MessageBox.Show(string.Format(Message.PL.DenyDelete, lblHead.Text));
             //    else if (MessageBox.Show(Message.PL.Delete_confirmation, "", MessageBoxButton.YesNo) != MessageBoxResult.No)
             else if (MessageBox.Show(Message.PL.Delete_confirmation, "", MessageBoxButton.YesNo) != MessageBoxResult.No)
@@ -128,9 +127,8 @@ namespace NUBEAccounts.Pl.frm.Master
             try
             {
                 frmUserManager f = new frmUserManager();
-                f.LoadWindow(BLL.UserAccount.User.UserType.CompanyId);
-                f.CompanyId = BLL.UserAccount.User.UserType.CompanyId;
-                f.Title = string.Format("Login Users - {0}", BLL.UserAccount.User.UserType.Company.CompanyName);
+                f.LoadWindow();
+                f.Title = string.Format("Login Users - {0}", BLL.UserAccount.User.UserType.Fund.FundName);
                 f.ShowDialog();
             }
             catch (Exception ex) { }

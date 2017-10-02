@@ -12,7 +12,7 @@ namespace NUBEAccounts.SL.Hubs
             List<BLL.VoucherReport> lstVoucherReport = new List<BLL.VoucherReport>();
             BLL.VoucherReport tb = new BLL.VoucherReport();
 
-            var lstLedger = DB.Ledgers.Where(x => x.AccountGroup.CompanyId == Caller.CompanyId & (LedgerId == null || x.Id == LedgerId)).ToList();
+            var lstLedger = DB.Ledgers.Where(x => x.AccountGroup.FundMasterId == Caller.FundMasterId & (LedgerId == null || x.Id == LedgerId)).ToList();
             decimal TotDr = 0, TotCr = 0, GTotCr = 0, GTotDr = 0;
 
             foreach (var l in lstLedger)

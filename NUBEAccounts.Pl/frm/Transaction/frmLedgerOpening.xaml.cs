@@ -122,7 +122,7 @@ namespace NUBEAccounts.Pl.frm.Transaction
             {
                 RptLedger.Reset();
                 ReportDataSource data = new ReportDataSource("Ledger", BLL.Ledger.toList.Where(x => Ledger_Filter(x)).ToList());
-                ReportDataSource data1 = new ReportDataSource("CompanyDetail", BLL.CompanyDetail.toList.Where(x => x.Id == BLL.UserAccount.User.UserType.Company.Id).ToList());
+                ReportDataSource data1 = new ReportDataSource("FundMaster", BLL.FundMaster.toList.Where(x => x.Id == BLL.UserAccount.User.UserType.Fund.Id).ToList());
                 RptLedger.LocalReport.DataSources.Add(data);
                 RptLedger.LocalReport.DataSources.Add(data1);
                 RptLedger.LocalReport.ReportPath = @"Transaction\rptLedgerOpening.rdlc";
@@ -140,8 +140,8 @@ namespace NUBEAccounts.Pl.frm.Transaction
         private void FindDiff()
         {
             var l1 = BLL.Ledger.toList.Where(x => Ledger_Filter(x)).ToList();
-            decimal drAmt = l1.Sum(x => x.OPDr ?? 0);
-            decimal crAmt = l1.Sum(x => x.OPCr ?? 0);
+            decimal drAmt = l1.Sum(x => x.OPDr);
+            decimal crAmt = l1.Sum(x => x.OPCr);
 
             lblMsg.Text = string.Format("Total Debit Balance : {0:N2}, Total Credit Balance : {1:N2}\nDifference : {2:N2}", drAmt, crAmt, Math.Abs(drAmt - crAmt));
             lblMsg.Foreground = drAmt == crAmt ? new SolidColorBrush(Color.FromRgb(0, 0, 255)) : new SolidColorBrush(Color.FromRgb(255, 0, 0));

@@ -12,7 +12,7 @@ namespace NUBEAccounts.SL.Hubs
         public List<BLL.IncomeExpenditure> IncomeExpenditure_List(DateTime dtFrom, DateTime dtTo)
         {
             List<BLL.IncomeExpenditure> lstIncomeExpenditure = new List<BLL.IncomeExpenditure>();
-            var l1 = DB.AccountGroups.Where(x => x.CompanyId == Caller.CompanyId && (x.GroupName == "Income" || x.GroupName == "Expenses")).ToList();
+            var l1 = DB.AccountGroups.Where(x => x.FundMasterId == Caller.FundMasterId && (x.GroupName == "Income" || x.GroupName == "Expenses")).ToList();
             decimal GTotalDr = 0, GTotalCr = 0, GTotalDrOP = 0, GTotalCrOP = 0;
             foreach (var ag in l1)
             {

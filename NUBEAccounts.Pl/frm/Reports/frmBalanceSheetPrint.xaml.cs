@@ -21,7 +21,7 @@ namespace NUBEAccounts.Pl.frm.Reports
     /// </summary>
     public partial class frmBalanceSheetPrint : MetroWindow
     {
-        public static int yy = BLL.UserAccount.User.UserType.Company.LoginAccYear;
+        public static int yy = BLL.UserAccount.User.UserType.Fund.LoginAccYear;
 
         DateTime? dtFrom = new DateTime(yy, 4, 1);
         DateTime? dtTo = new DateTime(yy + 1, 3, 31);
@@ -49,7 +49,7 @@ namespace NUBEAccounts.Pl.frm.Reports
             {
                 RptViewer.Reset();
                 ReportDataSource data = new ReportDataSource("BalanceSheet", list);
-                ReportDataSource data1 = new ReportDataSource("CompanyDetail", BLL.CompanyDetail.toList.Where(x => x.Id == BLL.UserAccount.User.UserType.Company.Id).ToList());
+                ReportDataSource data1 = new ReportDataSource("FundMaster", BLL.FundMaster.toList.Where(x => x.Id == BLL.UserAccount.User.UserType.Fund.Id).ToList());
                 RptViewer.LocalReport.DataSources.Add(data);
                 RptViewer.LocalReport.DataSources.Add(data1);
                 RptViewer.LocalReport.ReportPath = @"Reports\rptBalancesheet.rdlc";

@@ -183,7 +183,7 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
-    <Page Include="frm\Master\FundSetting.xaml">
+    <Page Include="frm\Master\frmFundMaster.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -396,8 +396,8 @@
     <Compile Include="frm\Master\frmUserType.xaml.cs">
       <DependentUpon>frmUserType.xaml</DependentUpon>
     </Compile>
-    <Compile Include="frm\Master\FundSetting.xaml.cs">
-      <DependentUpon>FundSetting.xaml</DependentUpon>
+    <Compile Include="frm\Master\frmFundMaster.xaml.cs">
+      <DependentUpon>frmFundMaster.xaml</DependentUpon>
     </Compile>
     <Compile Include="frm\Reports\DailyBankBalance.xaml.cs">
       <DependentUpon>DailyBankBalance.xaml</DependentUpon>

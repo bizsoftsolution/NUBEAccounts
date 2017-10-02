@@ -21,7 +21,7 @@ namespace NUBEAccounts.Pl.frm.Reports
     /// </summary>
     public partial class frmNECReportPrint : MetroWindow
     {
-        public static int yy = BLL.UserAccount.User.UserType.Company.LoginAccYear;
+        public static int yy = BLL.UserAccount.User.UserType.Fund.LoginAccYear;
 
         DateTime? dtFrom = new DateTime(yy, 4, 1);
         DateTime? dtTo = new DateTime(yy + 1, 3, 31);
@@ -59,7 +59,7 @@ namespace NUBEAccounts.Pl.frm.Reports
                 par[0] = new ReportParameter("DateFrom", dtFrom.ToString());
                 par[1] = new ReportParameter("DateTo", dtTo.ToString());
                 par[2] = new ReportParameter("Title", "NEC Report");
-                par[3] = new ReportParameter("Fund", BLL.UserAccount.User.UserType.Company.CompanyName);
+                par[3] = new ReportParameter("Fund", BLL.UserAccount.User.UserType.Fund.FundName);
 
                 RptViewer.LocalReport.SetParameters(par);
 

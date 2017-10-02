@@ -1,4 +1,4 @@
-﻿<UserControl x:Class="NUBEAccounts.Pl.frm.Master.FundSetting"
+﻿<UserControl x:Class="NUBEAccounts.Pl.frm.Master.frmFundMaster"
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
@@ -32,7 +32,7 @@
                 <Grid Grid.Row="0"  >
                     <StackPanel Orientation="Vertical" Margin="0,0,10,0">
 
-                        <TextBox x:Name="txtCompanyName" MaxLength="100" IsReadOnly="{Binding IsReadOnly,Mode=OneWay}" Text="{Binding CompanyName, Mode=TwoWay}" Style="{StaticResource MaterialDesignFloatingHintTextBox}" FontWeight="Bold" FontSize="14" Width="450">
+                        <TextBox x:Name="txtFundName" MaxLength="100" IsReadOnly="{Binding IsReadOnly,Mode=OneWay}" Text="{Binding FundName, Mode=TwoWay}" Style="{StaticResource MaterialDesignFloatingHintTextBox}" FontWeight="Bold" FontSize="14" Width="450">
                             <materialDesign:HintAssist.Hint>
                                 <StackPanel Orientation="Horizontal">
                                     <materialDesign:PackIcon Kind="Cash" Foreground="{Binding BorderBrush, ElementName=PhoneTextBox}"  Height="25" Width="25" />

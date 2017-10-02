@@ -158,7 +158,7 @@
                 <StackPanel Orientation="Horizontal" Height="42"  >
                     <materialDesign:PackIcon Kind="Cash"  Height="26" Width="26" Foreground="{DynamicResource PrimaryHueDarkBrush}" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="60,17,0,0"  />
                     <TextBlock Text="Fund" Foreground="{DynamicResource PrimaryHueDarkBrush}" HorizontalAlignment="Center" VerticalAlignment="Bottom" FontSize="14.667" FontWeight="Bold" Width="68"  />
-                    <TextBox x:Name="txtFund" Text="{Binding CompanyName, Mode=TwoWay}" Foreground="{DynamicResource PrimaryHueDarkBrush}"  FontSize="16" FontWeight="Bold" Width="250" Margin="25,11,0,0" OverridesDefaultStyle="True"/>
+                    <TextBox x:Name="txtFund" Text="{Binding FundName, Mode=TwoWay}" Foreground="{DynamicResource PrimaryHueDarkBrush}"  FontSize="16" FontWeight="Bold" Width="250" Margin="25,11,0,0" OverridesDefaultStyle="True"/>
 
                 </StackPanel>
                 <StackPanel Orientation="Horizontal" Height="38" >

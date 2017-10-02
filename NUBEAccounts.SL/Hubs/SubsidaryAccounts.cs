@@ -12,7 +12,7 @@ namespace NUBEAccounts.SL.Hubs
         public List<BLL.SubsidaryAccounts> SubsidaryAccounts_List(DateTime dtFrom, DateTime dtTo)
         {
             List<BLL.SubsidaryAccounts> lstSubsidaryAccounts = new List<BLL.SubsidaryAccounts>();
-            var l1 = DB.AccountGroups.Where(x => x.CompanyId == Caller.CompanyId && (x.GroupName == "Other Current Asset" || x.GroupName == "Other Current Liability" )).ToList();
+            var l1 = DB.AccountGroups.Where(x => x.FundMasterId == Caller.FundMasterId && (x.GroupName == "Other Current Asset" || x.GroupName == "Other Current Liability" )).ToList();
             decimal GTotalDr = 0, GTotalCr = 0, GTotalDrOP = 0, GTotalCrOP = 0;
             foreach (var ag in l1)
             {

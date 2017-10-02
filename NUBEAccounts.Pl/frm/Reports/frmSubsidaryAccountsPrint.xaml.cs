@@ -21,7 +21,7 @@ namespace NUBEAccounts.Pl.frm.Reports
     /// </summary>
     public partial class frmSubsidaryAccountsPrint : MetroWindow
     {
-        public static int yy = BLL.UserAccount.User.UserType.Company.LoginAccYear;
+        public static int yy = BLL.UserAccount.User.UserType.Fund.LoginAccYear;
 
         DateTime? dtFrom = new DateTime(yy, 4, 1);
         DateTime? dtTo = new DateTime(yy + 1, 3, 31);
@@ -49,7 +49,7 @@ namespace NUBEAccounts.Pl.frm.Reports
             {
                 RptViewer.Reset();
                 ReportDataSource data = new ReportDataSource("SubsidaryAccounts", list);
-                ReportDataSource data1 = new ReportDataSource("CompanyDetail", BLL.CompanyDetail.toList.Where(x => x.Id == BLL.UserAccount.User.UserType.Company.Id).ToList());
+                ReportDataSource data1 = new ReportDataSource("FundMaster", BLL.FundMaster.toList.Where(x => x.Id == BLL.UserAccount.User.UserType.Fund.Id).ToList());
                 RptViewer.LocalReport.DataSources.Add(data);
                 RptViewer.LocalReport.DataSources.Add(data1);
                 RptViewer.LocalReport.ReportPath = @"Reports\rptSubsidaryAccount.rdlc";
@@ -57,7 +57,7 @@ namespace NUBEAccounts.Pl.frm.Reports
                 ReportParameter[] par = new ReportParameter[3];
                 par[0] = new ReportParameter("DateFrom", dtFrom.ToString());
                 par[1] = new ReportParameter("DateTo", dtTo.ToString());
-                par[2] = new ReportParameter("Fund", BLL.UserAccount.User.UserType.Company.CompanyName);
+                par[2] = new ReportParameter("Fund", BLL.UserAccount.User.UserType.Fund.FundName);
                 RptViewer.LocalReport.SetParameters(par);
 
 

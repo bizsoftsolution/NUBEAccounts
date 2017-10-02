@@ -26,7 +26,7 @@ namespace NUBEAccounts.Pl.frm.Reports
           public frmDailyBankBalance()
         {
             InitializeComponent();
-            int yy = BLL.UserAccount.User.UserType.Company.LoginAccYear;
+            int yy = BLL.UserAccount.User.UserType.Fund.LoginAccYear;
 
             DateTime? dtFrom = new DateTime(yy, 4, 1);
             DateTime? dtTo = new DateTime(yy + 1, 3, 31);

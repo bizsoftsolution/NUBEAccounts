@@ -11,9 +11,17 @@ namespace NUBEAccounts.SL.Hubs
         {
             decimal PDr, PCr, RDr, RCr, JDr, JCr;
 
-            OPDr = l.OPDr ?? 0;
-            OPCr = l.OPCr ?? 0;
-
+            var bal = l.ACYearLedgerBalances.Where(x => x.ACYearMaster.ACYear == Caller.AccYear).FirstOrDefault();
+            if (bal != null)
+            {
+                OPDr = bal.DrAmt ?? 0;
+                OPCr = bal.CrAmt ?? 0;
+            }else
+            {
+                OPDr = 0;
+                OPCr = 0;
+            }
+            
             PDr = l.PaymentDetails.Where(x => x.Payment.PaymentDate < dtFrom).Sum(x => x.Amount);
             PCr = l.Payments.Where(x => x.PaymentDate < dtFrom).Sum(x => x.Amount);
 
@@ -95,7 +103,7 @@ namespace NUBEAccounts.SL.Hubs
             List<BLL.TrialBalance> lstTrialBalance = new List<BLL.TrialBalance>();
             BLL.TrialBalance tb = new BLL.TrialBalance();
 
-            var lstLedger = DB.Ledgers.Where(x => x.AccountGroup.CompanyId == Caller.CompanyId).OrderBy(x=> x.LedgerCode).ThenBy(x=> x.LedgerName).ToList();
+            var lstLedger = DB.Ledgers.Where(x => x.AccountGroup.FundMasterId == Caller.FundMasterId).OrderBy(x=> x.LedgerCode).ThenBy(x=> x.LedgerName).ToList();
             decimal TotDr = 0, TotCr = 0, TotOPCr = 0, TotOPDr = 0;
 
             foreach (var l in lstLedger)

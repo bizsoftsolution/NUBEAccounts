@@ -33,7 +33,7 @@ namespace NUBEAccounts.Pl.frm.Reports
             InitializeComponent();
             rptBalanceSheet.SetDisplayMode(DisplayMode.PrintLayout);
 
-            int yy = BLL.UserAccount.User.UserType.Company.LoginAccYear;
+            int yy = BLL.UserAccount.User.UserType.Fund.LoginAccYear;
 
             DateTime? dtFrom = new DateTime(yy, 4, 1);
             DateTime? dtTo = new DateTime(yy + 1, 3, 31);
@@ -60,7 +60,7 @@ namespace NUBEAccounts.Pl.frm.Reports
             {
                 rptBalanceSheet.Reset();
                 ReportDataSource data = new ReportDataSource("BalanceSheet", list);
-                ReportDataSource data1 = new ReportDataSource("CompanyDetail", BLL.CompanyDetail.toList.Where(x => x.Id == BLL.UserAccount.User.UserType.Company.Id).ToList());
+                ReportDataSource data1 = new ReportDataSource("FundMaster", BLL.FundMaster.toList.Where(x => x.Id == BLL.UserAccount.User.UserType.Fund.Id).ToList());
                 rptBalanceSheet.LocalReport.DataSources.Add(data);
                 rptBalanceSheet.LocalReport.DataSources.Add(data1);
                 rptBalanceSheet.LocalReport.ReportPath = @"Reports\rptBalanceSheet.rdlc";

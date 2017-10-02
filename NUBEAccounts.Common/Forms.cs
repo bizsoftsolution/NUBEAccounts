@@ -8,7 +8,7 @@ namespace NUBEAccounts.Common
 {
     public static class Forms
     {
-        public static readonly string frmCompanySetting = "NUBEAccounts.Pl.frm.Master.frmLedger",
+        public static readonly string frmFundMaster = "NUBEAccounts.Pl.frm.Master.frmFundMaster",
                                         frmCustomFormat = "NUBEAccounts.Pl.frm.Master.frmCustomSetting",
                                         frmUser = "NUBEAccounts.Pl.frm.Master.frmUser",
                                         frmUserType = "NUBEAccounts.Pl.frm.Master.frmUserType",

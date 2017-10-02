@@ -21,7 +21,7 @@ namespace NUBEAccounts.Pl.frm.Reports
     /// </summary>
     public partial class frmActivityReportPrint : MetroWindow
     {
-        public static int yy = BLL.UserAccount.User.UserType.Company.LoginAccYear;
+        public static int yy = BLL.UserAccount.User.UserType.Fund.LoginAccYear;
 
         DateTime? dtFrom = new DateTime(yy, 4, 1);
         DateTime? dtTo = new DateTime(yy + 1, 3, 31);
@@ -51,7 +51,7 @@ namespace NUBEAccounts.Pl.frm.Reports
                     ReportParameter[] par = new ReportParameter[3];
                     par[0] = new ReportParameter("DateFrom", dtFrom.ToString());
                     par[1] = new ReportParameter("DateTo", dtTo.ToString());
-                    par[2] = new ReportParameter("Fund",BLL.UserAccount.User.UserType.Company.CompanyName);
+                    par[2] = new ReportParameter("Fund",BLL.UserAccount.User.UserType.Fund.FundName);
                     RptViewer.LocalReport.SetParameters(par);
 
                     RptViewer.RefreshReport();

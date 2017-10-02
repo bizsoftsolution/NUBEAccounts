@@ -16,7 +16,7 @@ namespace NUBEAccounts.SL.Hubs
          
             BLL.ExpenseReport rp = new BLL.ExpenseReport();
 
-            var lstLedger = DB.Ledgers.Where(x => x.AccountGroup.CompanyId == Caller.CompanyId && (x.AccountGroup.GroupName == BLL.DataKeyValue.Expenses_Key || x.AccountGroup.AccountGroup2.GroupName == BLL.DataKeyValue.Expenses_Key) && (LedgerId == null || x.Id == LedgerId)).ToList();
+            var lstLedger = DB.Ledgers.Where(x => x.AccountGroup.FundMasterId == Caller.FundMasterId && (x.AccountGroup.GroupName == BLL.DataKeyValue.Expenses_Key || x.AccountGroup.AccountGroup2.GroupName == BLL.DataKeyValue.Expenses_Key) && (LedgerId == null || x.Id == LedgerId)).ToList();
 
             if(AccountHead==false)
             {

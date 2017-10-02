@@ -21,7 +21,6 @@ namespace NUBEAccounts.Pl.frm.Master
     public partial class frmUser : MetroWindow
     {
         public BLL.UserAccount data = new BLL.UserAccount();
-        public int UnderCompanyId;
         public frmUser()
         {
             InitializeComponent();
@@ -29,10 +28,10 @@ namespace NUBEAccounts.Pl.frm.Master
             this.DataContext = data;            
            
         }
-        public void LoadWindow(int CompanyId)
+        public void LoadWindow()
         {
             btnUserTypeSetting.Visibility = BLL.UserType.UserPermission.IsViewForm ? Visibility.Visible : Visibility.Collapsed;
-            cmbUserType.ItemsSource = BLL.UserType.toList.Where(x => x.CompanyId == UnderCompanyId).ToList();
+            cmbUserType.ItemsSource = BLL.UserType.toList;
             cmbUserType.DisplayMemberPath = "TypeOfUser";
             cmbUserType.SelectedValuePath = "Id";
         }
@@ -55,7 +54,7 @@ namespace NUBEAccounts.Pl.frm.Master
                 if (BLL.UserAccount.User.Id == data.Id)
                 {
                     BLL.UserAccount.User.UserName = data.UserName;
-                    App.frmHome.Title = String.Format("{0} - {1}", BLL.UserAccount.User.UserName, BLL.UserAccount.User.UserType.Company.CompanyName);
+                    App.frmHome.Title = String.Format("{0} - {1}", BLL.UserAccount.User.UserName, BLL.UserAccount.User.UserType.Fund.FundName);
                 }
                 this.Close();
             }
@@ -69,8 +68,7 @@ namespace NUBEAccounts.Pl.frm.Master
         private void btnUserTypeSetting_Click(object sender, RoutedEventArgs e)
         {
             frmUserType frm = new frmUserType();
-            frm.UnderCompanyId = UnderCompanyId;
-            frm.LoadWindow(UnderCompanyId);
+            frm.LoadWindow();
             frm.ShowDialog();
         }
     }

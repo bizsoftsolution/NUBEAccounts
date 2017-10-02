@@ -33,7 +33,7 @@ namespace NUBEAccounts.Pl.frm.Reports
         {
             InitializeComponent();
             rptViewer.SetDisplayMode(DisplayMode.PrintLayout);
-            int yy = BLL.UserAccount.User.UserType.Company.LoginAccYear;
+            int yy = BLL.UserAccount.User.UserType.Fund.LoginAccYear;
 
             DateTime? dtFrom = new DateTime(yy, 4, 1);
             DateTime? dtTo = new DateTime(yy + 1, 3, 31);
@@ -71,7 +71,7 @@ namespace NUBEAccounts.Pl.frm.Reports
                     ReportParameter[] par = new ReportParameter[4];
                     par[0] = new ReportParameter("DateFrom", dtpDateFrom.SelectedDate.Value.ToString());
                     par[1] = new ReportParameter("DateTo", dtpDateTo.SelectedDate.Value.ToString());
-                    par[2] = new ReportParameter("Fund", BLL.UserAccount.User.UserType.Company.CompanyName);
+                    par[2] = new ReportParameter("Fund", BLL.UserAccount.User.UserType.Fund.FundName);
                     rptViewer.LocalReport.SetParameters(par);
 
                     rptViewer.RefreshReport();

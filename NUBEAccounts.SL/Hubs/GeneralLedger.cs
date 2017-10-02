@@ -12,7 +12,7 @@ namespace NUBEAccounts.SL.Hubs
         {
             List<BLL.GeneralLedger> lstGeneralLedger = new List<BLL.GeneralLedger>();
             BLL.GeneralLedger gl = new BLL.GeneralLedger();
-            var lstLedger = DB.Ledgers.Where(x => x.AccountGroup.CompanyDetail.Id == Caller.CompanyId && x.Id == LedgerId).ToList();
+            var lstLedger = DB.Ledgers.Where(x => x.AccountGroup.FundMaster.Id == Caller.FundMasterId && x.Id == LedgerId).ToList();
 
             #region Ledger
             decimal? OPDr, OPCr, PDr, PCr, RDr, RCr, JDr, JCr, BalAmt;
@@ -21,8 +21,8 @@ namespace NUBEAccounts.SL.Hubs
             {
                 gl = new BLL.GeneralLedger();
                 gl.Ledger = LedgerDAL_BLL(l);
-                OPDr = l.OPDr ?? 0;
-                OPCr = l.OPCr ?? 0;
+                OPDr = gl.Ledger.OPDr;
+                OPCr = gl.Ledger.OPCr;
 
                 PDr = l.PaymentDetails.Where(x => x.Payment.PaymentDate < dtFrom).Sum(x => x.Amount);
                 PCr = l.Payments.Where(x => x.PaymentDate < dtFrom).Sum(x => x.Amount);
@@ -175,7 +175,7 @@ namespace NUBEAccounts.SL.Hubs
         {
             List<BLL.GeneralLedger> lstActivity_ToList = new List<BLL.GeneralLedger>();
             BLL.GeneralLedger gl = new BLL.GeneralLedger();
-            var lstLedger = DB.Ledgers.Where(x => x.AccountGroup.CompanyDetail.Id == Caller.CompanyId).ToList();
+            var lstLedger = DB.Ledgers.Where(x => x.AccountGroup.FundMaster.Id == Caller.FundMasterId).ToList();
 
             #region Ledger
 

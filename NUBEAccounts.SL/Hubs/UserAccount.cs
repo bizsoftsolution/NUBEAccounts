@@ -23,22 +23,21 @@ namespace NUBEAccounts.SL.Hubs
             try
             {
                 DAL.UserAccount ua = DB.UserAccounts
-                                  .Where(x => x.UserType.CompanyDetail.CompanyName == CompanyName
+                                  .Where(x => x.UserType.FundMaster.FundName== CompanyName
                                     && x.LoginId == LoginId
-                                    && x.Password == Password && x.UserType.CompanyDetail.IsActive != false)
+                                    && x.Password == Password && x.UserType.FundMaster.IsActive != false)
                                     .FirstOrDefault();
                 if (ua != null)
                 {
-                    Groups.Add(Context.ConnectionId, ua.UserType.CompanyId.ToString());
-                    Caller.CompanyId = ua.UserType.CompanyId;
-                    Caller.UnderCompanyId = ua.UserType.CompanyDetail.UnderCompanyId;
-                    Caller.CompanyType = ua.UserType.CompanyDetail.CompanyType;
+                    Groups.Add(Context.ConnectionId, ua.UserType.FundMasterId.ToString());
+                    Caller.FundMasterId = ua.UserType.FundMasterId;
+                   
                     Caller.UserId = ua.Id;
                     Caller.AccYear = AccYear;
                     rv = UserAccountDAL_BLL(ua);
                     int yy = DateTime.Now.Month < 4 ? DateTime.Now.Year - 1 : DateTime.Now.Year;
                     if (AccYear.Length > 4) int.TryParse(AccYear.Substring(0, 4), out yy);
-                    rv.UserType.Company.LoginAccYear = yy;
+                    rv.UserType.Fund.LoginAccYear = yy;
                     return rv;
 
                 }
@@ -51,7 +50,7 @@ namespace NUBEAccounts.SL.Hubs
             catch (Exception ex)
             {
 
-                WriteErrorLog("Login", "UserAccount_Login", rv.Id, Caller.CompanyId, ex.Message);
+                WriteErrorLog("Login", "UserAccount_Login", rv.Id, Caller.FundMasterId, ex.Message);
                 return rv;
             }
 
@@ -60,7 +59,7 @@ namespace NUBEAccounts.SL.Hubs
 
         public List<BLL.UserAccount> UserAccount_List()
         {
-            var l1 = DB.UserAccounts.Where(x => x.UserType.CompanyDetail.Id == Caller.CompanyId || x.UserType.CompanyDetail.UnderCompanyId == Caller.CompanyId).ToList()
+            var l1 = DB.UserAccounts.Where(x => x.UserType.FundMaster.Id == Caller.FundMasterId).ToList()
                                   .Select(x => UserAccountDAL_BLL(x)).ToList();
 
             return l1;
@@ -129,11 +128,11 @@ namespace NUBEAccounts.SL.Hubs
             try
             {
                 DAL.UserAccount ua = DB.UserAccounts
-                                  .Where(x => x.UserType.CompanyDetail.CompanyName == CompanyName
+                                  .Where(x => x.UserType.FundMaster.FundName == CompanyName
                                     && x.LoginId == LoginId
                                     && x.Password == Password
                                     && x.UserType.TypeOfUser == BLL.DataKeyValue.Administrator_Key
-                                    && x.UserType.CompanyDetail.IsActive != false)
+                                    && x.UserType.FundMaster.IsActive != false)
                                     .FirstOrDefault();
                 if (ua != null)
                 {
@@ -150,7 +149,7 @@ namespace NUBEAccounts.SL.Hubs
             catch (Exception ex)
             {
 
-                WriteErrorLog("Login", "UserAccount_Login", 0, Caller.CompanyId, ex.Message);
+                WriteErrorLog("Login", "UserAccount_Login", 0, Caller.FundMasterId, ex.Message);
                 return true;
             }
 

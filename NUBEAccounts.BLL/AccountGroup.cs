@@ -19,10 +19,10 @@ namespace NUBEAccounts.BLL
         private string _groupNameWithCode;
         private string _groupCode;
         private int? _underGroupId;
-        private int _companyId;
+        private int _fundMasterId;
         private AccountGroup _UnderAccountGroup;
         private List<AccountGroup> _SubAccountGroup;
-        private CompanyDetail _Company;
+        private FundMaster _Fund;
         private string _underGroupName;
 
         private static UserTypeDetail _UserPermission;
@@ -160,18 +160,18 @@ namespace NUBEAccounts.BLL
                 }
             }
         }
-        public int CompanyId
+        public int FundMasterId
         {
             get
             {
-                return _companyId;
+                return _fundMasterId;
             }
             set
             {
-                if (_companyId != value)
+                if (_fundMasterId != value)
                 {
-                    _companyId = value;
-                    NotifyPropertyChanged(nameof(CompanyId));
+                    _fundMasterId = value;
+                    NotifyPropertyChanged(nameof(FundMasterId));
                 }
             }
         }
@@ -221,18 +221,18 @@ namespace NUBEAccounts.BLL
                 }
             }
         }
-        public CompanyDetail Company
+        public FundMaster Fund
         {
             get
             {
-                return _Company;
+                return _Fund;
             }
             set
             {
-                if (_Company != value)
+                if (_Fund != value)
                 {
-                    _Company = value;
-                    NotifyPropertyChanged(nameof(Company));
+                    _Fund = value;
+                    NotifyPropertyChanged(nameof(Fund));
                 }
             }
         }

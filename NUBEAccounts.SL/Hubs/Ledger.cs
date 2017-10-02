@@ -17,13 +17,13 @@ namespace NUBEAccounts.SL.Hubs
             try
             {
                 ledgerTo = ledgerFrom.toCopy<BLL.Ledger>(new BLL.Ledger());
-
                 ledgerTo.AccountGroup = AccountGroupDAL_BLL(ledgerFrom.AccountGroup);
-
-                //ledgerTo.CreditLimitType = new BLL.CreditLimitType();
-                //ledgerFrom.CreditLimitType.toCopy<BLL.CreditLimitType>(ledgerTo.CreditLimitType);
-
-
+                var bal = ledgerFrom.ACYearLedgerBalances.Where(x => x.ACYearMaster.ACYear == Caller.AccYear).FirstOrDefault();
+                if (bal != null)
+                {
+                    ledgerTo.OPDr = bal.DrAmt ?? 0;
+                    ledgerTo.OPCr = bal.CrAmt ?? 0;
+                }
             }
             catch (Exception ex)
             {
@@ -35,13 +35,13 @@ namespace NUBEAccounts.SL.Hubs
 
         public List<BLL.Ledger> Ledger_List()
         {
-            return DB.Ledgers.Where(x => x.AccountGroup.CompanyDetail.Id == Caller.CompanyId).OrderBy(x=> x.LedgerCode).ThenBy(x=> x.LedgerName).ToList()
+            return DB.Ledgers.Where(x => x.AccountGroup.FundMaster.Id == Caller.FundMasterId).OrderBy(x=> x.LedgerCode).ThenBy(x=> x.LedgerName).ToList()
                              .Select(x => LedgerDAL_BLL(x)).ToList();
         }
 
         public List<BLL.Ledger> CashLedger_List()
         {
-            return DB.Ledgers.Where(x => x.AccountGroup.CompanyDetail.Id == Caller.CompanyId && x.AccountGroup.GroupName == "Bank Accounts" || x.AccountGroup.GroupName == "Cash-in-Hand").ToList()
+            return DB.Ledgers.Where(x => x.AccountGroup.FundMaster.Id == Caller.FundMasterId && x.AccountGroup.GroupName == "Bank Accounts" || x.AccountGroup.GroupName == "Cash-in-Hand").ToList()
                              .Select(x => LedgerDAL_BLL(x)).ToList();
         }
 
