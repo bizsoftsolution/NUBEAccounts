@@ -38,7 +38,7 @@ namespace NUBEAccounts.SL.Hubs
 
                 if (d == null)
                 {
-                    var c = DB.FundMasters.Where(x => x.Id == ut.FundMasterId).FirstOrDefault();
+                    var c = DB.FundMasters.Where(x => x.Id == Caller.FundMasterId).FirstOrDefault();
 
                     d = new DAL.UserType();
                     c.UserTypes.Add(d);

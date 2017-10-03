@@ -99,6 +99,11 @@ namespace NUBEAccounts.Pl.frm.Master
 
         private void dgvDetail_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
+            ckbAllViewForm.IsChecked = false;
+            ckbAllAllowInsert.IsChecked = false;
+            ckbAllAllowUpdate.IsChecked = false;
+            ckbAllAllowDelete.IsChecked = false;
+
             ViewForm();
         }
 
@@ -111,10 +116,10 @@ namespace NUBEAccounts.Pl.frm.Master
         private void Clear()
         {
             data.Clear();
-            //ckbAllViewForm.IsChecked = false;
-            //ckbAllAllowInsert.IsChecked = false;
-            //ckbAllAllowUpdate.IsChecked = false;
-            //ckbAllAllowDelete.IsChecked = false;
+            ckbAllViewForm.IsChecked = false;
+            ckbAllAllowInsert.IsChecked = false;
+            ckbAllAllowUpdate.IsChecked = false;
+            ckbAllAllowDelete.IsChecked = false;           
         }
         private void onClientEvents()
         {
