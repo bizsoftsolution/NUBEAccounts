@@ -33,13 +33,13 @@ namespace NUBEAccounts.BLL
         private int _CurrencyCaseSensitive;
         private bool _IsDisplayWithOnlyOnSuffix;
 
-        private int _CompanyId;
+        private int _FundMasterId;
 
         private decimal? _SampleCurrency;
         private decimal? _SampleCurrencyPositive;
         private decimal? _SampleCurrencyNegative;
 
-        private CompanyDetail _Company;
+        private FundMaster _Fund;
 
         private static UserTypeDetail _UserPermission;
         private bool _IsReadOnly;
@@ -460,35 +460,35 @@ namespace NUBEAccounts.BLL
         }
 
 
-        public int CompanyId
+        public int FundMasterId
         {
             get
             {
-                return _CompanyId;
+                return _FundMasterId;
             }
 
             set
             {
-                if (_CompanyId != value)
+                if (_FundMasterId != value)
                 {
-                    _CompanyId = value;
-                    NotifyPropertyChanged(nameof(CompanyId));
+                    _FundMasterId = value;
+                    NotifyPropertyChanged(nameof(FundMasterId));
                 }
             }
         }
 
-        public CompanyDetail Company
+        public FundMaster Fund
         {
             get
             {
-                return _Company;
+                return _Fund;
             }
             set
             {
-                if (_Company != value)
+                if (_Fund != value)
                 {
-                    _Company = value;
-                    NotifyPropertyChanged(nameof(Company));
+                    _Fund = value;
+                    NotifyPropertyChanged(nameof(Fund));
                 }
             }
         }
@@ -550,21 +550,10 @@ namespace NUBEAccounts.BLL
             NotifyAllPropertyChanged();
         }
 
-        public bool Find(int CompanyId)
+        public bool Find(int FundMasterId)
         {
-            int CId;
+            d = toList.Where(x => x.FundMasterId == FundMasterId).FirstOrDefault();
 
-            if (BLL.UserAccount.User.UserType.Company.CompanyType == "Warehouse" || BLL.UserAccount.User.UserType.Company.CompanyType == "Dealer")
-            {
-                CId = (int)BLL.UserAccount.User.UserType.Company.UnderCompanyId;
-                d = toList.Where(x => x.CompanyId == CId).FirstOrDefault();
-
-            }
-            else
-            {
-                d = toList.Where(x => x.CompanyId == CompanyId).FirstOrDefault();
-
-            }
             if (d != null)
             {
                 d.toCopy<CustomFormat>(this);
@@ -613,7 +602,7 @@ namespace NUBEAccounts.BLL
         public static void SetDataFormat()
         {
             CustomFormat V = new CustomFormat();
-            V.Find(UserAccount.User.UserType.CompanyId);
+            V.Find(UserAccount.User.UserType.FundMasterId);
 
             Common.AppLib.CurrencyPositiveSymbolPrefix = V.CurrencyPositiveSymbolPrefix;
             Common.AppLib.CurrencyPositiveSymbolSuffix = V.CurrencyPositiveSymbolSuffix;

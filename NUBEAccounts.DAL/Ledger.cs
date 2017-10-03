@@ -17,6 +17,7 @@ namespace NUBEAccounts.DAL
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
         public Ledger()
         {
+            this.ACYearLedgerBalances = new HashSet<ACYearLedgerBalance>();
             this.JournalDetails = new HashSet<JournalDetail>();
             this.Payments = new HashSet<Payment>();
             this.PaymentDetails = new HashSet<PaymentDetail>();
@@ -26,24 +27,12 @@ namespace NUBEAccounts.DAL
     
         public int Id { get; set; }
         public string LedgerName { get; set; }
-        public string PersonIncharge { get; set; }
-        public string AddressLine1 { get; set; }
-        public string AddressLine2 { get; set; }
-        public string CityName { get; set; }
-        public string TelephoneNo { get; set; }
-        public string MobileNo { get; set; }
-        public string EMailId { get; set; }
-        public string GSTNo { get; set; }
-        public Nullable<short> CreditLimit { get; set; }
-        public Nullable<int> CreditLimitTypeId { get; set; }
-        public Nullable<double> CreditAmount { get; set; }
-        public Nullable<decimal> OPDr { get; set; }
-        public Nullable<decimal> OPCr { get; set; }
         public string LedgerCode { get; set; }
         public int AccountGroupId { get; set; }
     
         public virtual AccountGroup AccountGroup { get; set; }
-        public virtual CreditLimitType CreditLimitType { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<ACYearLedgerBalance> ACYearLedgerBalances { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<JournalDetail> JournalDetails { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]

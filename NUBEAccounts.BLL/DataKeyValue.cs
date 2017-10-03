@@ -16,7 +16,7 @@ namespace NUBEAccounts.BLL
         private int _Id;
         private string _DataKey;
         private int _DataValue;
-        private int _CompanyId;
+        private int _FundMasterId;
         #endregion
 
         #region Property
@@ -889,18 +889,18 @@ namespace NUBEAccounts.BLL
             }
         }
 
-        public int CompanyId
+        public int FundMasterId
         {
             get
             {
-                return _CompanyId;
+                return _FundMasterId;
             }
             set
             {
-                if (_CompanyId != value)
+                if (_FundMasterId != value)
                 {
-                    _CompanyId = value;
-                    NotifyPropertyChanged(nameof(CompanyId));
+                    _FundMasterId = value;
+                    NotifyPropertyChanged(nameof(FundMasterId));
                 }
             }
         }

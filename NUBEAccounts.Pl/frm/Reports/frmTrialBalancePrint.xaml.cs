@@ -21,7 +21,7 @@ namespace NUBEAccounts.Pl.frm.Reports
     /// </summary>
     public partial class frmTrialBalancePrint : MetroWindow
     {
-        public static int yy = BLL.UserAccount.User.UserType.Company.LoginAccYear;
+        public static int yy = BLL.UserAccount.User.UserType.Fund.LoginAccYear;
 
         DateTime? dtFrom = new DateTime(yy, 4, 1);
         DateTime? dtTo = new DateTime(yy + 1, 3, 31);
@@ -49,10 +49,8 @@ namespace NUBEAccounts.Pl.frm.Reports
             try
             {
                 rptViewer.Reset();
-                ReportDataSource data = new ReportDataSource("TrialBalance", list);
-               // ReportDataSource data1 = new ReportDataSource("CompanyDetail", BLL.CompanyDetail.toList.Where(x => x.Id == BLL.UserAccount.User.UserType.Company.Id).ToList());
+                ReportDataSource data = new ReportDataSource("TrialBalance", list);               
                 rptViewer.LocalReport.DataSources.Add(data);
-                //rptViewer.LocalReport.DataSources.Add(data1);
                 rptViewer.LocalReport.ReportPath = @"Reports\rptTrialBalance.rdlc";
 
                 ReportParameter[] par = new ReportParameter[2];

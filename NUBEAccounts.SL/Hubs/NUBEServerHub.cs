@@ -79,7 +79,7 @@ namespace NUBEAccounts.SL.Hubs
                 SLUser u = UserList.Where(x => x.ConnectionId == Context.ConnectionId).FirstOrDefault();
                 if (u == null)
                 {
-                    u = new SLUser() { ConnectionId = Context.ConnectionId, UserId = 0, CompanyId = 0 };
+                    u = new SLUser() { ConnectionId = Context.ConnectionId, UserId = 0, FundMasterId = 0 };
                     UserList.Add(u);
                 }
                 return u;
@@ -128,7 +128,7 @@ namespace NUBEAccounts.SL.Hubs
         {
             get
             {
-                return UserList.Where(x => x.CompanyId == Caller.CompanyId)
+                return UserList.Where(x => x.FundMasterId == Caller.FundMasterId)
                                .Select(x => x.ConnectionId.ToString())
                                .ToList();
             }
@@ -138,7 +138,7 @@ namespace NUBEAccounts.SL.Hubs
         {
             get
             {
-                return UserList.Where(x => x.CompanyId == Caller.CompanyId && x.UserId != 0)
+                return UserList.Where(x => x.FundMasterId == Caller.FundMasterId && x.UserId != 0)
                                .Select(x => x.ConnectionId.ToString())
                                .ToList();
             }
@@ -148,7 +148,7 @@ namespace NUBEAccounts.SL.Hubs
         {
             get
             {
-                return UserList.Where(x => x.CompanyId == Caller.CompanyId && x.UserId != Caller.UserId)
+                return UserList.Where(x => x.FundMasterId == Caller.FundMasterId && x.UserId != Caller.UserId)
                                .Select(x => x.ConnectionId.ToString())
                                .ToList();
             }
@@ -158,7 +158,7 @@ namespace NUBEAccounts.SL.Hubs
         {
             get
             {
-                return UserList.Where(x => x.CompanyId == Caller.CompanyId && x.UserId != 0 && x.UserId != Caller.UserId)
+                return UserList.Where(x => x.FundMasterId == Caller.FundMasterId && x.UserId != 0 && x.UserId != Caller.UserId)
                                .Select(x => x.ConnectionId.ToString())
                                .ToList();
             }
@@ -175,7 +175,7 @@ namespace NUBEAccounts.SL.Hubs
             SLUser u = UserList.Where(x => x.ConnectionId == Context.ConnectionId).FirstOrDefault();
             if (u == null)
             {
-                u = new SLUser() { ConnectionId = Context.ConnectionId, UserId = 0, CompanyId = 0 };
+                u = new SLUser() { ConnectionId = Context.ConnectionId, UserId = 0, FundMasterId = 0 };
                 UserList.Add(u);
             }
             return base.OnConnected();

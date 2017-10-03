@@ -32,7 +32,7 @@ namespace NUBEAccounts.Pl.frm.Reports
         {
             InitializeComponent();
             rptViewer.SetDisplayMode(DisplayMode.PrintLayout);
-            int yy = BLL.UserAccount.User.UserType.Company.LoginAccYear;
+            int yy = BLL.UserAccount.User.UserType.Fund.LoginAccYear;
 
             DateTime? dtFrom = new DateTime(yy, 4, 1);
             DateTime? dtTo = new DateTime(yy + 1, 3, 31);
@@ -69,7 +69,7 @@ namespace NUBEAccounts.Pl.frm.Reports
                 {
                     rptViewer.Reset();
                     ReportDataSource data = new ReportDataSource("PaymentAndReceipt", list);
-                    ReportDataSource data1 = new ReportDataSource("CompanyDetail", BLL.CompanyDetail.toList.Where(x => x.Id == BLL.UserAccount.User.UserType.CompanyId).ToList());
+                    ReportDataSource data1 = new ReportDataSource("FundMaster", BLL.FundMaster.toList.Where(x => x.Id == BLL.UserAccount.User.UserType.FundMasterId).ToList());
                     rptViewer.LocalReport.DataSources.Add(data);
                     rptViewer.LocalReport.DataSources.Add(data1);
                     if (ckbAccountHead.IsChecked != true)
@@ -86,7 +86,7 @@ namespace NUBEAccounts.Pl.frm.Reports
                     par[0] = new ReportParameter("DateFrom", dtpDateFrom.SelectedDate.Value.ToString());
                     par[1] = new ReportParameter("DateTo", dtpDateTo.SelectedDate.Value.ToString());
                     par[2] = new ReportParameter("Title", "NEC Report");
-                    par[3] = new ReportParameter("Fund", BLL.UserAccount.User.UserType.Company.CompanyName);
+                    par[3] = new ReportParameter("Fund", BLL.UserAccount.User.UserType.Fund.FundName);
                     rptViewer.LocalReport.SetParameters(par);
 
                     rptViewer.RefreshReport();

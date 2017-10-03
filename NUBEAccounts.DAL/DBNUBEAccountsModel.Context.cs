@@ -26,12 +26,14 @@ namespace NUBEAccounts.DAL
         }
     
         public virtual DbSet<AccountGroup> AccountGroups { get; set; }
-        public virtual DbSet<CompanyDetail> CompanyDetails { get; set; }
-        public virtual DbSet<CreditLimitType> CreditLimitTypes { get; set; }
+        public virtual DbSet<ACYearLedgerBalance> ACYearLedgerBalances { get; set; }
+        public virtual DbSet<ACYearMaster> ACYearMasters { get; set; }
+        public virtual DbSet<ACYearStatu> ACYearStatus { get; set; }
         public virtual DbSet<CustomFormat> CustomFormats { get; set; }
         public virtual DbSet<DataKeyValue> DataKeyValues { get; set; }
         public virtual DbSet<EntityType> EntityTypes { get; set; }
         public virtual DbSet<ErrorLog> ErrorLogs { get; set; }
+        public virtual DbSet<FundMaster> FundMasters { get; set; }
         public virtual DbSet<Journal> Journals { get; set; }
         public virtual DbSet<JournalDetail> JournalDetails { get; set; }
         public virtual DbSet<Ledger> Ledgers { get; set; }

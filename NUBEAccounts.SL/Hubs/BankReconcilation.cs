@@ -14,7 +14,7 @@ namespace NUBEAccounts.SL.Hubs
 
             BLL.BankReconcilation gl = new BLL.BankReconcilation();
 
-            var lstLedger = DB.Ledgers.Where(x => x.AccountGroup.CompanyDetail.Id == Caller.CompanyId && x.Id == LedgerId).ToList();
+            var lstLedger = DB.Ledgers.Where(x => x.AccountGroup.FundMaster.Id == Caller.FundMasterId && x.Id == LedgerId).ToList();
 
             #region Ledger
 

@@ -15,7 +15,7 @@ namespace NUBEAccounts.SL.Hubs
 
             BLL.IncomeReport rp = new BLL.IncomeReport();
 
-            var lstLedger = DB.Ledgers.Where(x => x.AccountGroup.CompanyId == Caller.CompanyId && (x.AccountGroup.GroupName == BLL.DataKeyValue.Income_Key || x.AccountGroup.AccountGroup2.GroupName == BLL.DataKeyValue.Income_Key) && (LedgerId == null || x.Id == LedgerId)).ToList();
+            var lstLedger = DB.Ledgers.Where(x => x.AccountGroup.FundMasterId == Caller.FundMasterId && (x.AccountGroup.GroupName == BLL.DataKeyValue.Income_Key || x.AccountGroup.AccountGroup2.GroupName == BLL.DataKeyValue.Income_Key) && (LedgerId == null || x.Id == LedgerId)).ToList();
 
             if (AccountHead == false)
             {

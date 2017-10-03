@@ -54,8 +54,7 @@
     <Compile Include="AccountGroup.cs" />
     <Compile Include="BalanceSheet.cs" />
     <Compile Include="BankReconcilation.cs" />
-    <Compile Include="CompanyDetail.cs" />
-    <Compile Include="CreditLimitType.cs" />
+    <Compile Include="FundMaster.cs" />
     <Compile Include="CustomFormat.cs" />
     <Compile Include="DailyBankBalance.cs" />
     <Compile Include="DataKeyValue.cs" />

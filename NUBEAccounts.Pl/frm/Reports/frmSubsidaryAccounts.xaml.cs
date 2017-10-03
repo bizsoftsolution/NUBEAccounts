@@ -33,7 +33,7 @@ namespace NUBEAccounts.Pl.frm.Reports
             InitializeComponent();
             rptBalanceSheet.SetDisplayMode(DisplayMode.PrintLayout);
 
-            int yy = BLL.UserAccount.User.UserType.Company.LoginAccYear;
+            int yy = BLL.UserAccount.User.UserType.Fund.LoginAccYear;
 
             DateTime? dtFrom = new DateTime(yy, 4, 1);
             DateTime? dtTo = new DateTime(yy + 1, 3, 31);
@@ -60,7 +60,7 @@ namespace NUBEAccounts.Pl.frm.Reports
             {
                 rptBalanceSheet.Reset();
                 ReportDataSource data = new ReportDataSource("SubsidaryAccounts", list);
-                ReportDataSource data1 = new ReportDataSource("CompanyDetail", BLL.CompanyDetail.toList.Where(x => x.Id == BLL.UserAccount.User.UserType.Company.Id).ToList());
+                ReportDataSource data1 = new ReportDataSource("FundMaster", BLL.FundMaster.toList.Where(x => x.Id == BLL.UserAccount.User.UserType.Fund.Id).ToList());
                 rptBalanceSheet.LocalReport.DataSources.Add(data);
                 rptBalanceSheet.LocalReport.DataSources.Add(data1);
                 rptBalanceSheet.LocalReport.ReportPath = @"Reports\rptSubsidaryAccount.rdlc";
@@ -68,7 +68,7 @@ namespace NUBEAccounts.Pl.frm.Reports
                 ReportParameter[] par = new ReportParameter[3];
                 par[0] = new ReportParameter("DateFrom", dtpDateFrom.Text);
                 par[1] = new ReportParameter("DateTo", dtpDateTo.Text);
-                par[2] = new ReportParameter("Fund",BLL.UserAccount.User.UserType.Company.CompanyName);
+                par[2] = new ReportParameter("Fund",BLL.UserAccount.User.UserType.Fund.FundName);
                 rptBalanceSheet.LocalReport.SetParameters(par);
 
 

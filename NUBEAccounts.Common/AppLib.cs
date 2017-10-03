@@ -35,12 +35,18 @@ namespace NUBEAccounts.Common
         public static int DigitGroupingBy;
         public static int CurrencyCaseSensitive;
 
+
+        public enum ACYearStatus
+        {
+            Open = 1,
+            Close = 2
+        }
         public static T toCopy<T>(this object objSource, T objDestination)
         {
             try
             {
 
-                var l1 = objSource.GetType().GetProperties().Where(x => x.PropertyType.Namespace != "System.Collections.Generic").ToList();
+                var l1 = objSource.GetType().GetProperties().Where(x => x.GetMethod != null && !x.GetMethod.IsStatic).ToList();
 
                 foreach (var pFrom in l1)
                 {

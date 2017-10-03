@@ -32,15 +32,15 @@ namespace NUBEAccounts.Pl.frm.Vouchers
             {
 
                 List<BLL.Receipt> RList = new List<BLL.Receipt>();
-                List<BLL.CompanyDetail> CList = new List<BLL.CompanyDetail>();
+                List<BLL.FundMaster> CList = new List<BLL.FundMaster>();
 
                 RList.Add(data);
-                CList.Add(BLL.UserAccount.User.UserType.Company);
+                CList.Add(BLL.UserAccount.User.UserType.Fund);
 
 
                 rptQuickReceipt.Reset();
                 ReportDataSource data1 = new ReportDataSource("Receipt", RList);
-                ReportDataSource data2 = new ReportDataSource("CompanyDetail", CList);
+                ReportDataSource data2 = new ReportDataSource("FundMaster", CList);
                 ReportDataSource data3 = new ReportDataSource("RDetails", data.RDetails);
 
                 rptQuickReceipt.LocalReport.DataSources.Add(data1);
@@ -50,7 +50,7 @@ namespace NUBEAccounts.Pl.frm.Vouchers
 
                 ReportParameter[] par = new ReportParameter[2];
                 par[0] = new ReportParameter("AmountInWords", data.AmountInwords);
-                par[1] = new ReportParameter("Fund", BLL.UserAccount.User.UserType.Company.CompanyName);
+                par[1] = new ReportParameter("Fund", BLL.UserAccount.User.UserType.Fund.FundName);
                 rptQuickReceipt.LocalReport.SetParameters(par);
 
 

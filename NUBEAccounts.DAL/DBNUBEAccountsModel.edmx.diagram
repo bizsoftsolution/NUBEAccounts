@@ -5,35 +5,39 @@
     <!-- Diagram content (shape and connector positions) -->
     <edmx:Diagrams>
       <Diagram DiagramId="72cc82ddde4b4a64a9c1cc4821b47763" Name="Diagram1">
-        <EntityTypeShape EntityType="DBNUBEAccountsModel.AccountGroup" Width="1.5" PointX="0.75" PointY="2.625" />
-        <EntityTypeShape EntityType="DBNUBEAccountsModel.CompanyDetail" Width="1.5" PointX="1.5" PointY="11.625" />
-        <EntityTypeShape EntityType="DBNUBEAccountsModel.CreditLimitType" Width="1.5" PointX="0.75" PointY="7.125" />
-        <EntityTypeShape EntityType="DBNUBEAccountsModel.CustomFormat" Width="1.5" PointX="3.75" PointY="17.125" />
-        <EntityTypeShape EntityType="DBNUBEAccountsModel.DataKeyValue" Width="1.5" PointX="2.75" PointY="0.75" />
-        <EntityTypeShape EntityType="DBNUBEAccountsModel.EntityType" Width="1.5" PointX="9" PointY="23.25" />
-        <EntityTypeShape EntityType="DBNUBEAccountsModel.ErrorLog" Width="1.5" PointX="8.75" PointY="0.75" />
-        <EntityTypeShape EntityType="DBNUBEAccountsModel.Journal" Width="1.5" PointX="6" PointY="2.5" />
-        <EntityTypeShape EntityType="DBNUBEAccountsModel.JournalDetail" Width="1.5" PointX="8.25" PointY="6.75" />
-        <EntityTypeShape EntityType="DBNUBEAccountsModel.Ledger" Width="1.5" PointX="3" PointY="5.125" />
-        <EntityTypeShape EntityType="DBNUBEAccountsModel.LogDetail" Width="1.5" PointX="8.25" PointY="25.625" />
-        <EntityTypeShape EntityType="DBNUBEAccountsModel.LogDetailType" Width="1.5" PointX="6" PointY="29" />
-        <EntityTypeShape EntityType="DBNUBEAccountsModel.LogMaster" Width="1.5" PointX="11.25" PointY="25.375" />
-        <EntityTypeShape EntityType="DBNUBEAccountsModel.Payment" Width="1.5" PointX="5.25" PointY="11.625" />
-        <EntityTypeShape EntityType="DBNUBEAccountsModel.PaymentDetail" Width="1.5" PointX="7.5" PointY="10.5" />
-        <EntityTypeShape EntityType="DBNUBEAccountsModel.Receipt" Width="1.5" PointX="5.25" PointY="6.375" />
-        <EntityTypeShape EntityType="DBNUBEAccountsModel.ReceiptDetail" Width="1.5" PointX="10.5" PointY="6.875" />
-        <EntityTypeShape EntityType="DBNUBEAccountsModel.UserAccount" Width="1.5" PointX="6" PointY="25.75" />
-        <EntityTypeShape EntityType="DBNUBEAccountsModel.UserType" Width="1.5" PointX="3.75" PointY="22.375" />
-        <EntityTypeShape EntityType="DBNUBEAccountsModel.UserTypeDetail" Width="1.5" PointX="6" PointY="22.125" />
-        <EntityTypeShape EntityType="DBNUBEAccountsModel.UserTypeFormDetail" Width="1.5" PointX="3.75" PointY="25.875" />
+        <EntityTypeShape EntityType="DBNUBEAccountsModel.AccountGroup" Width="1.5" PointX="3" PointY="26.125" />
+        <EntityTypeShape EntityType="DBNUBEAccountsModel.ACYearLedgerBalance" Width="1.5" PointX="7.5" PointY="23.375" />
+        <EntityTypeShape EntityType="DBNUBEAccountsModel.ACYearMaster" Width="1.5" PointX="3" PointY="20.125" />
+        <EntityTypeShape EntityType="DBNUBEAccountsModel.ACYearStatu" Width="1.5" PointX="0.75" PointY="22.5" />
+        <EntityTypeShape EntityType="DBNUBEAccountsModel.CustomFormat" Width="1.5" PointX="3" PointY="14.5" />
+        <EntityTypeShape EntityType="DBNUBEAccountsModel.DataKeyValue" Width="1.5" PointX="0.75" PointY="0.75" />
+        <EntityTypeShape EntityType="DBNUBEAccountsModel.EntityType" Width="1.5" PointX="8.25" PointY="12.25" />
+        <EntityTypeShape EntityType="DBNUBEAccountsModel.ErrorLog" Width="1.5" PointX="2.75" PointY="0.75" />
+        <EntityTypeShape EntityType="DBNUBEAccountsModel.FundMaster" Width="1.5" PointX="0.75" PointY="19.125" />
+        <EntityTypeShape EntityType="DBNUBEAccountsModel.Journal" Width="1.5" PointX="8.25" PointY="19.125" />
+        <EntityTypeShape EntityType="DBNUBEAccountsModel.JournalDetail" Width="1.5" PointX="10.5" PointY="26.25" />
+        <EntityTypeShape EntityType="DBNUBEAccountsModel.Ledger" Width="1.5" PointX="5.25" PointY="26" />
+        <EntityTypeShape EntityType="DBNUBEAccountsModel.LogDetail" Width="1.5" PointX="7.5" PointY="14.625" />
+        <EntityTypeShape EntityType="DBNUBEAccountsModel.LogDetailType" Width="1.5" PointX="5.25" PointY="18" />
+        <EntityTypeShape EntityType="DBNUBEAccountsModel.LogMaster" Width="1.5" PointX="10.5" PointY="14.375" />
+        <EntityTypeShape EntityType="DBNUBEAccountsModel.Payment" Width="1.5" PointX="7.5" PointY="34.375" />
+        <EntityTypeShape EntityType="DBNUBEAccountsModel.PaymentDetail" Width="1.5" PointX="9.75" PointY="33.25" />
+        <EntityTypeShape EntityType="DBNUBEAccountsModel.Receipt" Width="1.5" PointX="7.5" PointY="29.125" />
+        <EntityTypeShape EntityType="DBNUBEAccountsModel.ReceiptDetail" Width="1.5" PointX="9.75" PointY="29.625" />
+        <EntityTypeShape EntityType="DBNUBEAccountsModel.UserAccount" Width="1.5" PointX="5.25" PointY="14.75" />
+        <EntityTypeShape EntityType="DBNUBEAccountsModel.UserType" Width="1.5" PointX="3" PointY="11.375" />
+        <EntityTypeShape EntityType="DBNUBEAccountsModel.UserTypeDetail" Width="1.5" PointX="5.25" PointY="11.125" />
+        <EntityTypeShape EntityType="DBNUBEAccountsModel.UserTypeFormDetail" Width="1.5" PointX="3" PointY="7" />
         <AssociationConnector Association="DBNUBEAccountsModel.FK_AccountGroup_AccountGroup" />
         <AssociationConnector Association="DBNUBEAccountsModel.FK_AccountGroup_CompanyDetail" />
         <AssociationConnector Association="DBNUBEAccountsModel.FK_Ledger_AccountGroup" />
-        <AssociationConnector Association="DBNUBEAccountsModel.FK_CompanyDetail_CompanyDetail" />
+        <AssociationConnector Association="DBNUBEAccountsModel.FK_ACYearLedgerBalance_ACYearMaster" />
+        <AssociationConnector Association="DBNUBEAccountsModel.FK_ACYearLedgerBalance_Ledger" />
+        <AssociationConnector Association="DBNUBEAccountsModel.FK_ACYearMaster_ACYearStatus" />
+        <AssociationConnector Association="DBNUBEAccountsModel.FK_ACYearMaster_CompanyDetail" />
         <AssociationConnector Association="DBNUBEAccountsModel.FK_CustomFormat_CompanyDetail" />
-        <AssociationConnector Association="DBNUBEAccountsModel.FK_UserType_CompanyDetail" />
-        <AssociationConnector Association="DBNUBEAccountsModel.FK_Ledger_CreditLimitType" />
         <AssociationConnector Association="DBNUBEAccountsModel.FK_LogMaster_EntityType" />
+        <AssociationConnector Association="DBNUBEAccountsModel.FK_UserType_CompanyDetail" />
         <AssociationConnector Association="DBNUBEAccountsModel.FK_JournalDetail_Journal" />
         <AssociationConnector Association="DBNUBEAccountsModel.FK_JournalDetail_Ledger" />
         <AssociationConnector Association="DBNUBEAccountsModel.FK_Payment_Ledger" />

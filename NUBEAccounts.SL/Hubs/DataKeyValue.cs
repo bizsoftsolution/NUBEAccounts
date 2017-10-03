@@ -17,7 +17,7 @@ namespace NUBEAccounts.SL.Hubs
         public List<BLL.DataKeyValue> DataKeyValue_List()
         {
 
-            var l1 = DB.DataKeyValues.Where(x => x.CompanyId == Caller.CompanyId).ToList()
+            var l1 = DB.DataKeyValues.Where(x => x.FundMasterId == Caller.FundMasterId).ToList()
                              .Select(x => DataKeyValueDAL_BLL(x)).ToList();
             return l1;
         }

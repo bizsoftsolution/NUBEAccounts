@@ -12,7 +12,7 @@ namespace NUBEAccounts.SL.Hubs
         {
             List<BLL.ReceiptAndPayment> lstReceiptAndPayment = new List<BLL.ReceiptAndPayment>();
             BLL.ReceiptAndPayment rp = new BLL.ReceiptAndPayment();
-            var lstLedger = DB.Ledgers.Where(x => x.AccountGroup.CompanyId == Caller.CompanyId && (LedgerId == null || x.Id == LedgerId)).ToList();
+            var lstLedger = DB.Ledgers.Where(x => x.AccountGroup.FundMasterId == Caller.FundMasterId && (LedgerId == null || x.Id == LedgerId)).ToList();
             #region Ledger
             decimal? TotAmountDr = 0, TotAmountCr = 0;
 
@@ -218,7 +218,7 @@ namespace NUBEAccounts.SL.Hubs
         {
             List<BLL.ReceiptAndPayment> lstReceiptAndPayment = new List<BLL.ReceiptAndPayment>();
             BLL.ReceiptAndPayment rp = new BLL.ReceiptAndPayment();
-            var lstLedger = DB.Ledgers.Where(x => x.AccountGroup.CompanyId == Caller.CompanyId && (LedgerId == null || x.Id == LedgerId)).ToList();
+            var lstLedger = DB.Ledgers.Where(x => x.AccountGroup.FundMasterId == Caller.FundMasterId && (LedgerId == null || x.Id == LedgerId)).ToList();
             decimal? TotAmountDr = 0, TotAmountCr = 0;
             decimal? TLAmountDr = 0, TLAmountCr = 0;
 

@@ -61,17 +61,10 @@ namespace NUBEAccounts.Pl.frm.Master
             cmbAccountGroupId.ItemsSource = BLL.AccountGroup.toList.ToList();
             cmbAccountGroupId.DisplayMemberPath = "GroupName";
             cmbAccountGroupId.SelectedValuePath = "Id";
+            
 
-
-
-            //cmbCreditLimitTypeId.ItemsSource = BLL.CreditLimitType.toList;
-            //cmbCreditLimitTypeId.SelectedValuePath = "Id";
-            //cmbCreditLimitTypeId.DisplayMemberPath = "LimitType";
-
-            cmbAccountType.ItemsSource = BLL.Ledger.ACTypeList;
-
-            btnSave.Visibility = (BLL.CompanyDetail.UserPermission.AllowInsert || BLL.CompanyDetail.UserPermission.AllowUpdate) ? Visibility.Visible : Visibility.Collapsed;
-            btnDelete.Visibility = BLL.CompanyDetail.UserPermission.AllowDelete ? Visibility.Visible : Visibility.Collapsed;
+            btnSave.Visibility = (BLL.FundMaster.UserPermission.AllowInsert || BLL.FundMaster.UserPermission.AllowUpdate) ? Visibility.Visible : Visibility.Collapsed;
+            btnDelete.Visibility = BLL.FundMaster.UserPermission.AllowDelete ? Visibility.Visible : Visibility.Collapsed;
 
         }
 
@@ -267,8 +260,8 @@ namespace NUBEAccounts.Pl.frm.Master
             try
             {
                 RptLedger.Reset();
-                ReportDataSource data = new ReportDataSource("Ledger", BLL.Ledger.toList.Where(x => Ledger_Filter(x)).Select(x => new { x.LedgerName, x.AddressLine1, x.AddressLine2, x.CityName, x.OPCr, x.OPDr,x.LedgerCode,PersonIncharge = x.AccountGroup.GroupName }).OrderBy(x => x.LedgerCode).ToList());
-                ReportDataSource data1 = new ReportDataSource("CompanyDetail", BLL.CompanyDetail.toList.Where(x => x.Id == BLL.UserAccount.User.UserType.Company.Id).ToList());
+                ReportDataSource data = new ReportDataSource("Ledger", BLL.Ledger.toList.Where(x => Ledger_Filter(x)).Select(x => new { x.LedgerName, x.LedgerCode,PersonIncharge = x.AccountGroup.GroupName }).OrderBy(x => x.LedgerCode).ToList());
+                ReportDataSource data1 = new ReportDataSource("FundMaster", BLL.FundMaster.toList.Where(x => x.Id == BLL.UserAccount.User.UserType.Fund.Id).ToList());
                 RptLedger.LocalReport.DataSources.Add(data);
                 RptLedger.LocalReport.DataSources.Add(data1);
                 RptLedger.LocalReport.ReportPath = @"Master\RptLedger.rdlc";
@@ -290,7 +283,7 @@ namespace NUBEAccounts.Pl.frm.Master
 
         private void onClientEvents()
         {
-            BLL.NubeAccountClient.NubeAccountHub.On<BLL.Ledger>("Ledger_Save", (led) =>
+            BLL.NubeAccountClient.NubeAccountHub.On<BLL.Ledger>(Message.SL.Ledger_Save, (led) =>
             {
 
                 this.Dispatcher.Invoke(() =>
@@ -300,7 +293,7 @@ namespace NUBEAccounts.Pl.frm.Master
 
             });
 
-            BLL.NubeAccountClient.NubeAccountHub.On("Ledger_Delete", (Action<int>)((pk) =>
+            BLL.NubeAccountClient.NubeAccountHub.On(Message.SL.Ledger_Delete, (Action<int>)((pk) =>
             {
                 this.Dispatcher.Invoke((Action)(() =>
                 {

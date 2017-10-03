@@ -405,7 +405,7 @@
         </Field>
         <Field Name="Company">
           <DataField>Company</DataField>
-          <rd:TypeName>NUBEAccounts.BLL.CompanyDetail</rd:TypeName>
+          <rd:TypeName>NUBEAccounts.BLL.FundMaster</rd:TypeName>
         </Field>
         <Field Name="CompanyId">
           <DataField>CompanyId</DataField>

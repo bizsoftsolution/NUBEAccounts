@@ -40,7 +40,7 @@ namespace NUBEAccounts.Pl.frm.Tools
 
         private void LoadReport()
         {
-            int yy = BLL.UserAccount.User.UserType.Company.LoginAccYear;
+            int yy = BLL.UserAccount.User.UserType.Fund.LoginAccYear;
 
             DateTime dtFrom = new DateTime(yy, 4, 1);
             DateTime dtTo = new DateTime(yy + 1, 3, 31);
@@ -54,7 +54,7 @@ namespace NUBEAccounts.Pl.frm.Tools
             {
                 rptViewer.Reset();
                 ReportDataSource data = new ReportDataSource("TrialBalance", list);
-                ReportDataSource data1 = new ReportDataSource("CompanyDetail", BLL.CompanyDetail.toList.Where(x => x.Id == BLL.UserAccount.User.UserType.Company.Id).ToList());
+                ReportDataSource data1 = new ReportDataSource("FundMaster", BLL.FundMaster.toList.Where(x => x.Id == BLL.UserAccount.User.UserType.Fund.Id).ToList());
                 rptViewer.LocalReport.DataSources.Add(data);
                 rptViewer.LocalReport.DataSources.Add(data1);
                 rptViewer.LocalReport.ReportPath = @"Reports\rptTrialBalance.rdlc";
@@ -80,7 +80,7 @@ namespace NUBEAccounts.Pl.frm.Tools
             var tb = dgvTrialBalance.SelectedItem as BLL.TrialBalance;
             if (tb != null)
             {
-                int yy = BLL.UserAccount.User.UserType.Company.LoginAccYear;
+                int yy = BLL.UserAccount.User.UserType.Fund.LoginAccYear;
 
                 DateTime dtFrom = new DateTime(yy, 4, 1);
                 DateTime dtTo = new DateTime(yy + 1, 3, 31);
@@ -225,7 +225,7 @@ namespace NUBEAccounts.Pl.frm.Tools
 
         private void btnPrintPreview_Click(object sender, RoutedEventArgs e)
         {
-            int yy = BLL.UserAccount.User.UserType.Company.LoginAccYear;
+            int yy = BLL.UserAccount.User.UserType.Fund.LoginAccYear;
 
             DateTime dtFrom = new DateTime(yy, 4, 1);
             DateTime dtTo = new DateTime(yy + 1, 3, 31);

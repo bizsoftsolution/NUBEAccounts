@@ -11,15 +11,15 @@ namespace NUBEAccounts.SL.Hubs
         #region Journal        
         public string Journal_NewRefNo(DateTime dt)
         {
-            return Journal_NewRefNoByCompanyId(Caller.CompanyId, dt);
+            return Journal_NewRefNoByFund(Caller.FundMasterId, dt);
         }
 
-        public string Journal_NewRefNoByCompanyId(int CompanyId, DateTime dt)
+        public string Journal_NewRefNoByFund(int FundMasterId, DateTime dt)
         {
             string Prefix = string.Format("{0}/{1:X}/", BLL.FormPrefix.Journal, dt.Month);
             long No = 0;
 
-            var d1 = DB.Journals.Where(x => x.JournalDetails.FirstOrDefault().Ledger.AccountGroup.CompanyId == Caller.CompanyId && x.VoucherNo.StartsWith(Prefix) && x.JournalDate.Year == dt.Year).Select(x => x.VoucherNo).ToList();
+            var d1 = DB.Journals.Where(x => x.JournalDetails.FirstOrDefault().Ledger.AccountGroup.FundMasterId == Caller.FundMasterId && x.VoucherNo.StartsWith(Prefix) && x.JournalDate.Year == dt.Year).Select(x => x.VoucherNo).ToList();
             if (d1.Count() > 0)
             {
                 No = d1.Select(x => Convert.ToInt64(x.Substring(Prefix.Length), 10)).Max();
@@ -29,16 +29,16 @@ namespace NUBEAccounts.SL.Hubs
         }
         public string Journal_NewEntryNo()
         {
-            return Journal_NewEntryNoByCompanyId(Caller.CompanyId);
+            return Journal_NewEntryNoByFund(Caller.FundMasterId);
         }
 
-        public string Journal_NewEntryNoByCompanyId(int CompanyId)
+        public string Journal_NewEntryNoByFund(int FundMasterId)
         {
             DateTime dt = DateTime.Now;
             string Prefix = string.Format("{0}{1:yy}{2:X}", BLL.FormPrefix.Journal, dt, dt.Month);
             long No = 0;
 
-            var d = DB.Journals.Where(x => x.JournalDetails.FirstOrDefault().Ledger.AccountGroup.CompanyId == CompanyId && x.EntryNo.StartsWith(Prefix))
+            var d = DB.Journals.Where(x => x.JournalDetails.FirstOrDefault().Ledger.AccountGroup.FundMasterId == FundMasterId && x.EntryNo.StartsWith(Prefix))
                                      .OrderByDescending(x => x.EntryNo)
                                      .FirstOrDefault();
 
@@ -109,7 +109,7 @@ namespace NUBEAccounts.SL.Hubs
             try
             {
 
-                DAL.Journal d = DB.Journals.Where(x => x.EntryNo == SearchText && x.JournalDetails.FirstOrDefault().Ledger.AccountGroup.CompanyId == Caller.CompanyId).FirstOrDefault();
+                DAL.Journal d = DB.Journals.Where(x => x.EntryNo == SearchText && x.JournalDetails.FirstOrDefault().Ledger.AccountGroup.FundMasterId == Caller.FundMasterId).FirstOrDefault();
                 DB.Entry(d).Reload();
                 if (d != null)
                 {
@@ -134,7 +134,7 @@ namespace NUBEAccounts.SL.Hubs
             try
             {
 
-                DAL.Journal d = DB.Journals.Where(x => x.Id == id && x.JournalDetails.FirstOrDefault().Ledger.AccountGroup.CompanyId == Caller.CompanyId).FirstOrDefault();
+                DAL.Journal d = DB.Journals.Where(x => x.Id == id && x.JournalDetails.FirstOrDefault().Ledger.AccountGroup.FundMasterId == Caller.FundMasterId).FirstOrDefault();
                 DB.Entry(d).Reload();
                 if (d != null)
                 {
@@ -186,7 +186,7 @@ namespace NUBEAccounts.SL.Hubs
         public bool Find_JEntryNo(string entryNo, BLL.Payment PO)
 
         {
-            DAL.Journal d = DB.Journals.Where(x => x.EntryNo == entryNo & x.Id != PO.Id && x.JournalDetails.FirstOrDefault().Ledger.AccountGroup.CompanyId == Caller.CompanyId).FirstOrDefault();
+            DAL.Journal d = DB.Journals.Where(x => x.EntryNo == entryNo & x.Id != PO.Id && x.JournalDetails.FirstOrDefault().Ledger.AccountGroup.FundMasterId == Caller.FundMasterId).FirstOrDefault();
             if (d == null)
             {
                 return false;
@@ -231,28 +231,28 @@ namespace NUBEAccounts.SL.Hubs
 
         int LedgerIdByKey(string key)
         {
-            return LedgerIdByKeyAndCompany(key, Caller.CompanyId);
+            return LedgerIdByKeyAndFund(key, Caller.FundMasterId);
         }
 
-        int LedgerIdByKeyAndCompany(string key, int CompanyId)
+        int LedgerIdByKeyAndFund(string key, int FundMasterId)
         {
-            return DB.DataKeyValues.Where(x => x.CompanyId == CompanyId && x.DataKey == key).FirstOrDefault().DataValue;
+            return DB.DataKeyValues.Where(x => x.FundMasterId == FundMasterId && x.DataKey == key).FirstOrDefault().DataValue;
         }
-        int LedgerIdByCompany(string LName, int CompanyId)
+        int LedgerIdByFund(string LName, int FundMasterId)
         {
-            var l = DB.Ledgers.Where(x => x.LedgerName == LName && x.AccountGroup.CompanyId == CompanyId).FirstOrDefault();
+            var l = DB.Ledgers.Where(x => x.LedgerName == LName && x.AccountGroup.FundMasterId == FundMasterId).FirstOrDefault();
             return l == null ? 0 : l.Id;
         }
-        int CompanyIdByLedgerName(string LedgerName)
+        int FundMasterIdByLedgerName(string LedgerName)
         {
-            var CName = LedgerName.Substring(3);
-            var cm = DB.CompanyDetails.Where(x => x.CompanyName == CName).FirstOrDefault();
-            return cm == null ? 0 : cm.Id;
+            var FName = LedgerName.Substring(3);
+            var fm = DB.FundMasters.Where(x => x.FundName == FName).FirstOrDefault();
+            return fm == null ? 0 : fm.Id;
         }
-        string LedgerNameByCompanyId(int CompanyId)
+        string LedgerNameByFund(int FundMasterId)
         {
-            var cm = DB.CompanyDetails.Where(x => x.Id == CompanyId).FirstOrDefault();
-            return string.Format("{0}-{1}", cm.CompanyType == "Company" ? "CM" : (cm.CompanyType == "Warehouse" ? "WH" : "DL"), cm.CompanyName);
+            var cm = DB.FundMasters.Where(x => x.Id == FundMasterId).FirstOrDefault();
+            return string.Format("CM-{0}",  cm.FundName);
         }
 
         #region Payment
@@ -272,21 +272,21 @@ namespace NUBEAccounts.SL.Hubs
                     j.EntryNo = Journal_NewRefNo(DateTime.Now);
                     j.JournalDate = P.PaymentDate;
 
-                    var CId = CompanyIdByLedgerName(ld.LedgerName);
+                    var CId = FundMasterIdByLedgerName(ld.LedgerName);
                     if (CId != 0)
                     {
-                        var LName = LedgerNameByCompanyId(Caller.CompanyId);
+                        var LName = LedgerNameByFund(Caller.FundMasterId);
 
                         j.JournalDetails.Add(new DAL.JournalDetail()
                         {
-                            LedgerId = LedgerIdByKeyAndCompany(BLL.DataKeyValue.CashLedger_Key, CId),
+                            LedgerId = LedgerIdByKeyAndFund(BLL.DataKeyValue.CashLedger_Key, CId),
                             DrAmt = P.Amount,
                             Particulars = P.Particulars
                         });
                         j.JournalDetails.Add(new DAL.JournalDetail()
                         {
 
-                            LedgerId = LedgerIdByCompany(LName, CId),
+                            LedgerId = LedgerIdByFund(LName, CId),
                             CrAmt = P.Amount,
                             Particulars = P.Particulars
                         });
@@ -336,21 +336,21 @@ namespace NUBEAccounts.SL.Hubs
                     j.EntryNo = R.EntryNo;
                     j.JournalDate = R.ReceiptDate;
 
-                    var CId = CompanyIdByLedgerName(ld.LedgerName);
+                    var CId = FundMasterIdByLedgerName(ld.LedgerName);
                     if (CId != 0)
                     {
-                        var LName = LedgerNameByCompanyId(Caller.CompanyId);
+                        var LName = LedgerNameByFund(Caller.FundMasterId);
 
                         j.JournalDetails.Add(new DAL.JournalDetail()
                         {
-                            LedgerId = LedgerIdByKeyAndCompany(BLL.DataKeyValue.CashLedger_Key, CId),
+                            LedgerId = LedgerIdByKeyAndFund(BLL.DataKeyValue.CashLedger_Key, CId),
                             DrAmt = R.Amount,
                             Particulars = R.Particulars
                         });
                         j.JournalDetails.Add(new DAL.JournalDetail()
                         {
 
-                            LedgerId = LedgerIdByCompany(LName, CId),
+                            LedgerId = LedgerIdByFund(LName, CId),
                             CrAmt = R.Amount,
                             Particulars = R.Particulars
                         });

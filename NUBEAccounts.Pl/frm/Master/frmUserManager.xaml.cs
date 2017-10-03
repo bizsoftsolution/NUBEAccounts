@@ -22,17 +22,15 @@ namespace NUBEAccounts.Pl.frm.Master
     /// </summary>
     public partial class frmUserManager : MetroWindow
     {
-        public  int CompanyId;
 
         public frmUserManager()
         {
             InitializeComponent();
-            onClientEvents();
-            
-    }
+            onClientEvents();            
+        }
 
 
-    private void onClientEvents()
+        private void onClientEvents()
         {
 
 
@@ -51,11 +49,9 @@ namespace NUBEAccounts.Pl.frm.Master
         private void btnNewUser_Click(object sender, RoutedEventArgs e)
         {
             frmUser f = new frmUser();
-            f.UnderCompanyId = CompanyId;
-            f.LoadWindow(CompanyId);
+            f.LoadWindow();
             f.ShowDialog();
-            LoadWindow(CompanyId);
-            //f.data.UserType.CompanyId = userId;
+            LoadWindow();
 
         }
 
@@ -64,11 +60,10 @@ namespace NUBEAccounts.Pl.frm.Master
             var u = dgvUsers.SelectedItem as BLL.UserAccount;
 
             frmUser f = new frmUser();
-            f.UnderCompanyId = CompanyId;
-            f.LoadWindow(CompanyId);
-            u.toCopy<BLL.UserAccount>(f.data);            
+            f.LoadWindow();
+            u.toCopy<BLL.UserAccount>(f.data);             
             f.ShowDialog();
-            LoadWindow(CompanyId);
+            LoadWindow();
 
         }
 
@@ -86,7 +81,7 @@ namespace NUBEAccounts.Pl.frm.Master
                     if (u.Delete() == true)
                     {
                         MessageBox.Show(Message.PL.Delete_Alert);
-                        LoadWindow(CompanyId);
+                        LoadWindow();
                     }
                 }
             }
@@ -98,9 +93,9 @@ namespace NUBEAccounts.Pl.frm.Master
          
         }
 
-        public void LoadWindow(int CompanyId)
+        public void LoadWindow()
         {                       
-            dgvUsers.ItemsSource = BLL.UserAccount.toList.Where(x => x.UserType.CompanyId == CompanyId).ToList();
+            dgvUsers.ItemsSource = BLL.UserAccount.toList;
         }
 
     }

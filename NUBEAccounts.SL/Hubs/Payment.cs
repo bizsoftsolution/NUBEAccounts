@@ -15,7 +15,7 @@ namespace NUBEAccounts.SL.Hubs
             string Prefix = string.Format("{0}/{1}/", BLL.FormPrefix.Payment, dt.Month);
             long No = 0;
            
-            var d1 = DB.Payments.Where(x => x.Ledger.AccountGroup.CompanyId == Caller.CompanyId && x.VoucherNo.StartsWith(Prefix) && x.PaymentDate.Year == dt.Year).Select(x => x.VoucherNo).ToList();
+            var d1 = DB.Payments.Where(x => x.Ledger.AccountGroup.FundMasterId == Caller.FundMasterId && x.VoucherNo.StartsWith(Prefix) && x.PaymentDate.Year == dt.Year).Select(x => x.VoucherNo).ToList();
             if (d1.Count() > 0)
             {
                 No = d1.Select(x => Convert.ToInt64(x.Substring(Prefix.Length), 10)).Max();
@@ -29,7 +29,7 @@ namespace NUBEAccounts.SL.Hubs
             string Prefix = string.Format("{0}{1:yy}{2:X}", BLL.FormPrefix.Payment, dt, dt.Month);
             long No = 0;
 
-            var d = DB.Payments.Where(x => x.Ledger.AccountGroup.CompanyId == Caller.CompanyId && x.EntryNo.StartsWith(Prefix))
+            var d = DB.Payments.Where(x => x.Ledger.AccountGroup.FundMasterId == Caller.FundMasterId && x.EntryNo.StartsWith(Prefix))
                                      .OrderByDescending(x => x.EntryNo)
                                      .FirstOrDefault();
 
@@ -97,7 +97,7 @@ namespace NUBEAccounts.SL.Hubs
             try
             {
 
-                DAL.Payment d = DB.Payments.Where(x => x.EntryNo == SearchText && x.Ledger.AccountGroup.CompanyId == Caller.CompanyId).FirstOrDefault();
+                DAL.Payment d = DB.Payments.Where(x => x.EntryNo == SearchText && x.Ledger.AccountGroup.FundMasterId == Caller.FundMasterId).FirstOrDefault();
                 DB.Entry(d).Reload();
                 if (d != null)
                 {
@@ -152,7 +152,7 @@ namespace NUBEAccounts.SL.Hubs
         public bool Find_EntryNo(string entryNo, BLL.Payment PO)
 
         {
-            DAL.Payment d = DB.Payments.Where(x => x.EntryNo == entryNo & x.Id != PO.Id && x.Ledger.AccountGroup.CompanyId == Caller.CompanyId).FirstOrDefault();
+            DAL.Payment d = DB.Payments.Where(x => x.EntryNo == entryNo & x.Id != PO.Id && x.Ledger.AccountGroup.FundMasterId == Caller.FundMasterId).FirstOrDefault();
             if (d == null)
             {
                 return false;

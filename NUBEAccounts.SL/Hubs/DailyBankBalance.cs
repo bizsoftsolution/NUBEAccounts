@@ -11,7 +11,7 @@ namespace NUBEAccounts.SL.Hubs
         {
             List<BLL.DailyBankBalance> rv = new List<BLL.DailyBankBalance>();
 
-            var lstLedger = DB.Ledgers.Where(x => x.AccountGroup.CompanyId == Caller.CompanyId && x.AccountGroup.GroupName == BLL.DataKeyValue.BankAccounts_Key).OrderBy(x => x.AccountGroup.GroupCode).ToList();
+            var lstLedger = DB.Ledgers.Where(x => x.AccountGroup.FundMasterId == Caller.FundMasterId && x.AccountGroup.GroupName == BLL.DataKeyValue.BankAccounts_Key).OrderBy(x => x.AccountGroup.GroupCode).ToList();
             BLL.DailyBankBalance tb = new BLL.DailyBankBalance();
             decimal OPDr = 0, OPCr = 0, Dr = 0, Cr = 0;
             decimal GTotalDr = 0, GTotalCr = 0, GTotalDrOP = 0, GTotalCrOP = 0, BalAmt = 0;
@@ -64,7 +64,7 @@ namespace NUBEAccounts.SL.Hubs
         {
             List<BLL.DailyBankBalance> rv = new List<BLL.DailyBankBalance>();
 
-            var lstLedger = DB.Ledgers.Where(x => x.AccountGroup.CompanyId == Caller.CompanyId && (LId == null || x.Id == LId));
+            var lstLedger = DB.Ledgers.Where(x => x.AccountGroup.FundMasterId == Caller.FundMasterId && (LId == null || x.Id == LId));
             BLL.DailyBankBalance tb = new BLL.DailyBankBalance();
             decimal Dr = 0, Cr = 0;
             var n = (dtTo.Date - dtFrom.Date).TotalDays;

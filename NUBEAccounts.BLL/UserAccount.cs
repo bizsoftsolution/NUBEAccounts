@@ -232,7 +232,7 @@ namespace NUBEAccounts.BLL
                     LoginedACYear = AccYear;
                     CurrentACYear = dt.Month <= 3 ? string.Format("{0} - {1}", dt.Year, dt.Year + 1) : string.Format("{0} - {1}",dt.Year-1,dt.Year);
                     IsCurrentACYear = LoginedACYear.StartsWith(CurrentACYear.Substring(0, 4));
-                    //Data_Init();
+                    Data_Init();
                     return "";
                 }
                 catch (Exception ex)
@@ -246,6 +246,7 @@ namespace NUBEAccounts.BLL
         static void Data_Init()
         {
             BLL.UserAccount.Init();
+            BLL.UserType.Init();            
 
             BLL.AccountGroup.Init();
           
@@ -388,12 +389,12 @@ namespace NUBEAccounts.BLL
                 lstValidation.Add(new Validation() { Name = nameof(UserType), Message = string.Format(Message.BLL.Required_Data, nameof(UserType)) });
                 RValue = false;
             }
-            else if (toList.Where(x => x.UserType.CompanyId == UserType.CompanyId && x.Id != Id && x.LoginId.ToLower() == LoginId.ToLower()).Count() > 0)
+            else if (toList.Where(x => x.UserType.FundMasterId == UserType.FundMasterId && x.Id != Id && x.LoginId.ToLower() == LoginId.ToLower()).Count() > 0)
             {
                 lstValidation.Add(new Validation() { Name = nameof(LoginId), Message = string.Format(Message.BLL.Existing_Data, LoginId) });
                 RValue = false;
             }
-            else if (toList.Where(x => x.Id == 0 && x.UserType.CompanyId == UserType.CompanyId && x.LoginId.ToLower() == LoginId.ToLower()).Count() > 0)
+            else if (toList.Where(x => x.Id == 0 && x.UserType.FundMasterId == UserType.FundMasterId && x.LoginId.ToLower() == LoginId.ToLower()).Count() > 0)
             {
                 lstValidation.Add(new Validation() { Name = nameof(LoginId), Message = string.Format(Message.BLL.Existing_Data, LoginId) });
                 RValue = false;
@@ -454,7 +455,7 @@ namespace NUBEAccounts.BLL
         {
             _toList = null;
             UserPermission = null;
-            CompanyDetail.UserPermission = null;
+            FundMaster.UserPermission = null;
             UserType.UserPermission = null;
 
         }

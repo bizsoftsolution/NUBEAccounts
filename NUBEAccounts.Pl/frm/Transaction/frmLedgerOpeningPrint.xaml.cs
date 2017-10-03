@@ -38,7 +38,7 @@ namespace NUBEAccounts.Pl.frm.Transaction
             {
                 RptLedger.Reset();
                 ReportDataSource data = new ReportDataSource("Ledger", BLL.Ledger.toList);
-                ReportDataSource data1 = new ReportDataSource("CompanyDetail", BLL.CompanyDetail.toList.Where(x => x.Id == BLL.UserAccount.User.UserType.Company.Id).ToList());
+                ReportDataSource data1 = new ReportDataSource("FundMaster", BLL.FundMaster.toList.Where(x => x.Id == BLL.UserAccount.User.UserType.Fund.Id).ToList());
                 RptLedger.LocalReport.DataSources.Add(data);
                 RptLedger.LocalReport.DataSources.Add(data1);
                 RptLedger.LocalReport.ReportPath = @"Transaction\rptLedgerOpening.rdlc";

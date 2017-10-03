@@ -23,8 +23,8 @@ namespace NUBEAccounts.BLL
         private int _id;
         private string _typeOfUser;
         private string _description;
-        private int _CompanyId;
-        private CompanyDetail _Company;
+        private int _FundMasterId;
+        private FundMaster _Fund;
         private ObservableCollection<UserTypeDetail> _UserTypeDetails;
 
         #endregion
@@ -36,7 +36,7 @@ namespace NUBEAccounts.BLL
             {
                 if (_UserPermission == null)
                 {
-                    _UserPermission = UserAccount.User.UserType == null ? new UserTypeDetail() : UserAccount.User.UserType.UserTypeDetails.Where(x => x.UserTypeFormDetail.FormName == Forms.frmUser).FirstOrDefault();
+                    _UserPermission = UserAccount.User.UserType == null ? new UserTypeDetail() : UserAccount.User.UserType.UserTypeDetails.Where(x => x.UserTypeFormDetail.FormName == Forms.frmUserType).FirstOrDefault();
                 }
                 return _UserPermission;
             }
@@ -144,34 +144,34 @@ namespace NUBEAccounts.BLL
                 }
             }
         }
-        public int CompanyId
+        public int FundMasterId
         {
             get
             {
-                return _CompanyId;
+                return _FundMasterId;
             }
             set
             {
-                if (_CompanyId != value)
+                if (_FundMasterId != value)
                 {
-                    _CompanyId = value;
-                    NotifyPropertyChanged(nameof(CompanyId));
+                    _FundMasterId = value;
+                    NotifyPropertyChanged(nameof(FundMasterId));
                 }
 
             }
         }
-        public CompanyDetail Company
+        public FundMaster Fund
         {
             get
             {
-                return _Company;
+                return _Fund;
             }
             set
             {
-                if (_Company != value)
+                if (_Fund != value)
                 {
-                    _Company = value;
-                    NotifyPropertyChanged(nameof(Company));
+                    _Fund = value;
+                    NotifyPropertyChanged(nameof(Fund));
                 }
             }
         }

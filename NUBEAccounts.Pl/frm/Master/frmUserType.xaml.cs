@@ -25,7 +25,7 @@ namespace NUBEAccounts.Pl.frm.Master
 
         public static string FormName = "UserType";
         BLL.UserType data = new BLL.UserType();
-        public int UnderCompanyId;
+
         #endregion
 
         #region Constructor
@@ -46,9 +46,9 @@ namespace NUBEAccounts.Pl.frm.Master
         {
             
         }
-        public void LoadWindow(int CompanyId)
+        public void LoadWindow()
         {
-            dgvDetail.ItemsSource = BLL.UserType.toList.Where(x=> x.CompanyId==UnderCompanyId).ToList();
+            dgvDetail.ItemsSource = BLL.UserType.toList;
             Clear();
             btnSave.Visibility = (BLL.UserType.UserPermission.AllowInsert || BLL.UserType.UserPermission.AllowUpdate) ? Visibility.Visible : Visibility.Collapsed;
             btnDelete.Visibility = BLL.UserType.UserPermission.AllowDelete ? Visibility.Visible : Visibility.Collapsed;
@@ -111,7 +111,6 @@ namespace NUBEAccounts.Pl.frm.Master
         private void Clear()
         {
             data.Clear();
-            data.CompanyId = UnderCompanyId;
             //ckbAllViewForm.IsChecked = false;
             //ckbAllAllowInsert.IsChecked = false;
             //ckbAllAllowUpdate.IsChecked = false;

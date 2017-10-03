@@ -236,8 +236,7 @@
     <Compile Include="Hubs\AccountGroup.cs" />
     <Compile Include="Hubs\BalanceSheet.cs" />
     <Compile Include="Hubs\BankReconcilation.cs" />
-    <Compile Include="Hubs\CompanyDetail.cs" />
-    <Compile Include="Hubs\CreditLimitType.cs" />
+    <Compile Include="Hubs\FundMaster.cs" />
     <Compile Include="Hubs\CustomFormat.cs" />
     <Compile Include="Hubs\DailyBankBalance.cs" />
     <Compile Include="Hubs\DataKeyValue.cs" />

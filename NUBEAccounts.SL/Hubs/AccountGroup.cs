@@ -12,14 +12,14 @@ namespace NUBEAccounts.SL.Hubs
         BLL.AccountGroup AccountGroupDAL_BLL(DAL.AccountGroup d)
         {
             BLL.AccountGroup b = d.toCopy<BLL.AccountGroup>(new BLL.AccountGroup());
-            b.Company = d.CompanyDetail == null ? new BLL.CompanyDetail() : d.CompanyDetail.toCopy<BLL.CompanyDetail>(new BLL.CompanyDetail());
+            b.Fund = d.FundMaster == null ? new BLL.FundMaster() : d.FundMaster.toCopy<BLL.FundMaster>(new BLL.FundMaster());
             //b.UnderAccountGroup = d.AccountGroup2 == null ? new BLL.AccountGroup() : AccountGroupDAL_BLL(d.AccountGroup2);
             b.UnderAccountGroup = d.AccountGroup2 == null ? new BLL.AccountGroup() : new BLL.AccountGroup() { GroupName= d.AccountGroup2.GroupName, GroupCode = d.AccountGroup2.GroupCode };
             return b;
         }
         public List<BLL.AccountGroup> accountGroup_List()
         {
-             return DB.AccountGroups.Where(x => x.CompanyId == Caller.CompanyId).ToList()
+             return DB.AccountGroups.Where(x => x.FundMasterId == Caller.FundMasterId).ToList()
                                .Select(x => AccountGroupDAL_BLL(x)).ToList();
         }
 
@@ -27,7 +27,7 @@ namespace NUBEAccounts.SL.Hubs
         {
             try
             {
-                agp.CompanyId = Caller.CompanyId;
+                agp.FundMasterId = Caller.FundMasterId;
                 DAL.AccountGroup d = DB.AccountGroups.Where(x => x.Id == agp.Id).FirstOrDefault();
 
                 if (d == null)

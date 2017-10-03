@@ -117,103 +117,19 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="Cant_Delete_Alert" xml:space="preserve">
-    <value>Record Could not be Deleted!</value>
+  <data name="FundMaster_AcYearList" xml:space="preserve">
+    <value>FundMaster_AcYearList</value>
   </data>
-  <data name="Delete_Alert" xml:space="preserve">
-    <value>Deleted Successfully</value>
+  <data name="FundMaster_List" xml:space="preserve">
+    <value>FundMaster_List</value>
   </data>
-  <data name="Delete_confirmation" xml:space="preserve">
-    <value>Do you want to Delete this record?</value>
+  <data name="FundMaster_Save" xml:space="preserve">
+    <value>FundMaster_Save</value>
   </data>
-  <data name="DenyDelete" xml:space="preserve">
-    <value>No Permission to Delete the {0}</value>
+  <data name="Ledger_Delete" xml:space="preserve">
+    <value>Ledger_Delete</value>
   </data>
-  <data name="DenyFormShow" xml:space="preserve">
-    <value>No Permission to view the {0}</value>
-  </data>
-  <data name="DenyInsert" xml:space="preserve">
-    <value>No Permission to Insert  the {0}</value>
-  </data>
-  <data name="DenyUpdate" xml:space="preserve">
-    <value>No Permission to Update the {0}</value>
-  </data>
-  <data name="Empty_Record" xml:space="preserve">
-    <value>{0} is Empty!</value>
-  </data>
-  <data name="Existing_Data" xml:space="preserve">
-    <value>{0}, Already Exist.</value>
-  </data>
-  <data name="Home_Title" xml:space="preserve">
-    <value>NUBE ACCOUNTS : {0} - {1} [ {2} ]</value>
-  </data>
-  <data name="Login_Dealer_Validation" xml:space="preserve">
-    <value>Enter Dealer !</value>
-  </data>
-  <data name="Login_Exit_Confirm" xml:space="preserve">
-    <value>Are you sure to Exit?</value>
-  </data>
-  <data name="Login_FundName_Validation" xml:space="preserve">
-    <value>Enter Fund Name!</value>
-  </data>
-  <data name="Login_Password_Validation" xml:space="preserve">
-    <value>Enter Password !</value>
-  </data>
-  <data name="Login_UserName_validation" xml:space="preserve">
-    <value>Enter Username !</value>
-  </data>
-  <data name="Login_Warehouse_Validation" xml:space="preserve">
-    <value>Enter warehouse !</value>
-  </data>
-  <data name="NewFund_Exit_Confirm" xml:space="preserve">
-    <value>Are you sure to close the signup?</value>
-  </data>
-  <data name="NewLine" xml:space="preserve">
-    <value>\n</value>
-  </data>
-  <data name="Password_Exist" xml:space="preserve">
-    <value>Password_Exist!</value>
-  </data>
-  <data name="Product_Available_Stock" xml:space="preserve">
-    <value>Available Stock {0}</value>
-  </data>
-  <data name="Product_Not_In_Stock" xml:space="preserve">
-    <value>UnAvailable Stock</value>
-  </data>
-  <data name="Saved_Alert" xml:space="preserve">
-    <value>Saved Successfully</value>
-  </data>
-  <data name="Transaction_Empty_Customer" xml:space="preserve">
-    <value>Enter Customer!</value>
-  </data>
-  <data name="Transaction_Empty_Product" xml:space="preserve">
-    <value>Enter Product</value>
-  </data>
-  <data name="Transaction_Empty_Supplier" xml:space="preserve">
-    <value>Enter Supplier!</value>
-  </data>
-  <data name="Transaction_ItemDetails_Validation" xml:space="preserve">
-    <value>Enter Product Detail</value>
-  </data>
-  <data name="Transaction_Job_Received" xml:space="preserve">
-    <value>Job has been Received!</value>
-  </data>
-  <data name="Transaction_Make_Purchase" xml:space="preserve">
-    <value>Purchase Done!!</value>
-  </data>
-  <data name="Transaction_Make_Sales" xml:space="preserve">
-    <value>Sales Done!!</value>
-  </data>
-  <data name="Transaction_Not_Fount" xml:space="preserve">
-    <value>{0}, Not Found !</value>
-  </data>
-  <data name="Transaction_POcode" xml:space="preserve">
-    <value>Enter {0}!</value>
-  </data>
-  <data name="Transaction_Selling_Rate" xml:space="preserve">
-    <value>Selling Rate Between {0} to {1}</value>
-  </data>
-  <data name="User_Id_Exist" xml:space="preserve">
-    <value>UserId Already Exist!</value>
+  <data name="Ledger_Save" xml:space="preserve">
+    <value>Ledger_Save</value>
   </data>
 </root>

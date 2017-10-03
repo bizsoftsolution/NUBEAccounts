@@ -13,36 +13,20 @@ namespace NUBEAccounts.BLL
     {
         #region Fileds
 
-        private static ObservableCollection<Ledger> _toList;
-      
-        private static List<string> _ACTypeList;
+        private static ObservableCollection<Ledger> _toList;     
 
         private int _Id;
         private string _LedgerName;
-        private AccountGroup _AccountGroup;
-        private int? _AccountGroupId;
-        private string _PersonIncharge;
-        private string _AddressLine1;
-        private string _AddressLine2;
-        private string _cityName;
-        private string _TelephoneNo;
-        private string _MobileNo;
-        private string _EMailId;
-        private string _GSTNo;
-        private short _CreditLimit;
-        private double _CreditAmount;
-        private int? _CreditLimitTypeId;
-        //private CreditLimitType _CreditLimitType;
-        private string _CreditLimitTypeName;
-
-        private decimal? _OPDr;
-        private decimal? _OPCr;
         private string _LedgerCode;
+        private int? _AccountGroupId;
 
-        private string _GroupCode;
         private string _AccountName;
-        private string _ACType;
-        private decimal? _OPBal;
+        private AccountGroup _AccountGroup;
+
+        decimal _OPDr;
+        decimal _OPCr;
+        decimal _DrAmt;
+        decimal _CrAmt;
 
         private static UserTypeDetail _UserPermission;
         private bool _IsReadOnly;
@@ -51,6 +35,190 @@ namespace NUBEAccounts.BLL
         #endregion
 
         #region Property
+        
+        public static ObservableCollection<Ledger> toList
+        {
+            get
+            {
+                if (_toList == null) _toList = new ObservableCollection<Ledger>(NubeAccountClient.NubeAccountHub.Invoke<List<Ledger>>("Ledger_List").Result);
+                return _toList;
+            }
+            set
+            {
+                _toList = value;
+            }
+        }
+       
+       
+        public int Id
+        {
+            get
+            {
+                return _Id;
+            }
+
+            set
+            {
+                if (_Id != value)
+                {
+                    _Id = value;
+                    NotifyPropertyChanged(nameof(Id));
+                }
+            }
+        }
+        public string LedgerName
+        {
+            get
+            {
+                return _LedgerName;
+            }
+
+            set
+            {
+                if (_LedgerName != value)
+                {
+                    _LedgerName = value;
+                    NotifyPropertyChanged(nameof(LedgerName));
+                    SetAccountName();
+                }
+            }
+        }
+        public string LedgerCode
+        {
+            get
+            {
+                return _LedgerCode;
+            }
+            set
+            {
+                if (_LedgerCode != value)
+                {
+                    _LedgerCode = value;
+                    NotifyPropertyChanged(nameof(LedgerCode));
+                    SetAccountName();
+                }
+            }
+        }
+        public int? AccountGroupId
+        {
+            get
+            {
+                return _AccountGroupId;
+            }
+
+            set
+            {
+                if (_AccountGroupId != value)
+                {
+                    _AccountGroupId = value;
+                    NotifyPropertyChanged(nameof(AccountGroupId));
+                }
+            }
+        }
+
+        public decimal OPDr
+        {
+            get
+            {
+                return _OPDr;
+            }
+
+            set
+            {
+                if (_OPDr != value)
+                {
+                    _OPDr = value;
+                    NotifyPropertyChanged(nameof(OPDr));
+                }
+            }
+        }
+
+        public decimal OPCr
+        {
+            get
+            {
+                return _OPCr;
+            }
+
+            set
+            {
+                if (_OPCr != value)
+                {
+                    _OPCr = value;
+                    NotifyPropertyChanged(nameof(OPCr));
+                }
+            }
+        }
+        
+        public decimal DrAmt
+        {
+            get
+            {
+                return _DrAmt;
+            }
+
+            set
+            {
+                if (_DrAmt != value)
+                {
+                    _DrAmt = value;
+                    NotifyPropertyChanged(nameof(DrAmt));
+                }
+            }
+        }
+
+        public decimal CrAmt
+        {
+            get
+            {
+                return _CrAmt;
+            }
+
+            set
+            {
+                if (_CrAmt != value)
+                {
+                    _CrAmt = value;
+                    NotifyPropertyChanged(nameof(CrAmt));
+                }
+            }
+        }
+
+        public AccountGroup AccountGroup
+        {
+            get
+            {
+                return _AccountGroup;
+            }
+            set
+            {
+                if (_AccountGroup != value)
+                {
+                    _AccountGroup = value;
+                    NotifyPropertyChanged(nameof(AccountGroup));
+                    SetAccountName();
+                }
+
+            }
+        }
+
+        public string AccountName
+        {
+            get
+            {
+                return _AccountName;
+            }
+
+            set
+            {
+                if (_AccountName != value)
+                {
+                    _AccountName = value;
+                    NotifyPropertyChanged(nameof(AccountName));
+                }
+            }
+        }
+        
         public static UserTypeDetail UserPermission
         {
             get
@@ -70,7 +238,6 @@ namespace NUBEAccounts.BLL
                 }
             }
         }
-
 
         public bool IsReadOnly
         {
@@ -107,443 +274,6 @@ namespace NUBEAccounts.BLL
             }
         }
 
-        public static ObservableCollection<Ledger> toList
-        {
-            get
-            {
-                if (_toList == null) _toList = new ObservableCollection<Ledger>(NubeAccountClient.NubeAccountHub.Invoke<List<Ledger>>("Ledger_List").Result);
-                return _toList;
-            }
-            set
-            {
-                _toList = value;
-            }
-        }
-       
-
-
-        public static List<string> ACTypeList
-        {
-            get
-            {
-                if (_ACTypeList == null)
-                {
-                    _ACTypeList = new List<string>();
-                    _ACTypeList.Add("Debit");
-                    _ACTypeList.Add("Credit");
-                }
-                return _ACTypeList;
-            }
-            set
-            {
-                if (_ACTypeList != value)
-                {
-                    _ACTypeList = value;
-                }
-            }
-        }
-        public string GroupCode
-        {
-            get
-            {
-                return _GroupCode;
-            }
-
-            set
-            {
-                if (_GroupCode != value)
-                {
-                    _GroupCode = value;
-                    NotifyPropertyChanged(nameof(GroupCode));
-                }
-            }
-        }
-        public string AccountName
-        {
-            get
-            {
-                return _AccountName;
-            }
-
-            set
-            {
-                if (_AccountName != value)
-                {
-                    _AccountName = value;
-                    NotifyPropertyChanged(nameof(AccountName));
-                }
-            }
-        }
-        public string ACType
-        {
-            get
-            {
-                return
-                    _ACType;
-            }
-
-            set
-            {
-                if (_ACType != value)
-                {
-                    _ACType = value;
-                    OPDr = value == "Debit" ? OPBal : 0;
-                    OPCr = value == "Credit" ? OPBal : 0;
-                    NotifyPropertyChanged(nameof(ACType));
-                }
-            }
-        }
-        public decimal? OPBal
-        {
-            get
-            {
-                return _OPBal;
-            }
-            set
-            {
-                if (_OPBal != value)
-                {
-                    _OPBal = value;
-                    NotifyPropertyChanged(nameof(OPBal));
-                    OPDr = ACType == "Debit" ? OPBal : 0;
-                    OPCr = ACType == "Credit" ? OPBal : 0;
-                }
-            }
-        }
-
-        public int Id
-        {
-            get
-            {
-                return _Id;
-            }
-
-            set
-            {
-                if (_Id != value)
-                {
-                    _Id = value;
-                    NotifyPropertyChanged(nameof(Id));
-                }
-            }
-        }
-        public string LedgerName
-        {
-            get
-            {
-                return _LedgerName;
-            }
-
-            set
-            {
-                if (_LedgerName != value)
-                {
-                    _LedgerName = value;
-                    NotifyPropertyChanged(nameof(LedgerName));
-                    SetAccountName();
-                }
-            }
-        }
-        public AccountGroup AccountGroup
-        {
-            get
-            {
-                return _AccountGroup;
-            }
-            set
-            {
-                if (_AccountGroup != value)
-                {
-                    _AccountGroup = value;
-                    NotifyPropertyChanged(nameof(AccountGroup));
-                    SetAccountName();
-                }
-
-            }
-        }
-        public int? AccountGroupId
-        {
-            get
-            {
-                return _AccountGroupId;
-            }
-
-            set
-            {
-                if (_AccountGroupId != value)
-                {
-                    _AccountGroupId = value;
-                    NotifyPropertyChanged(nameof(AccountGroupId));
-                }
-            }
-        }
-        public string PersonIncharge
-        {
-            get
-            {
-                return
-                    _PersonIncharge;
-            }
-
-            set
-            {
-                if (_PersonIncharge != value)
-                {
-                    _PersonIncharge = value;
-                    NotifyPropertyChanged(nameof(PersonIncharge));
-                }
-            }
-        }
-        public string AddressLine1
-        {
-            get
-            {
-                return
-                    _AddressLine1;
-            }
-
-            set
-            {
-                if (_AddressLine1 != value)
-                {
-                    _AddressLine1 = value;
-                    NotifyPropertyChanged(nameof(AddressLine1));
-                }
-            }
-        }
-        public string AddressLine2
-        {
-            get
-            {
-                return _AddressLine2;
-            }
-
-            set
-            {
-                if (_AddressLine2 != value)
-                {
-                    _AddressLine2 = value;
-                    NotifyPropertyChanged(nameof(AddressLine2));
-                }
-            }
-        }
-        public string CityName
-        {
-            get
-            {
-                return _cityName;
-            }
-            set
-            {
-                if (_cityName != value)
-                {
-                    _cityName = value;
-                    NotifyPropertyChanged(nameof(CityName));
-                }
-            }
-        }
-        public string TelephoneNo
-        {
-            get
-            {
-                return _TelephoneNo;
-            }
-
-            set
-            {
-                if (_TelephoneNo != value)
-                {
-                    _TelephoneNo = value;
-                    NotifyPropertyChanged(nameof(TelephoneNo));
-                }
-            }
-        }
-        public string MobileNo
-        {
-            get
-            {
-                return _MobileNo;
-            }
-
-            set
-            {
-                if (_MobileNo != value)
-                {
-                    _MobileNo = value;
-                    NotifyPropertyChanged(nameof(MobileNo));
-                }
-            }
-        }
-        public string GSTNo
-        {
-            get
-            {
-                return _GSTNo;
-            }
-
-            set
-            {
-                if (_GSTNo != value)
-                {
-                    _GSTNo = value;
-                    NotifyPropertyChanged(nameof(GSTNo));
-                }
-            }
-        }
-        public string EMailId
-        {
-            get
-            {
-                return _EMailId;
-            }
-
-            set
-            {
-                if (_EMailId != value)
-                {
-                    _EMailId = value;
-                    NotifyPropertyChanged(nameof(EMailId));
-                }
-            }
-        }
-        public double CreditAmount
-        {
-            get
-            {
-                return _CreditAmount;
-            }
-
-            set
-            {
-                if (_CreditAmount != value)
-                {
-                    _CreditAmount = value;
-                    NotifyPropertyChanged(nameof(CreditAmount));
-                }
-            }
-        }
-        public short CreditLimit
-        {
-            get
-            {
-                return _CreditLimit;
-            }
-
-            set
-            {
-                if (_CreditLimit != value)
-                {
-                    _CreditLimit = value;
-                    NotifyPropertyChanged(nameof(CreditLimit));
-                }
-            }
-        }
-        //public CreditLimitType CreditLimitType
-        //{
-        //    get
-        //    {
-        //        return _CreditLimitType;
-        //    }
-        //    set
-        //    {
-        //        if (_CreditLimitType != value)
-        //        {
-        //            _CreditLimitType = value;
-        //            NotifyPropertyChanged(nameof(BLL.CreditLimitType));
-        //        }
-        //    }
-        //}
-        public int? CreditLimitTypeId
-        {
-            get
-            {
-                return _CreditLimitTypeId;
-            }
-            set
-            {
-                if (_CreditLimitTypeId != value)
-                {
-                    _CreditLimitTypeId = value;
-                    NotifyPropertyChanged(nameof(CreditLimitTypeId));
-                }
-            }
-        }
-        public string CreditLimitTypeName
-        {
-            get
-            {
-                return _CreditLimitTypeName;
-            }
-            set
-            {
-                if (_CreditLimitTypeName != value)
-                {
-                    _CreditLimitTypeName = value;
-                    NotifyPropertyChanged(nameof(CreditLimitTypeName));
-                }
-            }
-        }
-        public decimal? OPCr
-        {
-            get
-            {
-                return _OPCr;
-            }
-            set
-            {
-                if (_OPCr != value)
-                {
-                    _OPCr = value;
-                    NotifyPropertyChanged(nameof(OPCr));
-                    if (value != null && value != 0)
-                    {
-                        OPDr = 0;
-                        OPBal = value;
-                        ACType = "Credit";
-                    }
-                }
-
-            }
-        }
-        public decimal? OPDr
-        {
-            get
-            {
-                return _OPDr;
-            }
-            set
-            {
-                if (_OPDr != value)
-                {
-                    _OPDr = value;
-                    NotifyPropertyChanged(nameof(OPDr));
-                    if (value != null && value != 0)
-                    {
-                        OPCr = 0;
-                        OPBal = value;
-                        ACType = "Debit";
-                    }
-                }
-
-            }
-        }
-
-        public string LedgerCode
-        {
-            get
-            {
-                return _LedgerCode;
-            }
-            set
-            {
-                if (_LedgerCode != value)
-                {
-                    _LedgerCode = value;
-                    NotifyPropertyChanged(nameof(LedgerCode));
-                    SetAccountName();
-                }
-            }
-        }
 
         #endregion
 
@@ -583,7 +313,7 @@ namespace NUBEAccounts.BLL
                 this.toCopy<Ledger>(d);
                 if (isServerCall == false)
                 {
-                    var i = NubeAccountClient.NubeAccountHub.Invoke<int>("Ledger_Save", this).Result;
+                    var i = NubeAccountClient.NubeAccountHub.Invoke<int>(Message.SL.Ledger_Save, this).Result;
                     d.Id = i;
                 }
 
@@ -626,7 +356,7 @@ namespace NUBEAccounts.BLL
 
                 if (isServerCall == false)
                 {
-                    rv = NubeAccountClient.NubeAccountHub.Invoke<bool>("Ledger_Delete", this.Id).Result;
+                    rv = NubeAccountClient.NubeAccountHub.Invoke<bool>(Message.SL.Ledger_Delete, this.Id).Result;
                     if (rv == true) toList.Remove(d);
 
                 }
@@ -657,7 +387,6 @@ namespace NUBEAccounts.BLL
         {
             try
             {
-                //AccountName = string.Format("{0}{1}{2}{3}{4}", AccountGroup.GroupCode, string.IsNullOrWhiteSpace(AccountGroup.GroupCode) ? "" : "-", LedgerCode, string.IsNullOrWhiteSpace(LedgerCode) ? "" : "-", LedgerName);
                 AccountName = string.Format("{0}{1}{2}", LedgerCode, string.IsNullOrWhiteSpace(LedgerCode) ? "" : "-", LedgerName);
             }
             catch (Exception ex)
@@ -665,20 +394,7 @@ namespace NUBEAccounts.BLL
 
             }
         }
-        public void SetLedger()
-        {
-            try
-            {
-                
-                NubeAccountClient.NubeAccountHub.Invoke<int>("Existing_Ledger");
-            }
-            catch (Exception ex)
-            {
-
-            }
-        }
-
-
+        
         #endregion
 
 

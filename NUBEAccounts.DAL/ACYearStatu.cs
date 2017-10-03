@@ -12,26 +12,18 @@ namespace NUBEAccounts.DAL
     using System;
     using System.Collections.Generic;
     
-    public partial class AccountGroup
+    public partial class ACYearStatu
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
-        public AccountGroup()
+        public ACYearStatu()
         {
-            this.AccountGroup1 = new HashSet<AccountGroup>();
-            this.Ledgers = new HashSet<Ledger>();
+            this.ACYearMasters = new HashSet<ACYearMaster>();
         }
     
-        public int Id { get; set; }
-        public string GroupName { get; set; }
-        public Nullable<int> UnderGroupId { get; set; }
-        public string GroupCode { get; set; }
-        public int FundMasterId { get; set; }
+        public short Id { get; set; }
+        public string Status { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<AccountGroup> AccountGroup1 { get; set; }
-        public virtual AccountGroup AccountGroup2 { get; set; }
-        public virtual FundMaster FundMaster { get; set; }
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<Ledger> Ledgers { get; set; }
+        public virtual ICollection<ACYearMaster> ACYearMasters { get; set; }
     }
 }

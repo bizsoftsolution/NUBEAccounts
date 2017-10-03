@@ -142,11 +142,11 @@ namespace NUBEAccounts.Message {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Enter Company!.
+        ///   Looks up a localized string similar to NUBE ACCOUNTS : {0} - {1} [ {2} ].
         /// </summary>
-        public static string Login_CompanyName_Validation {
+        public static string Home_Title {
             get {
-                return ResourceManager.GetString("Login_CompanyName_Validation", resourceCulture);
+                return ResourceManager.GetString("Home_Title", resourceCulture);
             }
         }
         
@@ -156,6 +156,24 @@ namespace NUBEAccounts.Message {
         public static string Login_Dealer_Validation {
             get {
                 return ResourceManager.GetString("Login_Dealer_Validation", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Are you sure to Exit?.
+        /// </summary>
+        public static string Login_Exit_Confirm {
+            get {
+                return ResourceManager.GetString("Login_Exit_Confirm", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Enter Fund Name!.
+        /// </summary>
+        public static string Login_FundName_Validation {
+            get {
+                return ResourceManager.GetString("Login_FundName_Validation", resourceCulture);
             }
         }
         
@@ -183,6 +201,24 @@ namespace NUBEAccounts.Message {
         public static string Login_Warehouse_Validation {
             get {
                 return ResourceManager.GetString("Login_Warehouse_Validation", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Are you sure to close the signup?.
+        /// </summary>
+        public static string NewFund_Exit_Confirm {
+            get {
+                return ResourceManager.GetString("NewFund_Exit_Confirm", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to \n.
+        /// </summary>
+        public static string NewLine {
+            get {
+                return ResourceManager.GetString("NewLine", resourceCulture);
             }
         }
         

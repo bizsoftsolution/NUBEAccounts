@@ -57,7 +57,7 @@ namespace NUBEAccounts.Pl.frm.Master
         public void LoadWindow()
         {
             BLL.CustomFormat.Init();
-            data.Find(BLL.UserAccount.User.UserType.CompanyId);
+            data.Find(BLL.UserAccount.User.UserType.FundMasterId);
            
             data.SampleCurrency = (decimal)n;
 

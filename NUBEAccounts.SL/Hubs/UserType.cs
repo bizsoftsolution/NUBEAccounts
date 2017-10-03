@@ -18,7 +18,7 @@ namespace NUBEAccounts.SL.Hubs
             if (d != null)
             {
                 b.UserTypeDetails = new ObservableCollection<BLL.UserTypeDetail>(d.UserTypeDetails.Select(x => UserTypeDetailDAL_BLL(x)).ToList());
-                b.Company = d.CompanyDetail.toCopy<BLL.CompanyDetail>(new BLL.CompanyDetail());
+                b.Fund = d.FundMaster.toCopy<BLL.FundMaster>(new BLL.FundMaster());
 
             }
             return b;
@@ -26,7 +26,7 @@ namespace NUBEAccounts.SL.Hubs
 
         public List<BLL.UserType> UserType_List()
         {
-            return DB.UserTypes.Where(x => x.CompanyId == Caller.CompanyId || x.CompanyDetail.UnderCompanyId == Caller.CompanyId).ToList()
+            return DB.UserTypes.Where(x => x.FundMasterId == Caller.FundMasterId).ToList()
                                .Select(x => UserTypeDAL_BLL(x)).ToList();
         }
 
@@ -38,7 +38,7 @@ namespace NUBEAccounts.SL.Hubs
 
                 if (d == null)
                 {
-                    var c = DB.CompanyDetails.Where(x => x.Id == ut.CompanyId).FirstOrDefault();
+                    var c = DB.FundMasters.Where(x => x.Id == ut.FundMasterId).FirstOrDefault();
 
                     d = new DAL.UserType();
                     c.UserTypes.Add(d);
@@ -50,7 +50,7 @@ namespace NUBEAccounts.SL.Hubs
                     }
                     DB.SaveChanges();
                     ut.Id = d.Id;
-                    ut.Company = c.toCopy<BLL.CompanyDetail>(new BLL.CompanyDetail());
+                    ut.Fund = c.toCopy<BLL.FundMaster>(new BLL.FundMaster());
                     LogDetailStore(ut, LogDetailType.INSERT);
                 }
                 else
