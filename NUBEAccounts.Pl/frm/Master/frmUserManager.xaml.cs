@@ -61,7 +61,7 @@ namespace NUBEAccounts.Pl.frm.Master
 
             frmUser f = new frmUser();
             f.LoadWindow();
-            u.toCopy<BLL.UserAccount>(f.data);            
+            u.toCopy<BLL.UserAccount>(f.data);             
             f.ShowDialog();
             LoadWindow();
 

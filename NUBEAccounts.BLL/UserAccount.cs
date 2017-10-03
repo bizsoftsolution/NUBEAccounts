@@ -232,7 +232,7 @@ namespace NUBEAccounts.BLL
                     LoginedACYear = AccYear;
                     CurrentACYear = dt.Month <= 3 ? string.Format("{0} - {1}", dt.Year, dt.Year + 1) : string.Format("{0} - {1}",dt.Year-1,dt.Year);
                     IsCurrentACYear = LoginedACYear.StartsWith(CurrentACYear.Substring(0, 4));
-                    //Data_Init();
+                    Data_Init();
                     return "";
                 }
                 catch (Exception ex)
@@ -246,6 +246,7 @@ namespace NUBEAccounts.BLL
         static void Data_Init()
         {
             BLL.UserAccount.Init();
+            BLL.UserType.Init();            
 
             BLL.AccountGroup.Init();
           

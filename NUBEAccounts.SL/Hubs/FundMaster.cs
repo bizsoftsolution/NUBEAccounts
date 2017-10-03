@@ -36,36 +36,45 @@ namespace NUBEAccounts.SL.Hubs
 
         
 
-        public int FundMaster_Save(BLL.FundMaster cm)
+        public int FundMaster_Save(BLL.FundMaster fm)
         {
             try
             {
-                cm.IsActive = true;
-                DAL.FundMaster d = DB.FundMasters.Where(x => x.Id == cm.Id).FirstOrDefault();
+                
+                DAL.FundMaster d = DB.FundMasters.Where(x => x.Id == fm.Id).FirstOrDefault();
 
                 if (d == null)
                 {
                     d = new DAL.FundMaster();
                     DB.FundMasters.Add(d);
 
-                    cm.toCopy<DAL.FundMaster>(d);
+                    fm.IsActive = true;
+                    fm.toCopy<DAL.FundMaster>(d);
+
+                    DateTime dt = DateTime.Now;
+                    DAL.ACYearMaster acym = new DAL.ACYearMaster()
+                                            {
+                                                ACYear = dt.Month > 3 ? string.Format("{0} - {1}", dt.Year, dt.Year + 1) : string.Format("{0} - {1}", dt.Year - 1, dt.Year),
+                                                ACYearStatusId =(int)AppLib.ACYearStatus.Open
+                                            };
+                    d.ACYearMasters.Add(acym);
 
                     DB.SaveChanges();
-                    cm.Id = d.Id;
+                    fm.Id = d.Id;
                     if (d.Id != 0)
                     {
-                        FundSetup(cm);
-                        CurrencySetup(cm);                                                                       
+                        FundSetup(fm);
+                        CurrencySetup(fm);                                                                       
                     }
                 }
                 else
                 {
-                    cm.toCopy<DAL.FundMaster>(d);
+                    fm.toCopy<DAL.FundMaster>(d);
                     DB.SaveChanges();                 
                 }
-                Clients.Clients(OtherLoginClientsOnGroup).FundMaster_Save(cm); 
+                Clients.Clients(OtherLoginClientsOnGroup).FundMaster_Save(fm); 
 
-                return cm.Id;
+                return fm.Id;
             }
             catch (Exception ex) { }
             return 0;
