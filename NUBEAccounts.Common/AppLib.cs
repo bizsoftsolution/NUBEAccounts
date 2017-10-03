@@ -35,6 +35,8 @@ namespace NUBEAccounts.Common
         public static int DigitGroupingBy;
         public static int CurrencyCaseSensitive;
 
+        public static DateTime minDate;
+        public static DateTime maxDate;
 
         public enum ACYearStatus
         {

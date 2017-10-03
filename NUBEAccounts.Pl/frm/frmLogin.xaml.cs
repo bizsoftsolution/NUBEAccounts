@@ -53,6 +53,12 @@ namespace NUBEAccounts.Pl.frm
                 this.Hide();
                 cmbFund.Text = string.Empty;
                 txtUserId.Text = string.Empty;
+                int yy = BLL.UserAccount.User.UserType.Fund.LoginAccYear;
+
+
+                Common.AppLib.minDate = new DateTime(yy, 4, 1);
+                Common.AppLib.maxDate = new DateTime(yy + 1, 3, 31);
+
                 txtPassword.Password = string.Empty;
                 App.frmHome.ShowDialog();
                 this.Show();
