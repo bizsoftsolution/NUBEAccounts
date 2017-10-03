@@ -13,6 +13,7 @@ namespace NUBEAccounts.BLL
         #region Field
         private static HubConnection _hubCon;
         private static IHubProxy _NubeAccountHub;
+        public static string URLPath = "";
         #endregion
 
         #region Property
@@ -46,31 +47,23 @@ namespace NUBEAccounts.BLL
 
         #region Method
         public static void HubConnect()
-        {
-            //string URLPath = "http://ubs3/fmcg/SignalR";
-            //string URLPath = "http://localhost:51707";
-            string URLPath = "http://localhost/NUBEAccountSL/";
-            // string URLPath = "http://192.168.1.170/fmcg/SignalR"; 
+        {            
             try
             {
-                NUBEAccounts.Common.AppLib.WriteLog(URLPath);
-                NUBEAccounts.Common.AppLib.WriteLog("Service Starting...");
+                Common.AppLib.WriteLog(URLPath);
+                Common.AppLib.WriteLog("Service Starting...");
                 _hubCon = new HubConnection(URLPath);
-                NUBEAccounts.Common.AppLib.WriteLog("Service Started");
+                Common.AppLib.WriteLog("Service Started");
                 _NubeAccountHub = _hubCon.CreateHubProxy("NubeServerHub");
-                NUBEAccounts.Common.AppLib.WriteLog("Hub Created");
+                Common.AppLib.WriteLog("Hub Created");
                 _hubCon.Start(new LongPollingTransport()).Wait();
-                NUBEAccounts.Common.AppLib.WriteLog("Hub Started");
+                Common.AppLib.WriteLog("Hub Started");
 
             }
             catch (Exception ex)
             {
                // AccountBuddy.Common.AppLib.WriteLog("Could Not Start Service");
-
-            }
-            // _hubCon = new HubConnection("http://110.4.40.46/fmcgsl/SignalR");
-            // _hubCon = new HubConnection("http://ubs3/fmcg/SignalR");
-
+            }           
         }
 
         public static void HubDisconnect()
