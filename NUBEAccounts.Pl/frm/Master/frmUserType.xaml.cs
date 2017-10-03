@@ -142,41 +142,49 @@ namespace NUBEAccounts.Pl.frm.Master
         private void ckbAllViewForm_Checked(object sender, RoutedEventArgs e)
         {
             if (ckbAllViewForm.IsFocused) foreach (var d in data.UserTypeDetails.Where(x => x.UserTypeFormDetail.IsActive).ToList()) d.IsViewForm = true;
+            dgvUserTypeDetail.Focus();
         }
 
         private void ckbAllAllowInsert_Checked(object sender, RoutedEventArgs e)
         {
             if (ckbAllAllowInsert.IsFocused) foreach (var d in data.UserTypeDetails.Where(x => x.UserTypeFormDetail.IsActive && x.UserTypeFormDetail.IsInsert).ToList()) d.AllowInsert = true;
+            dgvUserTypeDetail.Focus();
         }
 
         private void ckbAllAllowUpdate_Checked(object sender, RoutedEventArgs e)
         {
             if (ckbAllAllowUpdate.IsFocused) foreach (var d in data.UserTypeDetails.Where(x => x.UserTypeFormDetail.IsActive && x.UserTypeFormDetail.IsUpdate).ToList()) d.AllowUpdate = true;
+            dgvUserTypeDetail.Focus();
         }
 
         private void ckbAllAllowDelete_Checked(object sender, RoutedEventArgs e)
         {
             if (ckbAllAllowDelete.IsFocused) foreach (var d in data.UserTypeDetails.Where(x => x.UserTypeFormDetail.IsActive && x.UserTypeFormDetail.IsDelete).ToList()) d.AllowDelete = true;
+            dgvUserTypeDetail.Focus();
         }
 
         private void ckbAllViewForm_Unchecked(object sender, RoutedEventArgs e)
         {
             if (ckbAllViewForm.IsFocused) foreach (var d in data.UserTypeDetails) d.IsViewForm = false;
+            dgvUserTypeDetail.Focus();
         }
 
         private void ckbAllAllowInsert_Unchecked(object sender, RoutedEventArgs e)
         {
             if (ckbAllAllowInsert.IsFocused) foreach (var d in data.UserTypeDetails.ToList()) d.AllowInsert = false;
+            dgvUserTypeDetail.Focus();
         }
 
         private void ckbAllAllowUpdate_Unchecked(object sender, RoutedEventArgs e)
         {
             if (ckbAllAllowUpdate.IsFocused) foreach (var d in data.UserTypeDetails.ToList()) d.AllowUpdate = false;
+            dgvUserTypeDetail.Focus();
         }
 
         private void ckbAllAllowDelete_Unchecked(object sender, RoutedEventArgs e)
         {
             if (ckbAllAllowDelete.IsFocused) foreach (var d in data.UserTypeDetails.ToList()) d.AllowDelete = false;
+            dgvUserTypeDetail.Focus();
         }
 
         private void ckbViewForm_Checked(object sender, RoutedEventArgs e)
