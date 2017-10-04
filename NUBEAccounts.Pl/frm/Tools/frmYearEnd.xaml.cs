@@ -100,7 +100,17 @@ namespace NUBEAccounts.Pl.frm.Tools
 
         private void btnYearEnd_Click(object sender, RoutedEventArgs e)
         {
-
+            if(!txtLoginId.Text.Equals(BLL.UserAccount.User.LoginId) || !txtPassword.Text.Equals(BLL.UserAccount.User.Password) )
+            {
+                MessageBox.Show(Message.PL.YearEnd_InvalidUser);
+            }
+            else if (BLL.FundMaster.YearEnd())
+            {
+                MessageBox.Show("Successfull Year End.");
+                this.Close();
+                App.frmHome.IsForcedClose = true;
+                App.frmHome.Close();
+            }
         }
 
         #region Button Events

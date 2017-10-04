@@ -356,5 +356,23 @@ namespace NUBEAccounts.Message {
                 return ResourceManager.GetString("User_Id_Exist", resourceCulture);
             }
         }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Invalid User!.
+        /// </summary>
+        public static string YearEnd_InvalidUser {
+            get {
+                return ResourceManager.GetString("YearEnd_InvalidUser", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Successfull Year End..
+        /// </summary>
+        public static string YearEnd_Success {
+            get {
+                return ResourceManager.GetString("YearEnd_Success", resourceCulture);
+            }
+        }
     }
 }

@@ -88,6 +88,15 @@ namespace NUBEAccounts.Message {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to FundMaster_YearEnd.
+        /// </summary>
+        public static string FundMaster_YearEnd {
+            get {
+                return ResourceManager.GetString("FundMaster_YearEnd", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Ledger_Delete.
         /// </summary>
         public static string Ledger_Delete {
