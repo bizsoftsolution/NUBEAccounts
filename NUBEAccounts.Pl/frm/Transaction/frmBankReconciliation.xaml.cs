@@ -81,7 +81,7 @@ namespace NUBEAccounts.Pl.frm.Transaction
 
                 }
                 
-                //LoadReport();
+                
             }
 
         }
@@ -257,9 +257,9 @@ namespace NUBEAccounts.Pl.frm.Transaction
 
         private void btnPrintPreview_Click(object sender, RoutedEventArgs e)
         {
-            //frmGeneralLedgerPrint f = new frmGeneralLedgerPrint();
-            //f.LoadReport((int)cmbAccountName.SelectedValue, dtpDateFrom.SelectedDate.Value, dtpDateTo.SelectedDate.Value);
-            //f.ShowDialog();
+            frmBankReconciliationPrint f = new frmBankReconciliationPrint();
+            f.LoadReport((int)cmbAccountName.SelectedValue, dtpDateFrom.SelectedDate.Value, dtpDateTo.SelectedDate.Value, txtEndingBalance.Text, DifAmt.ToString(), BalAmt.ToString() );
+            f.ShowDialog();
         }
 
         #endregion

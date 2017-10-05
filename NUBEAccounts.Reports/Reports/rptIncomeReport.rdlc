@@ -95,7 +95,7 @@
                         <Paragraph>
                           <TextRuns>
                             <TextRun>
-                              <Value>Dr Amt</Value>
+                              <Value>Debit [RM]</Value>
                               <Style>
                                 <FontWeight>Bold</FontWeight>
                               </Style>
@@ -129,7 +129,7 @@
                         <Paragraph>
                           <TextRuns>
                             <TextRun>
-                              <Value>Cr Amt</Value>
+                              <Value>Credit [RM]</Value>
                               <Style>
                                 <FontWeight>Bold</FontWeight>
                               </Style>
@@ -152,6 +152,7 @@
                         <PaddingBottom>2pt</PaddingBottom>
                       </Style>
                     </Textbox>
+                    <rd:Selected>true</rd:Selected>
                   </CellContents>
                 </TablixCell>
               </TablixCells>
@@ -187,7 +188,6 @@
                         <PaddingBottom>2pt</PaddingBottom>
                       </Style>
                     </Textbox>
-                    <rd:Selected>true</rd:Selected>
                   </CellContents>
                 </TablixCell>
                 <TablixCell>

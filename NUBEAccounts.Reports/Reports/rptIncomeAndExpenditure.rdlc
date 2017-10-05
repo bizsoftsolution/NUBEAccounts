@@ -18,7 +18,7 @@
               <Width>3.90229cm</Width>
             </TablixColumn>
             <TablixColumn>
-              <Width>3.77cm</Width>
+              <Width>4.04117cm</Width>
             </TablixColumn>
           </TablixColumns>
           <TablixRows>
@@ -66,7 +66,7 @@
                         <Paragraph>
                           <TextRuns>
                             <TextRun>
-                              <Value>Dr Amt</Value>
+                              <Value>Current Year Dr [RM]</Value>
                               <Style>
                                 <FontWeight>Bold</FontWeight>
                               </Style>
@@ -98,7 +98,7 @@
                         <Paragraph>
                           <TextRuns>
                             <TextRun>
-                              <Value>Cr Amt</Value>
+                              <Value>Current Year Cr [RM]</Value>
                               <Style>
                                 <FontWeight>Bold</FontWeight>
                               </Style>
@@ -130,7 +130,7 @@
                         <Paragraph>
                           <TextRuns>
                             <TextRun>
-                              <Value>Previous Balance Dr.</Value>
+                              <Value>Previous Year Dr [RM]</Value>
                               <Style>
                                 <FontWeight>Bold</FontWeight>
                               </Style>
@@ -162,7 +162,7 @@
                         <Paragraph>
                           <TextRuns>
                             <TextRun>
-                              <Value>Previous Balance Cr.</Value>
+                              <Value>Previous Year Cr [RM]</Value>
                               <Style>
                                 <FontWeight>Bold</FontWeight>
                               </Style>
@@ -231,7 +231,7 @@
                             <TextRun>
                               <Value>=Fields!DrAmt.Value</Value>
                               <Style>
-                                <Format>'RM' 0.00;('RM' 0.00)</Format>
+                                <Format>0.00;(0.00)</Format>
                               </Style>
                             </TextRun>
                           </TextRuns>
@@ -248,7 +248,6 @@
                         <PaddingRight>2pt</PaddingRight>
                         <PaddingTop>2pt</PaddingTop>
                         <PaddingBottom>2pt</PaddingBottom>
-                        <rd:FormatSymbolCulture>ms-MY</rd:FormatSymbolCulture>
                       </Style>
                     </Textbox>
                   </CellContents>
@@ -264,7 +263,7 @@
                             <TextRun>
                               <Value>=Fields!CrAmt.Value</Value>
                               <Style>
-                                <Format>'RM' 0.00;('RM' 0.00)</Format>
+                                <Format>0.00;(0.00)</Format>
                               </Style>
                             </TextRun>
                           </TextRuns>
@@ -281,7 +280,6 @@
                         <PaddingRight>2pt</PaddingRight>
                         <PaddingTop>2pt</PaddingTop>
                         <PaddingBottom>2pt</PaddingBottom>
-                        <rd:FormatSymbolCulture>ms-MY</rd:FormatSymbolCulture>
                       </Style>
                     </Textbox>
                   </CellContents>
@@ -297,7 +295,7 @@
                             <TextRun>
                               <Value>=Fields!DrAmtOP.Value</Value>
                               <Style>
-                                <Format>'RM' 0.00;('RM' 0.00)</Format>
+                                <Format>0.00;(0.00)</Format>
                               </Style>
                             </TextRun>
                           </TextRuns>
@@ -314,7 +312,6 @@
                         <PaddingRight>2pt</PaddingRight>
                         <PaddingTop>2pt</PaddingTop>
                         <PaddingBottom>2pt</PaddingBottom>
-                        <rd:FormatSymbolCulture>ms-MY</rd:FormatSymbolCulture>
                       </Style>
                     </Textbox>
                   </CellContents>
@@ -330,7 +327,7 @@
                             <TextRun>
                               <Value>=Fields!CrAmtOP.Value</Value>
                               <Style>
-                                <Format>'RM' 0.00;('RM' 0.00)</Format>
+                                <Format>0.00;(0.00)</Format>
                               </Style>
                             </TextRun>
                           </TextRuns>
@@ -347,10 +344,8 @@
                         <PaddingRight>2pt</PaddingRight>
                         <PaddingTop>2pt</PaddingTop>
                         <PaddingBottom>2pt</PaddingBottom>
-                        <rd:FormatSymbolCulture>ms-MY</rd:FormatSymbolCulture>
                       </Style>
                     </Textbox>
-                    <rd:Selected>true</rd:Selected>
                   </CellContents>
                 </TablixCell>
               </TablixCells>
@@ -381,7 +376,7 @@
         <Top>0.32576cm</Top>
         <Left>1.1049cm</Left>
         <Height>1.2cm</Height>
-        <Width>21.98687cm</Width>
+        <Width>22.25804cm</Width>
         <Style>
           <Border>
             <Style>Solid</Style>
@@ -392,7 +387,7 @@
     <Height>0.65625in</Height>
     <Style />
   </Body>
-  <Width>9.28134in</Width>
+  <Width>9.36467in</Width>
   <Page>
     <PageHeader>
       <Height>2.14313cm</Height>

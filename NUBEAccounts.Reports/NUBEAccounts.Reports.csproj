@@ -52,6 +52,7 @@
     <None Include="App.config" />
     <None Include="Properties\DataSources\NUBEAccounts.BLL.AccountGroup.datasource" />
     <None Include="Properties\DataSources\NUBEAccounts.BLL.BalanceSheet.datasource" />
+    <None Include="Properties\DataSources\NUBEAccounts.BLL.BankReconcilation.datasource" />
     <None Include="Properties\DataSources\NUBEAccounts.BLL.FundMaster.datasource" />
     <None Include="Properties\DataSources\NUBEAccounts.BLL.ExpenseReport.datasource" />
     <None Include="Properties\DataSources\NUBEAccounts.BLL.GeneralLedger.datasource" />
@@ -105,6 +106,9 @@
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </EmbeddedResource>
     <EmbeddedResource Include="Reports\rptVoucherReport.rdlc">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Transaction\rptBankReconciiation.rdlc">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </EmbeddedResource>
     <EmbeddedResource Include="Transaction\rptJournalReceipt.rdlc">
