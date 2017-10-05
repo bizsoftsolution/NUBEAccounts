@@ -35,7 +35,7 @@
                     </Grid.RowDefinitions>
                     <Grid Grid.Row="0">
                         <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" VerticalAlignment="Top" Margin="10" Width="489"  >
-                            <TextBox x:Name="txtLoginId"  materialDesign:HintAssist.Hint="Administrator Login Id" Style="{DynamicResource MaterialDesignFloatingHintTextBox}" Margin="10,0,0,0" FontWeight="Bold" Width="150" />
+                            <TextBox x:Name="txtLoginId"  materialDesign:HintAssist.Hint="Login Id" Style="{DynamicResource MaterialDesignFloatingHintTextBox}" Margin="10,0,0,0" FontWeight="Bold" Width="150" />
                             <TextBox x:Name="txtPassword"  materialDesign:HintAssist.Hint="Password" Style="{DynamicResource MaterialDesignFloatingHintTextBox}" Margin="10,0,10,0" FontWeight="Bold" Width="150" />
                             <Button Width="98" Height="30" x:Name="btnYearEnd" Content="YEAR END CLOSING" Click="btnYearEnd_Click" Margin="5 5" />
                         </StackPanel>

@@ -216,4 +216,10 @@
   <data name="User_Id_Exist" xml:space="preserve">
     <value>UserId Already Exist!</value>
   </data>
+  <data name="YearEnd_InvalidUser" xml:space="preserve">
+    <value>Invalid User!</value>
+  </data>
+  <data name="YearEnd_Success" xml:space="preserve">
+    <value>Successfull Year End.</value>
+  </data>
 </root>

@@ -126,6 +126,9 @@
   <data name="FundMaster_Save" xml:space="preserve">
     <value>FundMaster_Save</value>
   </data>
+  <data name="FundMaster_YearEnd" xml:space="preserve">
+    <value>FundMaster_YearEnd</value>
+  </data>
   <data name="Ledger_Delete" xml:space="preserve">
     <value>Ledger_Delete</value>
   </data>

@@ -20,6 +20,45 @@ namespace NUBEAccounts.SL.Hubs
             return DB.ACYearMasters.Where(x=> x.FundMasterId==FundMasterId).Select(x => x.ACYear).ToList();
         }
 
+        public bool FundMaster_YearEnd()
+        {
+            try
+            {
+
+                var acYear1 = DB.ACYearMasters.Where(x => x.FundMasterId == Caller.FundMasterId && x.ACYear == Caller.AccYear).FirstOrDefault();
+                if (acYear1 != null)
+                {
+                    var lstLedger = DB.Ledgers.Where(x => x.AccountGroup.FundMasterId == Caller.FundMasterId).OrderBy(x => x.LedgerCode).ThenBy(x => x.LedgerName).ToList();
+
+                    int yy = DateTime.Now.Month < 4 ? DateTime.Now.Year - 1 : DateTime.Now.Year;
+                    if (Caller.AccYear.Length > 4) int.TryParse(Caller.AccYear.Substring(0, 4), out yy);
+
+                    DateTime dtFrom = new DateTime(yy, 4, 1);
+                    DateTime dtTo = new DateTime(yy + 1, 3, 31);
+
+                    DAL.ACYearMaster acYear2 = new DAL.ACYearMaster();
+                    acYear2.ACYear = string.Format("{0} - {1}", yy + 1, yy + 2);
+                    acYear2.FundMasterId = Caller.FundMasterId;
+                    acYear2.ACYearStatusId = (int)Common.AppLib.ACYearStatus.Open;
+
+                    foreach (var l in lstLedger)
+                    {
+                        decimal OPDr = 0, OPCr = 0, Dr = 0, Cr = 0;
+                        LedgerBalance(l, dtFrom, dtTo, ref OPDr, ref OPCr, ref Dr, ref Cr);
+                    
+                        if (Dr != 0 || Cr != 0) acYear2.ACYearLedgerBalances.Add(new DAL.ACYearLedgerBalance() {LedgerId=l.Id,DrAmt=Dr,CrAmt=Cr });                        
+                    }
+                    acYear1.ACYearStatusId = (int)Common.AppLib.ACYearStatus.Close;
+                    DB.ACYearMasters.Add(acYear2);
+                    DB.SaveChanges();
+                    return true;
+                }
+                
+            }
+            catch(Exception ex) { }
+            return false;
+        }
+
         public List<BLL.FundMaster> FundMaster_List()
         {
             List<BLL.FundMaster> rv = new List<BLL.FundMaster>();
@@ -33,9 +72,7 @@ namespace NUBEAccounts.SL.Hubs
             }
             return rv;
         }
-
         
-
         public int FundMaster_Save(BLL.FundMaster fm)
         {
             try
@@ -125,7 +162,7 @@ namespace NUBEAccounts.SL.Hubs
         private void FundSetup(BLL.FundMaster fm)
         {
             UserSetup(fm);
-            AccountSetup(fm);
+            //AccountSetup(fm);
         }
 
         void UserSetup(BLL.FundMaster fm)
@@ -155,9 +192,7 @@ namespace NUBEAccounts.SL.Hubs
             DB.SaveChanges();
 
             SetDataKeyValue(fm.Id, ut.TypeOfUser, ut.Id);
-
-
-
+            
         }
 
         void SetDataKeyValue(int FundMasterId, string DataKey, int DataValue)

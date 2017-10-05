@@ -254,7 +254,14 @@ namespace NUBEAccounts.BLL
             }
 
         }
-
+        public static bool YearEnd()
+        {
+            try
+            {
+                return NubeAccountClient.NubeAccountHub.Invoke<bool>(Message.SL.FundMaster_YearEnd).Result;
+            }catch(Exception ex) { }
+            return false;
+        }
         public void Clear()
         {
             new FundMaster().toCopy<FundMaster>(this);
