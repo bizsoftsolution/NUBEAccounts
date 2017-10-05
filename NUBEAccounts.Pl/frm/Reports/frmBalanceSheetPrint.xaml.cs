@@ -54,9 +54,10 @@ namespace NUBEAccounts.Pl.frm.Reports
                 RptViewer.LocalReport.DataSources.Add(data1);
                 RptViewer.LocalReport.ReportPath = @"Reports\rptBalancesheet.rdlc";
 
-                ReportParameter[] par = new ReportParameter[2];
+                ReportParameter[] par = new ReportParameter[3];
                 par[0] = new ReportParameter("DateFrom", dtFrom.ToString());
                 par[1] = new ReportParameter("DateTo", dtTo.ToString());
+                par[2] = new ReportParameter("Fund", BLL.UserAccount.User.UserType.Fund.FundName.ToString());
                 RptViewer.LocalReport.SetParameters(par);
 
 

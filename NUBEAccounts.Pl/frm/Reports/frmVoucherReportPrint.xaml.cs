@@ -49,7 +49,7 @@ namespace NUBEAccounts.Pl.frm.Reports
                 par[0] = new ReportParameter("DateFrom", dtFrom.ToString());
                 par[1] = new ReportParameter("DateTo", dtTo.ToString());
                 par[2] = new ReportParameter("Fund", BLL.UserAccount.User.UserType.Fund.FundName);
-
+               
                 RptViewer.LocalReport.SetParameters(par);
 
                 RptViewer.RefreshReport();

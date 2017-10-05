@@ -266,8 +266,9 @@ namespace NUBEAccounts.Pl.frm.Master
                 RptLedger.LocalReport.DataSources.Add(data1);
                 RptLedger.LocalReport.ReportPath = @"Master\RptLedger.rdlc";
 
-                ReportParameter[] param = new ReportParameter[1];
+                ReportParameter[] param = new ReportParameter[2];
                 param[0] = new ReportParameter("Title", "LEDGER LIST");
+                param[1] = new ReportParameter("Fund", BLL.UserAccount.User.UserType.Fund.FundName);
 
                 RptLedger.LocalReport.SetParameters(param);
                 RptLedger.RefreshReport();

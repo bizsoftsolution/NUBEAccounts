@@ -33,6 +33,7 @@ namespace NUBEAccounts.Pl.frm.Transaction
         {
             InitializeComponent();
             RptLedger.SetDisplayMode(DisplayMode.PrintLayout);
+           
         }
         private Stream CreateStream(string name,
     string fileNameExtension, Encoding encoding,

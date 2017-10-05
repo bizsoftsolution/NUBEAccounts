@@ -23,9 +23,15 @@ namespace NUBEAccounts.Pl.frm.Transaction
         public frmJournalSearch()
         {
             InitializeComponent();
+            int yy = BLL.UserAccount.User.UserType.Fund.LoginAccYear;
 
-            dtpDateFrom.SelectedDate = DateTime.Now;
+            dtpDateFrom.SelectedDate = new DateTime(yy, 4, 1);
             dtpDateTo.SelectedDate = DateTime.Now;
+
+            dtpDateFrom.DisplayDateStart = Common.AppLib.minDate;
+            dtpDateFrom.DisplayDateEnd = Common.AppLib.maxDate;
+
+
         }
 
         private void Window_Loaded(object sender, RoutedEventArgs e)

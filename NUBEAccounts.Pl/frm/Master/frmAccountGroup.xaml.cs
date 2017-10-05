@@ -256,6 +256,10 @@ namespace NUBEAccounts.Pl.frm.Master
                 rptAccountGroup.LocalReport.DataSources.Add(data1);
                 rptAccountGroup.LocalReport.ReportPath = @"Master\rptAccountGroup.rdlc";
 
+                ReportParameter[] rp = new ReportParameter[1];
+                rp[0] = new ReportParameter("Fund", BLL.UserAccount.User.UserType.Fund.FundName);
+                rptAccountGroup.LocalReport.SetParameters(rp);
+
                 rptAccountGroup.RefreshReport();
 
             }

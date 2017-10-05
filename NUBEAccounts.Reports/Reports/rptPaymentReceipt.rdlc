@@ -12,10 +12,10 @@
               <Width>3.77819cm</Width>
             </TablixColumn>
             <TablixColumn>
-              <Width>7.01084cm</Width>
+              <Width>6.03188cm</Width>
             </TablixColumn>
             <TablixColumn>
-              <Width>5.18174cm</Width>
+              <Width>7.35132cm</Width>
             </TablixColumn>
             <TablixColumn>
               <Width>2.97625cm</Width>
@@ -464,7 +464,7 @@
         <Top>0.2111cm</Top>
         <Left>0.39349cm</Left>
         <Height>1.2cm</Height>
-        <Width>23.70889cm</Width>
+        <Width>24.89951cm</Width>
         <Style>
           <Border>
             <Style>Solid</Style>
@@ -475,7 +475,7 @@
     <Height>0.59375in</Height>
     <Style />
   </Body>
-  <Width>9.63702in</Width>
+  <Width>10.17869in</Width>
   <Page>
     <PageHeader>
       <Height>2.89209cm</Height>
@@ -528,14 +528,16 @@
                   </Style>
                 </TextRun>
               </TextRuns>
-              <Style />
+              <Style>
+                <TextAlign>Left</TextAlign>
+              </Style>
             </Paragraph>
           </Paragraphs>
           <rd:DefaultName>DateFrom</rd:DefaultName>
           <Top>2.0275cm</Top>
-          <Left>3.81891cm</Left>
+          <Left>3.74835cm</Left>
           <Height>0.65292cm</Height>
-          <Width>2.32361cm</Width>
+          <Width>2.39417cm</Width>
           <ZIndex>1</ZIndex>
           <Style>
             <Border>
@@ -566,8 +568,8 @@
             </Paragraph>
           </Paragraphs>
           <rd:DefaultName>Textbox18</rd:DefaultName>
-          <Top>2.06277cm</Top>
-          <Left>16.96398cm</Left>
+          <Top>2.13334cm</Top>
+          <Left>19.52571cm</Left>
           <Height>0.61764cm</Height>
           <Width>2.15604cm</Width>
           <ZIndex>2</ZIndex>
@@ -594,12 +596,14 @@
                   </Style>
                 </TextRun>
               </TextRuns>
-              <Style />
+              <Style>
+                <TextAlign>Left</TextAlign>
+              </Style>
             </Paragraph>
           </Paragraphs>
           <rd:DefaultName>DateTo</rd:DefaultName>
-          <Top>2.0275cm</Top>
-          <Left>19.1553cm</Left>
+          <Top>2.09807cm</Top>
+          <Left>21.71703cm</Left>
           <Height>0.65292cm</Height>
           <Width>2.15604cm</Width>
           <ZIndex>3</ZIndex>
@@ -634,7 +638,7 @@
           </Paragraphs>
           <rd:DefaultName>Fund</rd:DefaultName>
           <Top>0.34078cm</Top>
-          <Left>5.97495cm</Left>
+          <Left>7.45683cm</Left>
           <Height>0.64575cm</Height>
           <Width>10.94021cm</Width>
           <ZIndex>4</ZIndex>
@@ -669,7 +673,7 @@
           </Paragraphs>
           <rd:DefaultName>Title</rd:DefaultName>
           <Top>0.98653cm</Top>
-          <Left>5.97495cm</Left>
+          <Left>7.45683cm</Left>
           <Height>0.73229cm</Height>
           <Width>10.94021cm</Width>
           <ZIndex>5</ZIndex>

@@ -41,6 +41,9 @@ namespace NUBEAccounts.Pl.frm.Reports
             dtpDateFrom.SelectedDate = DateTime.Now;
             dtpDateTo.SelectedDate = DateTime.Now;
 
+            dtpDateFrom.DisplayDateStart = Common.AppLib.minDate;
+            dtpDateFrom.DisplayDateEnd = Common.AppLib.maxDate;
+
             cmbAccountName.ItemsSource = BLL.Ledger.toList;
             cmbAccountName.DisplayMemberPath = "AccountName";
             cmbAccountName.SelectedValuePath = "Id";

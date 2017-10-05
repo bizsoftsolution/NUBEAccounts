@@ -39,9 +39,12 @@ namespace NUBEAccounts.Pl.frm.Transaction
             DateTime? dtFrom = new DateTime(yy, 4, 1);
             DateTime? dtTo = new DateTime(yy + 1, 3, 31);
 
+
             dtpDateFrom.SelectedDate = dtFrom;
             dtpDateTo.SelectedDate = dtTo;
 
+            dtpDateFrom.DisplayDateStart = Common.AppLib.minDate;
+            dtpDateFrom.DisplayDateEnd = Common.AppLib.maxDate;
         }
 
         private void UserControl_Loaded(object sender, RoutedEventArgs e)

@@ -6,7 +6,7 @@
         <TablixBody>
           <TablixColumns>
             <TablixColumn>
-              <Width>8.95583cm</Width>
+              <Width>8.68243cm</Width>
             </TablixColumn>
             <TablixColumn>
               <Width>3.34257cm</Width>
@@ -247,7 +247,7 @@
         <Top>0.17639cm</Top>
         <Left>0.74238cm</Left>
         <Height>1.2cm</Height>
-        <Width>15.35402cm</Width>
+        <Width>15.08062cm</Width>
         <Style>
           <Border>
             <Style>Solid</Style>
@@ -346,7 +346,9 @@
                   </Style>
                 </TextRun>
               </TextRuns>
-              <Style />
+              <Style>
+                <TextAlign>Left</TextAlign>
+              </Style>
             </Paragraph>
           </Paragraphs>
           <rd:DefaultName>DateTo</rd:DefaultName>
@@ -378,7 +380,9 @@
                   </Style>
                 </TextRun>
               </TextRuns>
-              <Style />
+              <Style>
+                <TextAlign>Left</TextAlign>
+              </Style>
             </Paragraph>
           </Paragraphs>
           <rd:DefaultName>DateFrom</rd:DefaultName>

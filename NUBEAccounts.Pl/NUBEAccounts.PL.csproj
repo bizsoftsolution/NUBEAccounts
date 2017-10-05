@@ -60,7 +60,13 @@
     <GenerateManifests>true</GenerateManifests>
   </PropertyGroup>
   <PropertyGroup>
-    <SignManifests>true</SignManifests>
+    <SignManifests>false</SignManifests>
+  </PropertyGroup>
+  <PropertyGroup>
+    <TargetZone>LocalIntranet</TargetZone>
+  </PropertyGroup>
+  <PropertyGroup>
+    <ApplicationManifest>Properties\app.manifest</ApplicationManifest>
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="FontAwesome.WPF, Version=4.7.0.37774, Culture=neutral, PublicKeyToken=0758b07a11a4f466, processorArchitecture=MSIL">
@@ -197,10 +203,6 @@
       <SubType>Designer</SubType>
     </Page>
     <Page Include="frm\Master\frmFundMaster.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="frm\Reports\DailyBankBalance.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -412,9 +414,6 @@
     <Compile Include="frm\Master\frmFundMaster.xaml.cs">
       <DependentUpon>frmFundMaster.xaml</DependentUpon>
     </Compile>
-    <Compile Include="frm\Reports\DailyBankBalance.xaml.cs">
-      <DependentUpon>DailyBankBalance.xaml</DependentUpon>
-    </Compile>
     <Compile Include="frm\Reports\frmActivityReport.xaml.cs">
       <DependentUpon>frmActivityReport.xaml</DependentUpon>
     </Compile>
@@ -560,6 +559,7 @@
     </EmbeddedResource>
     <None Include="NUBEAccounts.PL_TemporaryKey.pfx" />
     <None Include="packages.config" />
+    <None Include="Properties\app.manifest" />
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>

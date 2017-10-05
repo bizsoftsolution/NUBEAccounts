@@ -23,8 +23,14 @@ namespace NUBEAccounts.Pl.frm.Transaction
         public frmPaymentSearch()
         {
             InitializeComponent();
-            dtpDateFrom.SelectedDate = DateTime.Now;
+            int yy = BLL.UserAccount.User.UserType.Fund.LoginAccYear;
+
+            DateTime? dtFrom = new DateTime(yy, 4, 1);
+            DateTime? dtTo = new DateTime(yy + 1, 3, 31);
+            dtpDateFrom.SelectedDate =dtFrom;
             dtpDateTo.SelectedDate = DateTime.Now;
+            dtpDateFrom.DisplayDateStart = Common.AppLib.minDate;
+            dtpDateFrom.DisplayDateEnd = Common.AppLib.maxDate;
         }
 
         private void Window_Loaded(object sender, RoutedEventArgs e)

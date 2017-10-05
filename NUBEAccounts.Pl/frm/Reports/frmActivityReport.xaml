@@ -86,7 +86,7 @@
                                     <DataGridTextColumn Header="Account Name" FontWeight="Bold" Width="450" Binding="{Binding Particular}" IsReadOnly="True"  EditingElementStyle="{StaticResource MaterialDesignDataGridTextColumnEditingStyle}" />
                                     <DataGridTextColumn Header="Debit[RM]"  ElementStyle="{StaticResource RightCell}" FontWeight="Bold" Width="120" Binding="{Binding DrAmt, Mode=OneWay,StringFormat={}{0:N2}}" IsReadOnly="True"  EditingElementStyle="{StaticResource MaterialDesignDataGridTextColumnEditingStyle}"/>
                                     <DataGridTextColumn Header="Credit[RM]"  ElementStyle="{StaticResource RightCell}" FontWeight="Bold" Width="120" Binding="{Binding CrAmt, Mode=OneWay,StringFormat={}{0:N2}}" IsReadOnly="True"  EditingElementStyle="{StaticResource MaterialDesignDataGridTextColumnEditingStyle}"/>
-                                    <DataGridTextColumn Header="Balance"  ElementStyle="{StaticResource RightCell}" FontWeight="Bold" Width="120" Binding="{Binding BalAmt, Mode=OneWay,StringFormat={}{0:N2}}" IsReadOnly="True"  EditingElementStyle="{StaticResource MaterialDesignDataGridTextColumnEditingStyle}"/>
+                                    <DataGridTextColumn Header="Balance [RM]"  ElementStyle="{StaticResource RightCell}" FontWeight="Bold" Width="120" Binding="{Binding BalAmt, Mode=OneWay,StringFormat={}{0:N2}}" IsReadOnly="True"  EditingElementStyle="{StaticResource MaterialDesignDataGridTextColumnEditingStyle}"/>
                                 </DataGrid.Columns>
                             </DataGrid>
 

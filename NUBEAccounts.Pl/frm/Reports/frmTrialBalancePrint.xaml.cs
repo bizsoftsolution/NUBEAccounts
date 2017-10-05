@@ -53,9 +53,10 @@ namespace NUBEAccounts.Pl.frm.Reports
                 rptViewer.LocalReport.DataSources.Add(data);
                 rptViewer.LocalReport.ReportPath = @"Reports\rptTrialBalance.rdlc";
 
-                ReportParameter[] par = new ReportParameter[2];
+                ReportParameter[] par = new ReportParameter[3];
                 par[0] = new ReportParameter("DateFrom", dtFrom.ToString());
                 par[1] = new ReportParameter("DateTo", dtTo.ToString());
+                par[2] = new ReportParameter("Fund", BLL.UserAccount.User.UserType.Fund.FundName.ToString());
                 rptViewer.LocalReport.SetParameters(par);
 
                 rptViewer.RefreshReport();
