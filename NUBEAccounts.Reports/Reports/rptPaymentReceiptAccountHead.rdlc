@@ -15,7 +15,9 @@
                 </Style>
               </TextRun>
             </TextRuns>
-            <Style />
+            <Style>
+              <TextAlign>Left</TextAlign>
+            </Style>
           </Paragraph>
         </Paragraphs>
         <rd:DefaultName>DateFrom</rd:DefaultName>
@@ -46,7 +48,9 @@
                 </Style>
               </TextRun>
             </TextRuns>
-            <Style />
+            <Style>
+              <TextAlign>Left</TextAlign>
+            </Style>
           </Paragraph>
         </Paragraphs>
         <rd:DefaultName>DateTo</rd:DefaultName>
@@ -137,13 +141,13 @@
         <TablixBody>
           <TablixColumns>
             <TablixColumn>
-              <Width>10.10011cm</Width>
+              <Width>9.82671cm</Width>
             </TablixColumn>
             <TablixColumn>
-              <Width>4.33403cm</Width>
+              <Width>5.17188cm</Width>
             </TablixColumn>
             <TablixColumn>
-              <Width>4.1918cm</Width>
+              <Width>4.5534cm</Width>
             </TablixColumn>
           </TablixColumns>
           <TablixRows>
@@ -248,7 +252,6 @@
                         <PaddingBottom>2pt</PaddingBottom>
                       </Style>
                     </Textbox>
-                    <rd:Selected>true</rd:Selected>
                   </CellContents>
                 </TablixCell>
               </TablixCells>
@@ -379,7 +382,7 @@
         <Top>0.97578cm</Top>
         <Left>2.33368cm</Left>
         <Height>1.2cm</Height>
-        <Width>18.62594cm</Width>
+        <Width>19.55198cm</Width>
         <ZIndex>4</ZIndex>
         <Style>
           <Border>

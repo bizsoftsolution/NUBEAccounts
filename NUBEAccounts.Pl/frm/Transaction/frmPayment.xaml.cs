@@ -30,6 +30,8 @@ namespace NUBEAccounts.Pl.frm.Transaction
             this.DataContext = data;
             data.Clear();
             onClientEvents();
+            dtpPaymentDate.DisplayDateStart = Common.AppLib.minDate;
+            dtpPaymentDate.DisplayDateEnd = Common.AppLib.maxDate;
         }
         private void onClientEvents()
         {

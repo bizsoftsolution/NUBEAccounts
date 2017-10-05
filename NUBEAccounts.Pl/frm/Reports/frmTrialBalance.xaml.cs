@@ -40,6 +40,9 @@ namespace NUBEAccounts.Pl.frm.Reports
 
             dtpDateFrom.SelectedDate = dtFrom;
             dtpDateTo.SelectedDate = dtTo;
+
+            dtpDateFrom.DisplayDateStart = Common.AppLib.minDate;
+            dtpDateFrom.DisplayDateEnd = Common.AppLib.maxDate;
         }
 
         private void UserControl_Loaded(object sender, RoutedEventArgs e)

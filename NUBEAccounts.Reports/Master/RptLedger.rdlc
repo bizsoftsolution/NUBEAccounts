@@ -178,7 +178,6 @@
                         <PaddingBottom>2pt</PaddingBottom>
                       </Style>
                     </Textbox>
-                    <rd:Selected>true</rd:Selected>
                   </CellContents>
                 </TablixCell>
                 <TablixCell>
@@ -236,7 +235,7 @@
         </TablixRowHierarchy>
         <DataSetName>Ledger</DataSetName>
         <Top>0.17639cm</Top>
-        <Left>0.82544cm</Left>
+        <Left>1.98961cm</Left>
         <Height>1.2cm</Height>
         <Width>21.62258cm</Width>
         <Style>
@@ -252,7 +251,7 @@
   <Width>10.16262in</Width>
   <Page>
     <PageHeader>
-      <Height>1.5259cm</Height>
+      <Height>1.65819cm</Height>
       <PrintOnFirstPage>true</PrintOnFirstPage>
       <PrintOnLastPage>true</PrintOnLastPage>
       <ReportItems>
@@ -276,10 +275,44 @@
             </Paragraph>
           </Paragraphs>
           <rd:DefaultName>Title</rd:DefaultName>
-          <Top>0.4764cm</Top>
-          <Left>3.42415cm</Left>
+          <Top>0.73229cm</Top>
+          <Left>4.08063cm</Left>
           <Height>0.83784cm</Height>
-          <Width>16.70812cm</Width>
+          <Width>17.6518cm</Width>
+          <Style>
+            <Border>
+              <Style>None</Style>
+            </Border>
+            <PaddingLeft>2pt</PaddingLeft>
+            <PaddingRight>2pt</PaddingRight>
+            <PaddingTop>2pt</PaddingTop>
+            <PaddingBottom>2pt</PaddingBottom>
+          </Style>
+        </Textbox>
+        <Textbox Name="Fund">
+          <CanGrow>true</CanGrow>
+          <KeepTogether>true</KeepTogether>
+          <Paragraphs>
+            <Paragraph>
+              <TextRuns>
+                <TextRun>
+                  <Value>=Parameters!Fund.Value</Value>
+                  <Style>
+                    <FontSize>12pt</FontSize>
+                    <FontWeight>Bold</FontWeight>
+                  </Style>
+                </TextRun>
+              </TextRuns>
+              <Style>
+                <TextAlign>Center</TextAlign>
+              </Style>
+            </Paragraph>
+          </Paragraphs>
+          <rd:DefaultName>Fund</rd:DefaultName>
+          <Left>4.08063cm</Left>
+          <Height>0.69701cm</Height>
+          <Width>17.6518cm</Width>
+          <ZIndex>1</ZIndex>
           <Style>
             <Border>
               <Style>None</Style>
@@ -508,6 +541,12 @@
   </DataSets>
   <ReportParameters>
     <ReportParameter Name="Title">
+      <DataType>String</DataType>
+      <Nullable>true</Nullable>
+      <AllowBlank>true</AllowBlank>
+      <Prompt>ReportParameter1</Prompt>
+    </ReportParameter>
+    <ReportParameter Name="Fund">
       <DataType>String</DataType>
       <Nullable>true</Nullable>
       <AllowBlank>true</AllowBlank>

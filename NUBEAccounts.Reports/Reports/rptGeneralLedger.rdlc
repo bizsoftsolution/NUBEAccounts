@@ -630,7 +630,7 @@
   <Width>9.77951in</Width>
   <Page>
     <PageHeader>
-      <Height>2.01084cm</Height>
+      <Height>2.54001cm</Height>
       <PrintOnFirstPage>true</PrintOnFirstPage>
       <PrintOnLastPage>true</PrintOnLastPage>
       <ReportItems>
@@ -654,7 +654,7 @@
             </Paragraph>
           </Paragraphs>
           <rd:DefaultName>Textbox2</rd:DefaultName>
-          <Top>0.39714cm</Top>
+          <Top>1.03214cm</Top>
           <Left>5.86804cm</Left>
           <Height>0.67938cm</Height>
           <Width>12.87167cm</Width>
@@ -685,7 +685,7 @@
             </Paragraph>
           </Paragraphs>
           <rd:DefaultName>Textbox21</rd:DefaultName>
-          <Top>1.15507cm</Top>
+          <Top>1.76362cm</Top>
           <Left>18.93719cm</Left>
           <Height>0.6cm</Height>
           <Width>1.60042cm</Width>
@@ -717,7 +717,7 @@
             </Paragraph>
           </Paragraphs>
           <rd:DefaultName>DateTo</rd:DefaultName>
-          <Top>1.15507cm</Top>
+          <Top>1.76362cm</Top>
           <Left>20.64344cm</Left>
           <Height>0.6cm</Height>
           <Width>2.5cm</Width>
@@ -749,7 +749,7 @@
             </Paragraph>
           </Paragraphs>
           <rd:DefaultName>Textbox19</rd:DefaultName>
-          <Top>1.11979cm</Top>
+          <Top>1.72834cm</Top>
           <Left>0.63182cm</Left>
           <Height>0.6cm</Height>
           <Width>2.07667cm</Width>
@@ -781,11 +781,46 @@
             </Paragraph>
           </Paragraphs>
           <rd:DefaultName>DateFrom</rd:DefaultName>
-          <Top>1.11979cm</Top>
+          <Top>1.72834cm</Top>
           <Left>2.67885cm</Left>
           <Height>0.6cm</Height>
           <Width>2.5cm</Width>
           <ZIndex>4</ZIndex>
+          <Style>
+            <Border>
+              <Style>None</Style>
+            </Border>
+            <PaddingLeft>2pt</PaddingLeft>
+            <PaddingRight>2pt</PaddingRight>
+            <PaddingTop>2pt</PaddingTop>
+            <PaddingBottom>2pt</PaddingBottom>
+          </Style>
+        </Textbox>
+        <Textbox Name="Fund">
+          <CanGrow>true</CanGrow>
+          <KeepTogether>true</KeepTogether>
+          <Paragraphs>
+            <Paragraph>
+              <TextRuns>
+                <TextRun>
+                  <Value>=Parameters!Fund.Value</Value>
+                  <Style>
+                    <FontSize>12pt</FontSize>
+                    <FontWeight>Bold</FontWeight>
+                  </Style>
+                </TextRun>
+              </TextRuns>
+              <Style>
+                <TextAlign>Center</TextAlign>
+              </Style>
+            </Paragraph>
+          </Paragraphs>
+          <rd:DefaultName>Fund</rd:DefaultName>
+          <Top>0.3263cm</Top>
+          <Left>5.86804cm</Left>
+          <Height>0.67056cm</Height>
+          <Width>12.87167cm</Width>
+          <ZIndex>5</ZIndex>
           <Style>
             <Border>
               <Style>None</Style>
@@ -983,6 +1018,12 @@
     <ReportParameter Name="DateTo">
       <DataType>DateTime</DataType>
       <Nullable>true</Nullable>
+      <Prompt>ReportParameter1</Prompt>
+    </ReportParameter>
+    <ReportParameter Name="Fund">
+      <DataType>String</DataType>
+      <Nullable>true</Nullable>
+      <AllowBlank>true</AllowBlank>
       <Prompt>ReportParameter1</Prompt>
     </ReportParameter>
   </ReportParameters>
