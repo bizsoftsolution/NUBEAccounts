@@ -470,7 +470,7 @@
                             <TextRun>
                               <Value>=Fields!DrAmt.Value</Value>
                               <Style>
-                                <Format>'RM' 0.00;('RM' 0.00)</Format>
+                                <Format>0.00;(0.00)</Format>
                               </Style>
                             </TextRun>
                           </TextRuns>
@@ -489,7 +489,6 @@
                         <PaddingRight>2pt</PaddingRight>
                         <PaddingTop>2pt</PaddingTop>
                         <PaddingBottom>2pt</PaddingBottom>
-                        <rd:FormatSymbolCulture>ms-MY</rd:FormatSymbolCulture>
                       </Style>
                     </Textbox>
                   </CellContents>
@@ -505,7 +504,7 @@
                             <TextRun>
                               <Value>=Fields!CrAmt.Value</Value>
                               <Style>
-                                <Format>'RM' 0.00;('RM' 0.00)</Format>
+                                <Format>0.00;(0.00)</Format>
                               </Style>
                             </TextRun>
                           </TextRuns>
@@ -524,9 +523,9 @@
                         <PaddingRight>2pt</PaddingRight>
                         <PaddingTop>2pt</PaddingTop>
                         <PaddingBottom>2pt</PaddingBottom>
-                        <rd:FormatSymbolCulture>ms-MY</rd:FormatSymbolCulture>
                       </Style>
                     </Textbox>
+                    <rd:Selected>true</rd:Selected>
                   </CellContents>
                 </TablixCell>
               </TablixCells>

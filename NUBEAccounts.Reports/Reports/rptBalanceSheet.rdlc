@@ -6,19 +6,19 @@
         <TablixBody>
           <TablixColumns>
             <TablixColumn>
-              <Width>7.13818cm</Width>
+              <Width>7.18228cm</Width>
             </TablixColumn>
             <TablixColumn>
               <Width>3.71708cm</Width>
             </TablixColumn>
             <TablixColumn>
-              <Width>3.21438cm</Width>
+              <Width>3.98726cm</Width>
             </TablixColumn>
             <TablixColumn>
-              <Width>3.71591cm</Width>
+              <Width>4.61549cm</Width>
             </TablixColumn>
             <TablixColumn>
-              <Width>3.8285cm</Width>
+              <Width>4.70163cm</Width>
             </TablixColumn>
           </TablixColumns>
           <TablixRows>
@@ -66,7 +66,7 @@
                         <Paragraph>
                           <TextRuns>
                             <TextRun>
-                              <Value>Dr Amt</Value>
+                              <Value>Current Year Dr [RM]</Value>
                               <Style>
                                 <FontWeight>Bold</FontWeight>
                               </Style>
@@ -100,7 +100,7 @@
                         <Paragraph>
                           <TextRuns>
                             <TextRun>
-                              <Value>Cr Amt</Value>
+                              <Value>Current Year Cr [RM]</Value>
                               <Style>
                                 <FontWeight>Bold</FontWeight>
                               </Style>
@@ -134,7 +134,7 @@
                         <Paragraph>
                           <TextRuns>
                             <TextRun>
-                              <Value>Previous Balance Dr.</Value>
+                              <Value>Previous Year Dr [RM]</Value>
                               <Style>
                                 <FontWeight>Bold</FontWeight>
                               </Style>
@@ -168,7 +168,7 @@
                         <Paragraph>
                           <TextRuns>
                             <TextRun>
-                              <Value>Previous Balance Cr.</Value>
+                              <Value>Previous Year Cr [RM]</Value>
                               <Style>
                                 <FontWeight>Bold</FontWeight>
                               </Style>
@@ -239,7 +239,7 @@
                             <TextRun>
                               <Value>=Fields!DrAmt.Value</Value>
                               <Style>
-                                <Format>'RM' 0.00;('RM' 0.00)</Format>
+                                <Format>0.00;(0.00)</Format>
                               </Style>
                             </TextRun>
                           </TextRuns>
@@ -258,7 +258,6 @@
                         <PaddingRight>2pt</PaddingRight>
                         <PaddingTop>2pt</PaddingTop>
                         <PaddingBottom>2pt</PaddingBottom>
-                        <rd:FormatSymbolCulture>ms-MY</rd:FormatSymbolCulture>
                       </Style>
                     </Textbox>
                   </CellContents>
@@ -274,7 +273,7 @@
                             <TextRun>
                               <Value>=Fields!CrAmt.Value</Value>
                               <Style>
-                                <Format>'RM' 0.00;('RM' 0.00)</Format>
+                                <Format>0.00;(0.00)</Format>
                               </Style>
                             </TextRun>
                           </TextRuns>
@@ -293,7 +292,6 @@
                         <PaddingRight>2pt</PaddingRight>
                         <PaddingTop>2pt</PaddingTop>
                         <PaddingBottom>2pt</PaddingBottom>
-                        <rd:FormatSymbolCulture>ms-MY</rd:FormatSymbolCulture>
                       </Style>
                     </Textbox>
                   </CellContents>
@@ -309,7 +307,7 @@
                             <TextRun>
                               <Value>=Fields!DrAmtOP.Value</Value>
                               <Style>
-                                <Format>'RM' 0.00;('RM' 0.00)</Format>
+                                <Format>0.00;(0.00)</Format>
                               </Style>
                             </TextRun>
                           </TextRuns>
@@ -328,7 +326,6 @@
                         <PaddingRight>2pt</PaddingRight>
                         <PaddingTop>2pt</PaddingTop>
                         <PaddingBottom>2pt</PaddingBottom>
-                        <rd:FormatSymbolCulture>ms-MY</rd:FormatSymbolCulture>
                       </Style>
                     </Textbox>
                   </CellContents>
@@ -344,7 +341,7 @@
                             <TextRun>
                               <Value>=Fields!CrAmtOP.Value</Value>
                               <Style>
-                                <Format>'RM' 0.00;('RM' 0.00)</Format>
+                                <Format>0.00;(0.00)</Format>
                               </Style>
                             </TextRun>
                           </TextRuns>
@@ -363,7 +360,6 @@
                         <PaddingRight>2pt</PaddingRight>
                         <PaddingTop>2pt</PaddingTop>
                         <PaddingBottom>2pt</PaddingBottom>
-                        <rd:FormatSymbolCulture>ms-MY</rd:FormatSymbolCulture>
                       </Style>
                     </Textbox>
                   </CellContents>
@@ -397,7 +393,7 @@
         <Top>0.17639cm</Top>
         <Left>0.66708cm</Left>
         <Height>1.2cm</Height>
-        <Width>21.61405cm</Width>
+        <Width>24.20374cm</Width>
         <Style>
           <Border>
             <Style>Solid</Style>
@@ -408,10 +404,10 @@
     <Height>0.60662in</Height>
     <Style />
   </Body>
-  <Width>8.95833in</Width>
+  <Width>10.01041in</Width>
   <Page>
     <PageHeader>
-      <Height>2.08476cm</Height>
+      <Height>2.00539cm</Height>
       <PrintOnFirstPage>true</PrintOnFirstPage>
       <PrintOnLastPage>true</PrintOnLastPage>
       <ReportItems>
@@ -436,7 +432,7 @@
           </Paragraphs>
           <rd:DefaultName>Textbox14</rd:DefaultName>
           <Top>0.32349cm</Top>
-          <Left>4.96219cm</Left>
+          <Left>6.63458cm</Left>
           <Height>0.6cm</Height>
           <Width>12.15729cm</Width>
           <Style>
@@ -536,8 +532,8 @@
             </Paragraph>
           </Paragraphs>
           <rd:DefaultName>Textbox3</rd:DefaultName>
-          <Top>1.18807cm</Top>
-          <Left>17.2635cm</Left>
+          <Top>1.30837cm</Top>
+          <Left>18.76691cm</Left>
           <Height>0.6cm</Height>
           <Width>2.5cm</Width>
           <ZIndex>3</ZIndex>
@@ -570,8 +566,8 @@
             </Paragraph>
           </Paragraphs>
           <rd:DefaultName>DateTo</rd:DefaultName>
-          <Top>1.18807cm</Top>
-          <Left>19.79878cm</Left>
+          <Top>1.30837cm</Top>
+          <Left>21.2669cm</Left>
           <Height>0.6cm</Height>
           <Width>2.5cm</Width>
           <ZIndex>4</ZIndex>

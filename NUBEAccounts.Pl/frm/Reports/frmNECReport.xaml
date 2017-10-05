@@ -114,8 +114,8 @@
                                     <DataGridTextColumn Header="Pay To" FontWeight="Bold" Width="250" Binding="{Binding PayTo}" IsReadOnly="True"  EditingElementStyle="{StaticResource MaterialDesignDataGridTextColumnEditingStyle}" />
                                     <DataGridTextColumn Header="Memo" FontWeight="Bold" Width="350" Binding="{Binding Particular}" IsReadOnly="True"  EditingElementStyle="{StaticResource MaterialDesignDataGridTextColumnEditingStyle}" />
                                     <DataGridTextColumn Header="Account Name" FontWeight="Bold" Width="350" Binding="{Binding Ledger.AccountName}" IsReadOnly="True"  EditingElementStyle="{StaticResource MaterialDesignDataGridTextColumnEditingStyle}" />
-                                    <DataGridTextColumn Header="Debit"  ElementStyle="{StaticResource RightCell}" FontWeight="Bold" Width="120" Binding="{Binding AmountDr, Mode=OneWay,StringFormat={}{0:N2}}" IsReadOnly="True"  EditingElementStyle="{StaticResource MaterialDesignDataGridTextColumnEditingStyle}"/>
-                                    <DataGridTextColumn Header="Credit"  ElementStyle="{StaticResource RightCell}" FontWeight="Bold" Width="120" Binding="{Binding AmountCr, Mode=OneWay,StringFormat={}{0:N2}}" IsReadOnly="True"  EditingElementStyle="{StaticResource MaterialDesignDataGridTextColumnEditingStyle}"/>
+                                    <DataGridTextColumn Header="Debit [RM]"  ElementStyle="{StaticResource RightCell}" FontWeight="Bold" Width="120" Binding="{Binding AmountDr, Mode=OneWay,StringFormat={}{0:N2}}" IsReadOnly="True"  EditingElementStyle="{StaticResource MaterialDesignDataGridTextColumnEditingStyle}"/>
+                                    <DataGridTextColumn Header="Credit [RM]"  ElementStyle="{StaticResource RightCell}" FontWeight="Bold" Width="120" Binding="{Binding AmountCr, Mode=OneWay,StringFormat={}{0:N2}}" IsReadOnly="True"  EditingElementStyle="{StaticResource MaterialDesignDataGridTextColumnEditingStyle}"/>
                                 </DataGrid.Columns>
                             </DataGrid>
 

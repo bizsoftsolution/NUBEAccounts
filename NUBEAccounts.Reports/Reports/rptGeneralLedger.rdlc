@@ -18,7 +18,7 @@
               <Width>4.09286cm</Width>
             </TablixColumn>
             <TablixColumn>
-              <Width>3.3583cm</Width>
+              <Width>4.39018cm</Width>
             </TablixColumn>
             <TablixColumn>
               <Width>3.13847cm</Width>
@@ -27,7 +27,7 @@
               <Width>3.11201cm</Width>
             </TablixColumn>
             <TablixColumn>
-              <Width>3.74701cm</Width>
+              <Width>2.9268cm</Width>
             </TablixColumn>
           </TablixColumns>
           <TablixRows>
@@ -43,7 +43,7 @@
                         <Paragraph>
                           <TextRuns>
                             <TextRun>
-                              <Value>Entry No</Value>
+                              <Value>Voucher No</Value>
                               <Style>
                                 <FontWeight>Bold</FontWeight>
                               </Style>
@@ -224,7 +224,7 @@
                         <Paragraph>
                           <TextRuns>
                             <TextRun>
-                              <Value>Dr Amt</Value>
+                              <Value>Debit [RM]</Value>
                               <Style>
                                 <FontWeight>Bold</FontWeight>
                               </Style>
@@ -258,7 +258,7 @@
                         <Paragraph>
                           <TextRuns>
                             <TextRun>
-                              <Value>Cr Amt</Value>
+                              <Value>Credit [RM]</Value>
                               <Style>
                                 <FontWeight>Bold</FontWeight>
                               </Style>
@@ -292,7 +292,7 @@
                         <Paragraph>
                           <TextRuns>
                             <TextRun>
-                              <Value>Balance Amt</Value>
+                              <Value>Balance [RM]</Value>
                               <Style>
                                 <FontWeight>Bold</FontWeight>
                               </Style>
@@ -350,7 +350,6 @@
                         <PaddingBottom>2pt</PaddingBottom>
                       </Style>
                     </Textbox>
-                    <rd:Selected>true</rd:Selected>
                   </CellContents>
                 </TablixCell>
                 <TablixCell>
@@ -494,7 +493,7 @@
                             <TextRun>
                               <Value>=Fields!DrAmt.Value</Value>
                               <Style>
-                                <Format>'RM' 0.00;('RM' 0.00)</Format>
+                                <Format>0.00;(0.00)</Format>
                               </Style>
                             </TextRun>
                           </TextRuns>
@@ -513,7 +512,6 @@
                         <PaddingRight>2pt</PaddingRight>
                         <PaddingTop>2pt</PaddingTop>
                         <PaddingBottom>2pt</PaddingBottom>
-                        <rd:FormatSymbolCulture>ms-MY</rd:FormatSymbolCulture>
                       </Style>
                     </Textbox>
                   </CellContents>
@@ -529,7 +527,7 @@
                             <TextRun>
                               <Value>=Fields!CrAmt.Value</Value>
                               <Style>
-                                <Format>'RM' 0.00;('RM' 0.00)</Format>
+                                <Format>0.00;(0.00)</Format>
                               </Style>
                             </TextRun>
                           </TextRuns>
@@ -548,7 +546,6 @@
                         <PaddingRight>2pt</PaddingRight>
                         <PaddingTop>2pt</PaddingTop>
                         <PaddingBottom>2pt</PaddingBottom>
-                        <rd:FormatSymbolCulture>ms-MY</rd:FormatSymbolCulture>
                       </Style>
                     </Textbox>
                   </CellContents>
@@ -564,7 +561,7 @@
                             <TextRun>
                               <Value>=Fields!BalAmt.Value</Value>
                               <Style>
-                                <Format>'RM' 0.00;('RM' 0.00)</Format>
+                                <Format>0.00;(0.00)</Format>
                               </Style>
                             </TextRun>
                           </TextRuns>
@@ -583,7 +580,6 @@
                         <PaddingRight>2pt</PaddingRight>
                         <PaddingTop>2pt</PaddingTop>
                         <PaddingBottom>2pt</PaddingBottom>
-                        <rd:FormatSymbolCulture>ms-MY</rd:FormatSymbolCulture>
                       </Style>
                     </Textbox>
                   </CellContents>
@@ -620,7 +616,7 @@
         <Top>0.07056cm</Top>
         <Left>0.635cm</Left>
         <Height>1.2cm</Height>
-        <Width>23.64962cm</Width>
+        <Width>23.86129cm</Width>
         <Style>
           <Border>
             <Style>Solid</Style>
