@@ -22,11 +22,12 @@ namespace NUBEAccounts.Pl.frm.Master
     /// </summary>
     public partial class frmUserManager : MetroWindow
     {
-
+        BLL.UserAccount data = new BLL.UserAccount();
         public frmUserManager()
         {
             InitializeComponent();
-            onClientEvents();            
+            onClientEvents();
+            this.DataContext = data;          
         }
 
 
@@ -96,6 +97,16 @@ namespace NUBEAccounts.Pl.frm.Master
         public void LoadWindow()
         {                       
             dgvUsers.ItemsSource = BLL.UserAccount.toList;
+
+            btnNewUser.Visibility = (BLL.UserType.UserPermission.AllowInsert) ? Visibility.Visible : Visibility.Collapsed;
+            if(!(BLL.UserType.UserPermission.AllowUpdate))
+            {
+                data.IsEditShow = false;
+            }
+            if (!(BLL.UserType.UserPermission.AllowDelete))
+            {
+                data.IsDeleteShow = false;
+            }
         }
 
     }

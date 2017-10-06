@@ -299,7 +299,6 @@ namespace NUBEAccounts.BLL
             if (PropertyChanged != null) PropertyChanged(this, new PropertyChangedEventArgs(PropertyName));
         }
 
-
         private void NotifyAllPropertyChanged()
         {
             foreach (var p in this.GetType().GetProperties()) NotifyPropertyChanged(p.Name);

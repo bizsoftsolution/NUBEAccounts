@@ -17,7 +17,9 @@ namespace NUBEAccounts.BLL
         public static string LoginedACYear;
         public static string CurrentACYear;
         public static bool IsCurrentACYear;
-        
+        public static bool _IsEditShow=true;
+        public static bool _IsDeleteShow = true;
+
         private static UserTypeDetail _UserPermission;
         private bool _IsReadOnly;
         private bool _IsEnabled;
@@ -124,7 +126,6 @@ namespace NUBEAccounts.BLL
             }
         }
 
-
         public string UserName
         {
             get
@@ -197,6 +198,39 @@ namespace NUBEAccounts.BLL
                 {
                     _UserType = value;
                     NotifyPropertyChanged(nameof(UserType));
+                }
+            }
+        }
+
+        public bool IsEditShow
+        {
+            get
+            {
+                return _IsEditShow;
+            }
+
+            set
+            {
+                if (_IsEditShow != value)
+                {
+                    _IsEditShow = value;
+                    NotifyPropertyChanged(nameof(IsEditShow));
+                }
+            }
+        }
+        public bool IsDeleteShow
+        {
+            get
+            {
+                return _IsDeleteShow;
+            }
+
+            set
+            {
+                if (_IsDeleteShow != value)
+                {
+                    _IsDeleteShow = value;
+                    NotifyPropertyChanged(nameof(IsDeleteShow));
                 }
             }
         }

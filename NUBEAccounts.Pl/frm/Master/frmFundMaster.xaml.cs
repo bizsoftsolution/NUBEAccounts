@@ -23,6 +23,8 @@ namespace NUBEAccounts.Pl.frm.Master
     public partial class frmFundMaster : UserControl
     {
         BLL.FundMaster data = new BLL.FundMaster();
+        public string FormName = BLL.UserTypeFormDetail.toList.Where(x => x.FormName == Forms.frmFundMaster).FirstOrDefault().Description;
+
         public frmFundMaster()
         {
             InitializeComponent();
@@ -62,8 +64,6 @@ namespace NUBEAccounts.Pl.frm.Master
                      
         }
        
-
-
         #region ButtonEvents
 
         private void btnSave_Click(object sender, RoutedEventArgs e)
@@ -71,18 +71,18 @@ namespace NUBEAccounts.Pl.frm.Master
 
             if (!BLL.UserAccount.AllowInsert(Forms.frmFundMaster))
             {
-                MessageBox.Show(string.Format(Message.PL.DenyInsert, Forms.frmFundMaster));
+                MessageBox.Show(string.Format(Message.PL.DenyInsert, FormName));
             }
             else if (!BLL.UserAccount.AllowUpdate(Forms.frmFundMaster))
             {
-                MessageBox.Show(string.Format(Message.PL.DenyUpdate, Forms.frmFundMaster));
+                MessageBox.Show(string.Format(Message.PL.DenyUpdate, FormName));
             }
            
             else
             {
                 if (data.Save() == true)
                 {
-                    MessageBox.Show(Message.PL.Saved_Alert);
+                    MessageBox.Show(string.Format(Message.PL.Saved_Alert), FormName, MessageBoxButton.OK, MessageBoxImage.Information);
                     App.frmHome.ShowWelcome();
                 }
             }
@@ -118,10 +118,7 @@ namespace NUBEAccounts.Pl.frm.Master
 
         }
    #endregion 
-
      
-    
-      
         private void btnUser_Click(object sender, RoutedEventArgs e)
         {
             try

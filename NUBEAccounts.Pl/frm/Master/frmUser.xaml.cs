@@ -34,6 +34,9 @@ namespace NUBEAccounts.Pl.frm.Master
             cmbUserType.ItemsSource = BLL.UserType.toList;
             cmbUserType.DisplayMemberPath = "TypeOfUser";
             cmbUserType.SelectedValuePath = "Id";
+
+            btnSave.Visibility = (BLL.UserType.UserPermission.AllowInsert || BLL.UserType.UserPermission.AllowUpdate) ? Visibility.Visible : Visibility.Collapsed;
+           
         }
         private void btnBack_Click(object sender, RoutedEventArgs e)
         {

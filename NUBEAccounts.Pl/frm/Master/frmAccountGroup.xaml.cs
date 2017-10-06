@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Data;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -15,6 +16,7 @@ using System.Windows.Shapes;
 using Microsoft.AspNet.SignalR.Client;
 using Microsoft.Reporting.WinForms;
 
+
 namespace NUBEAccounts.Pl.frm.Master
 {
     /// <summary>
@@ -26,7 +28,7 @@ namespace NUBEAccounts.Pl.frm.Master
 
         public static string FormName = "Account Group";
         BLL.AccountGroup data = new BLL.AccountGroup();
-
+    
         #endregion
 
         #region Constructor
@@ -37,9 +39,8 @@ namespace NUBEAccounts.Pl.frm.Master
             this.DataContext = data;
             data.Clear();
             rptAccountGroup.SetDisplayMode(DisplayMode.PrintLayout);
-
+        
             onClientEvents();
-
         }
 
         #endregion
@@ -48,16 +49,7 @@ namespace NUBEAccounts.Pl.frm.Master
 
         private void UserControl_Loaded(object sender, RoutedEventArgs e)
         {
-            BLL.AccountGroup.Init();
-            dgvAccount.ItemsSource = BLL.AccountGroup.toList;
-
-            CollectionViewSource.GetDefaultView(dgvAccount.ItemsSource).Filter = AccountGroup_Filter;
-            CollectionViewSource.GetDefaultView(dgvAccount.ItemsSource).SortDescriptions.Add(new System.ComponentModel.SortDescription(nameof(data.GroupCode), System.ComponentModel.ListSortDirection.Ascending));
-
-            rptContain.IsChecked = true;
-            btnSave.Visibility = (BLL.FundMaster.UserPermission.AllowInsert || BLL.FundMaster.UserPermission.AllowUpdate) ? Visibility.Visible : Visibility.Collapsed;
-            btnDelete.Visibility = BLL.FundMaster.UserPermission.AllowDelete ? Visibility.Visible : Visibility.Collapsed;
-
+            LoadWindow();
             clear();
         }
 
@@ -306,6 +298,7 @@ namespace NUBEAccounts.Pl.frm.Master
             }
         }
 
+      
         //private void trvAccount_MouseDoubleClick(object sender, MouseButtonEventArgs e)
         //{
         //    try
@@ -333,5 +326,22 @@ namespace NUBEAccounts.Pl.frm.Master
             cmbUnder.SelectedValuePath = "Id";
             cmbUnder.DisplayMemberPath = "GroupNameWithCode";
         }
+
+        
+        private void LoadWindow()
+        {
+            BLL.AccountGroup.Init();
+
+            dgvAccount.ItemsSource = BLL.AccountGroup.toList;
+
+            CollectionViewSource.GetDefaultView(dgvAccount.ItemsSource).Filter = AccountGroup_Filter;
+            CollectionViewSource.GetDefaultView(dgvAccount.ItemsSource).SortDescriptions.Add(new System.ComponentModel.SortDescription(nameof(data.GroupCode), System.ComponentModel.ListSortDirection.Ascending));
+
+            rptContain.IsChecked = true;
+            btnSave.Visibility = (BLL.FundMaster.UserPermission.AllowInsert || BLL.FundMaster.UserPermission.AllowUpdate) ? Visibility.Visible : Visibility.Collapsed;
+            btnDelete.Visibility = BLL.FundMaster.UserPermission.AllowDelete ? Visibility.Visible : Visibility.Collapsed;
+
+        }
+      
     }
 }

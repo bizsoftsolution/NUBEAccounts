@@ -8,7 +8,7 @@
              xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes" 
              xmlns:rv="clr-namespace:Microsoft.Reporting.WinForms;assembly=Microsoft.ReportViewer.WinForms"
              mc:Ignorable="d" 
-             d:DesignHeight="650" d:DesignWidth="1200" Background="White" Loaded="UserControl_Loaded" Name="AccountGroup">
+             d:DesignHeight="650" d:DesignWidth="1200" Background="White" Loaded="UserControl_Loaded"  Name="AccountGroup"  >
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="{DynamicResource FormHeadHeight}"/>
@@ -37,7 +37,7 @@
                 <Grid Grid.Row="0"  >
                     <ScrollViewer  HorizontalScrollBarVisibility="Auto" VerticalScrollBarVisibility="Auto">
                         <StackPanel Orientation="Vertical" x:Name = "pnlForm" ScrollViewer.VerticalScrollBarVisibility="Auto" ScrollViewer.HorizontalScrollBarVisibility="Auto" >
-                            <TextBox  x:Name="txtGroupName" MaxLength="100" Margin="10" IsReadOnly="{Binding IsReadOnly,Mode=OneWay}" Text="{Binding GroupName, Mode=TwoWay}"  Style="{StaticResource MaterialDesignFloatingHintTextBox}"  FontWeight="Bold" FontSize="14" >
+                            <TextBox  x:Name="txtGroupName" MaxLength="100" Margin="10" IsReadOnly="{Binding IsReadOnly,Mode=OneWay}" Text="{Binding GroupName, Mode=TwoWay}"  Style="{StaticResource MaterialDesignFloatingHintTextBox}"  FontWeight="Bold" FontSize="14"  >
                                 <materialDesign:HintAssist.Hint>
                                     <StackPanel Orientation="Horizontal">
                                         <materialDesign:PackIcon Kind="AccountMultiple" Height="25" Width="25" />

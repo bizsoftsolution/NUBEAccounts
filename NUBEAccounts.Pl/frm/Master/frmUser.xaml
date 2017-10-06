@@ -33,7 +33,7 @@
             <!--#region Form Design-->
             <Grid Grid.Row="0"  >
                 <StackPanel Orientation="Vertical" x:Name = "pnlForm" ScrollViewer.VerticalScrollBarVisibility="Auto" ScrollViewer.HorizontalScrollBarVisibility="Auto" Margin="25" >
-                    <TextBox x:Name="txtUserName" Text="{Binding UserName, Mode=TwoWay}" Style="{StaticResource MaterialDesignFloatingHintTextBox}" FontWeight="Bold" FontSize="14">
+                    <TextBox x:Name="txtUserName" IsReadOnly="{Binding IsReadOnly}" Text="{Binding UserName, Mode=TwoWay}" Style="{StaticResource MaterialDesignFloatingHintTextBox}" FontWeight="Bold" FontSize="14">
                         <materialDesign:HintAssist.Hint>
                             <StackPanel Orientation="Horizontal">
                                 <materialDesign:PackIcon Kind="Account" Foreground="{Binding BorderBrush, ElementName=PhoneTextBox}"  Height="25" Width="25" />
@@ -42,7 +42,7 @@
                         </materialDesign:HintAssist.Hint>
                     </TextBox>
 
-                    <TextBox   x:Name="txtLoginId" FontWeight="Bold" FontSize="14" Text="{Binding LoginId, Mode=TwoWay}" Style="{StaticResource MaterialDesignFloatingHintTextBox}"  materialDesign:TransitionAssist.DisableTransitions="True" AcceptsReturn="True"  VerticalScrollBarVisibility="Auto">
+                    <TextBox   x:Name="txtLoginId" IsReadOnly="{Binding IsReadOnly}" FontWeight="Bold" FontSize="14" Text="{Binding LoginId, Mode=TwoWay}" Style="{StaticResource MaterialDesignFloatingHintTextBox}"  materialDesign:TransitionAssist.DisableTransitions="True" AcceptsReturn="True"  VerticalScrollBarVisibility="Auto">
                         <materialDesign:HintAssist.Hint>
                             <StackPanel Orientation="Horizontal" Width="331">
                                 <materialDesign:PackIcon  Kind="AccountLocation" Foreground="{Binding BorderBrush, ElementName=PhoneTextBox}"  Height="25" Width="25" />
@@ -50,7 +50,7 @@
                             </StackPanel>
                         </materialDesign:HintAssist.Hint>
                     </TextBox>
-                    <TextBox   x:Name="txtPassword" FontWeight="Bold" FontSize="14" Text="{Binding Password, Mode=TwoWay}" Style="{StaticResource MaterialDesignFloatingHintTextBox}"  materialDesign:TransitionAssist.DisableTransitions="True" AcceptsReturn="True"  VerticalScrollBarVisibility="Auto">
+                    <TextBox   x:Name="txtPassword" IsReadOnly="{Binding IsReadOnly}" FontWeight="Bold" FontSize="14" Text="{Binding Password, Mode=TwoWay}" Style="{StaticResource MaterialDesignFloatingHintTextBox}"  materialDesign:TransitionAssist.DisableTransitions="True" AcceptsReturn="True"  VerticalScrollBarVisibility="Auto">
                         <materialDesign:HintAssist.Hint>
                             <StackPanel Orientation="Horizontal" Width="331">
                                 <materialDesign:PackIcon  Kind="Lock" Foreground="{Binding BorderBrush, ElementName=PhoneTextBox}"  Height="25" Width="25" />
