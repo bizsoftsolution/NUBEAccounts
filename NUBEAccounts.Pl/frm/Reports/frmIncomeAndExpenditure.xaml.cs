@@ -41,12 +41,12 @@ namespace NUBEAccounts.Pl.frm.Reports
             dtpDateFrom.DisplayDateStart = Common.AppLib.minDate;
             dtpDateFrom.DisplayDateEnd = Common.AppLib.maxDate;
 
-            dtpDateFrom.SelectedDate = dtFrom;
-            dtpDateTo.SelectedDate = dtTo;
+            dtpDateFrom.SelectedDate = DateTime.Now;
+            dtpDateTo.SelectedDate = DateTime.Now;
         }
 
         private void UserControl_Loaded(object sender, RoutedEventArgs e)
-        {            
+        {
             LoadReport();
         }
 
@@ -55,7 +55,7 @@ namespace NUBEAccounts.Pl.frm.Reports
         {
             List<BLL.IncomeExpenditure> list = BLL.IncomeExpenditure.ToList(dtpDateFrom.SelectedDate.Value, dtpDateTo.SelectedDate.Value);
             list = list.Select(x => new BLL.IncomeExpenditure()
-            { AccountName = x.Ledger.AccountName, DrAmt = x.DrAmt+x.CrAmt, DrAmtOP = x.DrAmtOP+x.CrAmtOP }).ToList();
+            { AccountName = x.Ledger.AccountName, DrAmt = x.DrAmt + x.CrAmt, DrAmtOP = x.DrAmtOP + x.CrAmtOP }).ToList();
             dgvIncomeExpenditure.ItemsSource = list;
             try
             {
@@ -64,7 +64,7 @@ namespace NUBEAccounts.Pl.frm.Reports
                 ReportDataSource data1 = new ReportDataSource("FundMaster", BLL.FundMaster.toList.Where(x => x.Id == BLL.UserAccount.User.UserType.Fund.Id).ToList());
                 rptViewer.LocalReport.DataSources.Add(data);
                 rptViewer.LocalReport.DataSources.Add(data1);
-                rptViewer.LocalReport.ReportPath = @"Reports\rptIncomeAndExpenditure.rdlc";
+                rptViewer.LocalReport.ReportPath = @"Reports\rptIncomeAndExpenditureNew.rdlc";
 
                 ReportParameter[] par = new ReportParameter[2];
                 par[0] = new ReportParameter("DateFrom", dtpDateFrom.SelectedDate.Value.ToString());
@@ -86,7 +86,7 @@ namespace NUBEAccounts.Pl.frm.Reports
 
 
         private void btnSearch_Click(object sender, RoutedEventArgs e)
-        {            
+        {
             LoadReport();
         }
 

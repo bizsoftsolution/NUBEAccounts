@@ -70,6 +70,72 @@ namespace NUBEAccounts.SL.Hubs
             }
         }
 
+
+        void LedgerBalance_NoOP(DAL.Ledger l, DateTime dtFrom, DateTime dtTo, ref decimal OPDr, ref decimal OPCr, ref decimal Dr, ref decimal Cr)
+        {
+            decimal PDr, PCr, RDr, RCr, JDr, JCr;
+
+            var bal = l.ACYearLedgerBalances.Where(x => x.ACYearMaster.ACYear == Caller.AccYear).FirstOrDefault();
+            if (bal != null)
+            {
+                OPDr = bal.DrAmt ?? 0;
+                OPCr = bal.CrAmt ?? 0;
+            }
+            else
+            {
+                OPDr = 0;
+                OPCr = 0;
+            }
+
+            PDr = l.PaymentDetails.Where(x => x.Payment.PaymentDate < dtFrom).Sum(x => x.Amount);
+            PCr = l.Payments.Where(x => x.PaymentDate < dtFrom).Sum(x => x.Amount);
+
+            RDr = l.Receipts.Where(x => x.ReceiptDate < dtFrom).Sum(x => x.Amount);
+            RCr = l.ReceiptDetails.Where(x => x.Receipt.ReceiptDate < dtFrom).Sum(x => x.Amount);
+
+            JDr = l.JournalDetails.Where(x => x.Journal.JournalDate < dtFrom).Sum(x => x.DrAmt);
+            JCr = l.JournalDetails.Where(x => x.Journal.JournalDate < dtFrom).Sum(x => x.CrAmt);
+
+            OPDr = OPDr + PDr + RDr + JDr;
+            OPCr = OPCr + PCr + RCr + JCr;
+
+
+            PDr = l.PaymentDetails.Where(x => x.Payment.PaymentDate >= dtFrom && x.Payment.PaymentDate <= dtTo).Sum(x => x.Amount);
+            PCr = l.Payments.Where(x => x.PaymentDate >= dtFrom && x.PaymentDate <= dtTo).Sum(x => x.Amount);
+
+            RDr = l.Receipts.Where(x => x.ReceiptDate >= dtFrom && x.ReceiptDate <= dtTo).Sum(x => x.Amount);
+            RCr = l.ReceiptDetails.Where(x => x.Receipt.ReceiptDate >= dtFrom && x.Receipt.ReceiptDate <= dtTo).Sum(x => x.Amount);
+
+            JDr = l.JournalDetails.Where(x => x.Journal.JournalDate >= dtFrom && x.Journal.JournalDate <= dtTo).Sum(x => x.DrAmt);
+            JCr = l.JournalDetails.Where(x => x.Journal.JournalDate >= dtFrom && x.Journal.JournalDate <= dtTo).Sum(x => x.CrAmt);
+
+            Dr =PDr + RDr + JDr;
+            Cr = PCr + RCr + JCr;
+
+            if (OPDr > OPCr)
+            {
+                OPDr = Math.Abs(OPDr - OPCr);
+                OPCr = 0;
+            }
+            else
+            {
+                OPCr = Math.Abs(OPDr - OPCr);
+                OPDr = 0;
+            }
+
+            if (Dr > Cr)
+            {
+                Dr = Math.Abs(Dr - Cr);
+                Cr = 0;
+            }
+            else
+            {
+                Cr = Math.Abs(Dr - Cr);
+                Dr = 0;
+            }
+        }
+
+
         public decimal GetLedgerBalance(int LedgerId)
         {
             return TrialBalance_GetLedgerBalance(LedgerId, DateTime.Now);
@@ -85,7 +151,12 @@ namespace NUBEAccounts.SL.Hubs
             LedgerBalance(l, dt, dt, ref OPDr, ref OPCr, ref Dr, ref Cr);
             return Dr + Cr;
         }
-
+        public decimal GetLedgerBalance_NoOP(DAL.Ledger l, DateTime dt)
+        {
+            decimal OPDr = 0, OPCr = 0, Dr = 0, Cr = 0;
+            LedgerBalance_NoOP(l, dt, dt, ref OPDr, ref OPCr, ref Dr, ref Cr);
+            return Dr + Cr;
+        }
         public void GetLedgerTotal(DAL.AccountGroup ag, ref decimal total)
         {
             foreach (var l in ag.Ledgers)
@@ -97,7 +168,17 @@ namespace NUBEAccounts.SL.Hubs
                 GetLedgerTotal(ag1, ref total);
             }
         }
-
+        public void GetLedgerTotal_NoOP(DAL.AccountGroup ag, ref decimal total)
+        {
+            foreach (var l in ag.Ledgers)
+            {
+                total += GetLedgerBalance_NoOP(l, DateTime.Now);
+            }
+            foreach (var ag1 in ag.AccountGroup1)
+            {
+                GetLedgerTotal_NoOP(ag1, ref total);
+            }
+        }
         public List<BLL.TrialBalance> TrialBalance_List(DateTime dtFrom, DateTime dtTo)
         {
             List<BLL.TrialBalance> lstTrialBalance = new List<BLL.TrialBalance>();

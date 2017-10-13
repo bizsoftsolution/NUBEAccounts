@@ -38,8 +38,8 @@ namespace NUBEAccounts.Pl.frm.Reports
             DateTime? dtFrom = new DateTime(yy, 4, 1);
             DateTime? dtTo = new DateTime(yy + 1, 3, 31);
 
-            dtpDateFrom.SelectedDate = dtFrom;
-            dtpDateTo.SelectedDate = dtTo;
+            dtpDateFrom.SelectedDate = DateTime.Now;
+            dtpDateTo.SelectedDate = DateTime.Now;
 
             dtpDateFrom.DisplayDateStart = Common.AppLib.minDate;
             dtpDateFrom.DisplayDateEnd= Common.AppLib.maxDate;

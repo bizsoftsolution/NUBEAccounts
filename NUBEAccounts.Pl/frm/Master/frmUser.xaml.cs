@@ -24,9 +24,7 @@ namespace NUBEAccounts.Pl.frm.Master
         public frmUser()
         {
             InitializeComponent();
-
-            this.DataContext = data;            
-           
+            this.DataContext = data;                      
         }
         public void LoadWindow()
         {

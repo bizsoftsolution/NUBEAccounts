@@ -23,20 +23,18 @@ namespace NUBEAccounts.Pl.frm.Reports
     {
         public static int yy = BLL.UserAccount.User.UserType.Fund.LoginAccYear;
 
-        DateTime? dtFrom = new DateTime(yy, 4, 1);
-        DateTime? dtTo = new DateTime(yy + 1, 3, 31);
-
+       
         public frmIncomeAndExpenditurePrint()
         {
             InitializeComponent();
             rptViewer.SetDisplayMode(DisplayMode.PrintLayout);
 
-            LoadReport(Convert.ToDateTime(dtFrom), Convert.ToDateTime(dtTo)); ;
+           // LoadReport(Convert.ToDateTime(dtFrom), Convert.ToDateTime(dtTo)); ;
         }
 
         private void UserControl_Loaded(object sender, RoutedEventArgs e)
         {
-            LoadReport(Convert.ToDateTime(dtFrom), Convert.ToDateTime(dtTo)); ;
+           // LoadReport(Convert.ToDateTime(dtFrom), Convert.ToDateTime(dtTo)); ;
 
         }
 
@@ -44,7 +42,7 @@ namespace NUBEAccounts.Pl.frm.Reports
         {
             List<BLL.IncomeExpenditure> list = BLL.IncomeExpenditure.ToList(dtFrom, dtTo);
             list = list.Select(x => new BLL.IncomeExpenditure()
-            { AccountName = x.Ledger.AccountName, CrAmt = x.CrAmt, DrAmt = x.DrAmt, DrAmtOP = x.DrAmtOP, CrAmtOP = x.CrAmtOP }).ToList();
+            { AccountName = x.Ledger.AccountName,  DrAmt = x.DrAmt+x.CrAmt, DrAmtOP = x.DrAmtOP+ x.CrAmtOP }).ToList();
 
             try
             {
@@ -53,7 +51,7 @@ namespace NUBEAccounts.Pl.frm.Reports
                 ReportDataSource data1 = new ReportDataSource("FundMaster", BLL.FundMaster.toList.Where(x => x.Id == BLL.UserAccount.User.UserType.Fund.Id).ToList());
                 rptViewer.LocalReport.DataSources.Add(data);
                 rptViewer.LocalReport.DataSources.Add(data1);
-                rptViewer.LocalReport.ReportPath = @"Reports\rptIncomeAndExpenditure.rdlc";
+                rptViewer.LocalReport.ReportPath = @"Reports\rptIncomeExpenditureNew.rdlc";
 
                 ReportParameter[] par = new ReportParameter[3];
                 par[0] = new ReportParameter("DateFrom", dtFrom.ToString());

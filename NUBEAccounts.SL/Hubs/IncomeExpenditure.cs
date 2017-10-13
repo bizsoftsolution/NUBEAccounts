@@ -85,21 +85,22 @@ namespace NUBEAccounts.SL.Hubs
 
                 LedgerBalance(l, dtFrom, dtTo, ref OPDr, ref OPCr, ref Dr, ref Cr);
 
-                tb.DrAmt = Dr;
-                tb.CrAmt = Cr;
+                tb.DrAmt = Dr-OPDr;
+                tb.CrAmt = Cr-OPCr;
                 tb.DrAmtOP = OPDr;
                 tb.CrAmtOP = OPCr;
 
-                if (tb.DrAmt != 0 || tb.CrAmt != 0)
+                if (tb.DrAmtOP!=0||tb.CrAmtOP!=0)
                 {
                     tb.Ledger.AccountGroup.GroupCode = Prefix + "     " + tb.Ledger.AccountGroup.GroupCode;
                     lstIncomeExpenditure.Add(tb);
                     GTotalDr += tb.DrAmt ?? 0;
                     GTotalCr += tb.CrAmt ?? 0;
 
-                    GTotalDrOP += tb.DrAmtOP ?? 0;
-                    GTotalCrOP += tb.CrAmtOP ?? 0;
                 }
+
+                GTotalDrOP += tb.DrAmtOP ?? 0;
+                GTotalCrOP += tb.CrAmtOP ?? 0;
             }
 
             if (GTotalDr > GTotalCr)
