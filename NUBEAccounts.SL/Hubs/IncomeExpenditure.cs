@@ -90,7 +90,7 @@ namespace NUBEAccounts.SL.Hubs
                 tb.DrAmtOP = OPDr;
                 tb.CrAmtOP = OPCr;
 
-                if (tb.DrAmtOP!=0||tb.CrAmtOP!=0)
+                if (tb.DrAmtOP!=0||tb.CrAmtOP!=0||tb.CrAmt!=0||tb.DrAmt!=0)
                 {
                     tb.Ledger.AccountGroup.GroupCode = Prefix + "     " + tb.Ledger.AccountGroup.GroupCode;
                     lstIncomeExpenditure.Add(tb);

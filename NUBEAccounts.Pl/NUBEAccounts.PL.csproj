@@ -310,6 +310,10 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="frm\Reports\MonthlyIncomeExpenseReport.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="frm\Reports\NECReport.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -493,6 +497,9 @@
     </Compile>
     <Compile Include="frm\Reports\IndividualReport.xaml.cs">
       <DependentUpon>IndividualReport.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="frm\Reports\MonthlyIncomeExpenseReport.xaml.cs">
+      <DependentUpon>MonthlyIncomeExpenseReport.xaml</DependentUpon>
     </Compile>
     <Compile Include="frm\Reports\NECReport.xaml.cs">
       <DependentUpon>NECReport.xaml</DependentUpon>
