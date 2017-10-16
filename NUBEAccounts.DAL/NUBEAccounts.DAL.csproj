@@ -72,6 +72,7 @@
     <Compile Include="DataKeyValue.cs">
       <DependentUpon>DBNUBEAccountsModel.tt</DependentUpon>
     </Compile>
+    <Content Include="DBClean.sql" />
     <Compile Include="DBNUBEAccountsModel.Context.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
@@ -150,7 +151,7 @@
     <None Include="DBNUBEAccountsModel.edmx.diagram">
       <DependentUpon>DBNUBEAccountsModel.edmx</DependentUpon>
     </None>
-    <None Include="DB\Nube_New_1310.bak" />
+    <None Include="DB\nube_new_1610.bak" />
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
@@ -167,6 +168,7 @@
       <DependentUpon>DBNUBEAccountsModel.edmx</DependentUpon>
       <LastGenOutput>DBNUBEAccountsModel.cs</LastGenOutput>
     </Content>
+    <Content Include="Nube_Old_Structure_Change.sql" />
   </ItemGroup>
   <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

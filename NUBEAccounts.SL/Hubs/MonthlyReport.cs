@@ -50,7 +50,7 @@ namespace NUBEAccounts.SL.Hubs
             {
                 decimal[] amt = new decimal[12];
 
-                for (int i = 0; i < n; i++)
+                for (int i = 0; i <= n; i++)
                 {
                     decimal dr = 0, cr = 0;
                    
@@ -59,15 +59,14 @@ namespace NUBEAccounts.SL.Hubs
                     {
                         DateTime dt = dtFrom.AddMonths(i);
 
-
                         dr = l.PaymentDetails.Where(x => x.Payment.PaymentDate.Year == dt.Year && x.Payment.PaymentDate.Month == dt.Month).Sum(x => x.Amount);
                         cr= l.Payments.Where(x => x.PaymentDate.Year == dt.Year && x.PaymentDate.Month == dt.Month).Sum(x => x.Amount);
 
-                        dr+= l.Receipts.Where(x => x.ReceiptDate.Year == dt.Year && x.ReceiptDate.Month == dt.Month).Sum(x => x.Amount);
-                        cr += l.ReceiptDetails.Where(x => x.Receipt.ReceiptDate.Year == dt.Year && x.Receipt.ReceiptDate.Month <= dt.Month).Sum(x => x.Amount);
+                        dr += l.Receipts.Where(x => x.ReceiptDate.Year == dt.Year && x.ReceiptDate.Month == dt.Month).Sum(x => x.Amount);
+                        cr += l.ReceiptDetails.Where(x => x.Receipt.ReceiptDate.Year == dt.Year && x.Receipt.ReceiptDate.Month == dt.Month).Sum(x => x.Amount);
 
-                        dr+= l.JournalDetails.Where(x => x.Journal.JournalDate.Year == dt.Year && x.Journal.JournalDate.Month == dt.Month).Sum(x => x.DrAmt);
-                        cr+= l.JournalDetails.Where(x => x.Journal.JournalDate.Year == dt.Year && x.Journal.JournalDate.Month == dt.Month).Sum(x => x.CrAmt);
+                        cr += l.JournalDetails.Where(x => x.Journal.JournalDate.Year == dt.Year && x.Journal.JournalDate.Month == dt.Month).Sum(x => x.CrAmt);
+                        dr += l.JournalDetails.Where(x => x.Journal.JournalDate.Year == dt.Year && x.Journal.JournalDate.Month == dt.Month).Sum(x => x.DrAmt);
                         amt[i] = Math.Abs(dr - cr);
                     }
                     else

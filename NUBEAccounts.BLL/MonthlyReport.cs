@@ -51,6 +51,7 @@ namespace NUBEAccounts.BLL
                 }
             }
         }
+
         public string Description
         {
             get
