@@ -253,7 +253,7 @@ namespace NUBEAccounts.Pl.frm.Reports
                     Transaction.frmPayment f = new Transaction.frmPayment();
                     App.frmHome.ShowForm(f);
                     System.Windows.Forms.Application.DoEvents();
-                    f.data.SearchText = rp.EntryNo;
+                    f.data.EntryNo = rp.EntryNo;
                     System.Windows.Forms.Application.DoEvents();
                     f.data.Find();
                 }
@@ -262,7 +262,7 @@ namespace NUBEAccounts.Pl.frm.Reports
                     Transaction.frmReceipt f = new Transaction.frmReceipt();
                     App.frmHome.ShowForm(f);
                     System.Windows.Forms.Application.DoEvents();
-                    f.data.SearchText = rp.EntryNo;
+                    f.data.EntryNo = rp.EntryNo;
                     System.Windows.Forms.Application.DoEvents();
                     f.data.Find();
                 }
@@ -271,7 +271,7 @@ namespace NUBEAccounts.Pl.frm.Reports
                     Transaction.frmJournal f = new Transaction.frmJournal();
                     App.frmHome.ShowForm(f);
                     System.Windows.Forms.Application.DoEvents();
-                    f.data.SearchText = rp.EntryNo;
+                    f.data.EntryNo = rp.EntryNo;
                     System.Windows.Forms.Application.DoEvents();
                     f.data.Find();
                 }

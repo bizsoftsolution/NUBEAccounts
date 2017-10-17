@@ -192,7 +192,7 @@
                 </StackPanel>
             </StackPanel>
         </Grid>
-        <Grid Grid.Row="3" Grid.ColumnSpan="3"/>
+        <Grid Grid.Row="3" Grid.ColumnSpan="3" d:IsHidden="True"/>
         <Rectangle Fill="#FF12406F" Height="40" Stroke="Black" VerticalAlignment="Top" StrokeThickness="0" Grid.ColumnSpan="3" Grid.Row="3" Margin="0,0,0,-15"/>
 
     </Grid>

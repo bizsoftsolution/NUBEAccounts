@@ -108,7 +108,7 @@ namespace NUBEAccounts.Pl.frm.Reports
                         Transaction.frmPayment f = new Transaction.frmPayment();
                         App.frmHome.ShowForm(f);
                         System.Windows.Forms.Application.DoEvents();
-                        f.data.SearchText = gl.EntryNo;
+                        f.data.EntryNo = gl.EntryNo;
                         System.Windows.Forms.Application.DoEvents();
                         f.data.Find();
                         f.btnPrint.IsEnabled = true;
@@ -119,7 +119,7 @@ namespace NUBEAccounts.Pl.frm.Reports
                         Transaction.frmReceipt f = new Transaction.frmReceipt();
                         App.frmHome.ShowForm(f);
                         System.Windows.Forms.Application.DoEvents();
-                        f.data.SearchText = gl.EntryNo;
+                        f.data.EntryNo = gl.EntryNo;
                         System.Windows.Forms.Application.DoEvents();
                         f.data.Find();
                         f.btnPrint.IsEnabled = true;
@@ -130,7 +130,7 @@ namespace NUBEAccounts.Pl.frm.Reports
                         Transaction.frmJournal f = new Transaction.frmJournal();
                         App.frmHome.ShowForm(f);
                         System.Windows.Forms.Application.DoEvents();
-                        f.data.SearchText = gl.EntryNo;
+                        f.data.EntryNo = gl.EntryNo;
 
                         System.Windows.Forms.Application.DoEvents();
                         f.data.Find();
@@ -144,7 +144,7 @@ namespace NUBEAccounts.Pl.frm.Reports
                     Transaction.frmJournal f = new Transaction.frmJournal();
                     App.frmHome.ShowForm(f);
                     System.Windows.Forms.Application.DoEvents();
-                    f.data.SearchText = gl.EntryNo;
+                    f.data.EntryNo = gl.EntryNo;
                     System.Windows.Forms.Application.DoEvents();
                     f.data.Find();
                     f.btnPrint.IsEnabled = true;

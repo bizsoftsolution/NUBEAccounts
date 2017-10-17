@@ -63,11 +63,17 @@ namespace NUBEAccounts.SL.Hubs
                 else
                 {
 
-                    foreach (var d_pod in d.PaymentDetails)
-                    {
-                        BLL.PaymentDetail b_pod = PO.PDetails.Where(x => x.Id == d_pod.Id).FirstOrDefault();
-                        if (b_pod == null) d.PaymentDetails.Remove(d_pod);
-                    }
+                    //foreach (var d_pod in d.PaymentDetails.ToList())
+                    //{
+                    //    BLL.PaymentDetail b_pod = PO.PDetails.Where(x => x.Id == d_pod.Id).FirstOrDefault();
+                    //    if (b_pod == null) d.PaymentDetails.Remove(d_pod);
+                    //}
+                    decimal pdId = PO.PDetails.Select(x => x.PaymentId).FirstOrDefault();
+
+                    DB.PaymentDetails.RemoveRange(d.PaymentDetails.Where(x => x.PaymentId == pdId).ToList());
+                    
+
+
                     PO.toCopy<DAL.Payment>(d);
 
                     foreach (var b_pod in PO.PDetails)
@@ -78,6 +84,8 @@ namespace NUBEAccounts.SL.Hubs
                             d_pod = new DAL.PaymentDetail();
                             d.PaymentDetails.Add(d_pod);
                         }
+                       
+                       
                         b_pod.toCopy<DAL.PaymentDetail>(d_pod);
                     }
                     DB.SaveChanges();
@@ -170,7 +178,7 @@ namespace NUBEAccounts.SL.Hubs
           
                 foreach(var l in  DB.Payments.
                       Where(x => x.PaymentDate >= dtFrom && x.PaymentDate <= dtTo
-                      && (x.LedgerId == LedgerId || LedgerId == null) && (Status == "" || x.Status == Status)).ToList())
+                      && (x.LedgerId == LedgerId || LedgerId == null) && (Status == "" || x.Status == Status)&&x.Ledger.AccountGroup.FundMasterId==Caller.FundMasterId).ToList())
                 {
                     rp = new BLL.Payment();
                     rp.Amount = l.Amount;

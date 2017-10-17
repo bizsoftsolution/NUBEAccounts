@@ -59,11 +59,14 @@ namespace NUBEAccounts.SL.Hubs
                 }
                 else
                 {
-                    foreach (var d_pod in d.ReceiptDetails)
-                    {
-                        BLL.ReceiptDetail b_pod = PO.RDetails.Where(x => x.Id == d_pod.Id).FirstOrDefault();
-                        if (b_pod == null) d.ReceiptDetails.Remove(d_pod);
-                    }
+                    //foreach (var d_pod in d.ReceiptDetails)
+                    //{
+                    //    BLL.ReceiptDetail b_pod = PO.RDetails.Where(x => x.Id == d_pod.Id).FirstOrDefault();
+                    //    if (b_pod == null) d.ReceiptDetails.Remove(d_pod);
+                    //}
+                    decimal rd = PO.RDetails.Select(X => X.ReceiptId).FirstOrDefault();
+                    DB.ReceiptDetails.RemoveRange(d.ReceiptDetails.Where(x => x.ReceiptId == rd).ToList());
+
                     PO.toCopy<DAL.Receipt>(d);
                     foreach (var b_pod in PO.RDetails)
                     {
@@ -167,7 +170,7 @@ namespace NUBEAccounts.SL.Hubs
 
             foreach (var l in DB.Receipts.
                   Where(x => x.ReceiptDate >= dtFrom && x.ReceiptDate <= dtTo
-                  && (x.LedgerId == LedgerId || LedgerId == null) && (Status == "" || x.Status == Status)).ToList())
+                  && (x.LedgerId == LedgerId || LedgerId == null) && (Status == "" || x.Status == Status)&& x.Ledger.AccountGroup.FundMasterId==Caller.FundMasterId).ToList())
             {
                 rp = new BLL.Receipt();
                 rp.Amount = l.Amount;

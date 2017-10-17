@@ -74,11 +74,13 @@ namespace NUBEAccounts.SL.Hubs
                 else
                 {
 
-                    foreach (var d_SOd in d.JournalDetails)
-                    {
-                        BLL.JournalDetail b_SOd = PO.JDetails.Where(x => x.Id == d_SOd.Id).FirstOrDefault();
-                        if (b_SOd == null) d.JournalDetails.Remove(d_SOd);
-                    }
+                    //foreach (var d_SOd in d.JournalDetails)
+                    //{
+                    //    BLL.JournalDetail b_SOd = PO.JDetails.Where(x => x.Id == d_SOd.Id).FirstOrDefault();
+                    //    if (b_SOd == null) d.JournalDetails.Remove(d_SOd);
+                    //}
+                    decimal rd = PO.JDetails.Select(X => X.JournalId).FirstOrDefault();
+                    DB.JournalDetails.RemoveRange(d.JournalDetails.Where(x => x.JournalId == rd).ToList());
 
                     PO.toCopy<DAL.Journal>(d);
 
@@ -203,7 +205,7 @@ namespace NUBEAccounts.SL.Hubs
             BLL.Journal rp = new BLL.Journal();
 
          
-                foreach (var l1 in DB.JournalDetails.Where(x => x.Journal.JournalDate >= dtFrom && x.Journal.JournalDate <= dtTo &&( LedgerId == null||x.LedgerId == LedgerId )).ToList())
+                foreach (var l1 in DB.JournalDetails.Where(x => x.Journal.JournalDate >= dtFrom && x.Journal.JournalDate <= dtTo &&( LedgerId == null||x.LedgerId == LedgerId )&&x.Ledger.AccountGroup.FundMasterId==Caller.FundMasterId).ToList())
                 {
 
                     rp = new BLL.Journal();

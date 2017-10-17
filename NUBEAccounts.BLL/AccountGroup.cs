@@ -314,18 +314,24 @@ namespace NUBEAccounts.BLL
             try
             {
                 AccountGroup d = toList.Where(x => x.Id == Id).FirstOrDefault();
-
                 if (d == null)
                 {
-                    d = new AccountGroup();
-                    toList.Add(d);
+                  d = new AccountGroup() { GroupName = this.GroupName, UnderGroupId = this.UnderGroupId, GroupCode = this.GroupCode };
+                  toList.Add(d);
+                }
+
+                else
+                {
+                    d.GroupName = this.GroupName;
+                    d.UnderGroupId = this.UnderGroupId;
+                    d.GroupCode = this.GroupCode;
                 }
 
                 this.toCopy<AccountGroup>(d);
                 if (isServerCall == false)
                 {
-                    AccountGroup ag = new AccountGroup() { GroupName = this.GroupName, UnderGroupId = this.UnderGroupId, GroupCode = this.GroupCode };
-                    var i = NubeAccountClient.NubeAccountHub.Invoke<int>("AccountGroup_Save", ag).Result;
+                    
+                    var i = NubeAccountClient.NubeAccountHub.Invoke<int>("AccountGroup_Save", d).Result;
                     d.Id = i;
                 }
 
