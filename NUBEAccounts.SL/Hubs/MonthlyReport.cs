@@ -39,7 +39,7 @@ namespace NUBEAccounts.SL.Hubs
 
             List<BLL.MonthlyReport> rv = new List<BLL.MonthlyReport>();
             BLL.MonthlyReport sr = new BLL.MonthlyReport();
-            decimal[] tamt = new decimal[12];
+           decimal[] tamt = new decimal[12];
 
 
             #region CustomeWise
@@ -48,7 +48,7 @@ namespace NUBEAccounts.SL.Hubs
 
             foreach (var l in ag.Ledgers)
             {
-                decimal[] amt = new decimal[12];
+                  decimal[] amt = new decimal[12];
 
                 for (int i = 0; i <= n; i++)
                 {
@@ -89,6 +89,7 @@ namespace NUBEAccounts.SL.Hubs
                 if (sr.Amount > 0)
                 {
                     sr.Description = string.Format("   {0}-{1}", l.LedgerCode, l.LedgerName);
+                    sr.LId = l.Id;
                     sr.M1 = amt[0];
                     sr.M2 = amt[1];
                     sr.M3 = amt[2];
@@ -108,11 +109,11 @@ namespace NUBEAccounts.SL.Hubs
                 {
                     tamt[i] += amt[i];
                 }
-
+               
             }
             sr = new BLL.MonthlyReport();
             sr.Amount = tamt.Sum();
-
+            
 
 
             for (int i = 0; i < 12; i++)

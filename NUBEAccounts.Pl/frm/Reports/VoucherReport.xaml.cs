@@ -228,9 +228,9 @@ namespace NUBEAccounts.Pl.frm.Reports
                 list = BLL.VoucherReport.ToList(dtpDateFrom.SelectedDate.Value, dtpDateTo.SelectedDate.Value, (int?)cmbAccountName.SelectedValue);
 
                 list = list.Select(x => new BLL.VoucherReport()
-                { AccountName = x.Ledger.AccountName, EntryNo = x.EntryNo, CrAmt = x.CrAmt, DrAmt = x.DrAmt, PayTo = x.PayTo, Particulars = x.Particulars, VDate = x.VDate }).ToList();
+                { AccountName = x.Ledger.AccountName,VoucherNo=x.VoucherNo, EntryNo = x.EntryNo, CrAmt = x.CrAmt, DrAmt = x.DrAmt, PayTo = x.PayTo, Particulars = x.Particulars, VDate = x.VDate }).ToList();
                 frmVoucherReportPrint frm = new frmVoucherReportPrint();
-                frm.LoadReport(list);
+                frm.LoadReport(list, dtpDateFrom.SelectedDate.Value, dtpDateTo.SelectedDate.Value);
                 frm.ShowDialog();
             }
             else

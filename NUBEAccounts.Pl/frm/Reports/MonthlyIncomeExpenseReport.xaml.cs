@@ -66,5 +66,32 @@ namespace NUBEAccounts.Pl.frm.Reports
 
         }
 
+        private void dgvDetails_MouseDoubleClick(object sender, MouseButtonEventArgs e)
+        {
+            try
+            {
+                var bs = dgvDetails.SelectedItem as BLL.MonthlyReport;
+                if (bs != null)
+                {
+                    if (bs.LId != 0)
+                    {
+                        frmGeneralLedger frm = new frmGeneralLedger();
+                        App.frmHome.ShowForm(frm);
+
+                        System.Windows.Forms.Application.DoEvents();
+                        frm.cmbAccountName.SelectedValue = bs.LId;
+                        frm.dtpDateFrom.SelectedDate = dtpDateFrom.SelectedDate;
+                        frm.dtpDateTo.SelectedDate = dtpDateTo.SelectedDate;
+                        System.Windows.Forms.Application.DoEvents();
+                        frm.dgvGeneralLedger.ItemsSource = BLL.GeneralLedger.ToList((int)bs.LId, dtpDateFrom.SelectedDate.Value, dtpDateTo.SelectedDate.Value);
+
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+
+            }
+        }
     }
 }

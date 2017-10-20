@@ -10,7 +10,7 @@
         ShowMaxRestoreButton="False"
         Title="Login" Height="700" Width="1000"
         BorderThickness="0" GlowBrush="Black" Loaded="MetroWindow_Loaded" ResizeMode="NoResize" WindowTransitionsEnabled="False" WindowStartupLocation="CenterScreen"             
-                         Closing="MetroWindow_Closing" Icon="Images/Logo.png" Background="White" >
+        Closing="MetroWindow_Closing" Icon="Images/Logo.png" Background="White" >
     <Window.CommandBindings>
         <CommandBinding Command="Close" Executed="CommandBinding_Executed" />
     </Window.CommandBindings>

@@ -23,9 +23,6 @@ namespace NUBEAccounts.Pl.frm.Reports
     {
         public static int yy = BLL.UserAccount.User.UserType.Fund.LoginAccYear;
 
-        DateTime? dtFrom = new DateTime(yy, 4, 1);
-        DateTime? dtTo = new DateTime(yy + 1, 3, 31);
-
         public frmPaymentReceiptPrint()
         {
             InitializeComponent();
@@ -36,7 +33,7 @@ namespace NUBEAccounts.Pl.frm.Reports
 
 
         }
-        public void LoadReport(List<BLL.ReceiptAndPayment> list, bool AccountHead)
+        public void LoadReport(List<BLL.ReceiptAndPayment> list,DateTime dtFrom, DateTime dtTo, bool AccountHead)
         {
             try
             {

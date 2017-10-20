@@ -100,7 +100,7 @@
                             <WindowsFormsHost Visibility="Hidden"  ScrollViewer.HorizontalScrollBarVisibility="Auto" ScrollViewer.VerticalScrollBarVisibility="Auto" Margin="150,10,150,10">
                                 <rv:ReportViewer x:Name="rptViewer"/>
                             </WindowsFormsHost>
-                            <DataGrid x:Name="dgvDetail" BorderBrush="Black" BorderThickness="1" ScrollViewer.VerticalScrollBarVisibility="Auto" ScrollViewer.HorizontalScrollBarVisibility="Auto" CanUserSortColumns="True" CanUserAddRows="False"  AutoGenerateColumns="False"  Background="White" Foreground="Black" Margin="100,20,100,40" >
+                            <DataGrid x:Name="dgvDetail" BorderBrush="Black" BorderThickness="1" ScrollViewer.VerticalScrollBarVisibility="Auto" ScrollViewer.HorizontalScrollBarVisibility="Auto" CanUserSortColumns="True" CanUserAddRows="False"  AutoGenerateColumns="False"  Background="White" Foreground="Black" Margin="100,20,100,40" MouseDoubleClick="dgvDetail_MouseDoubleClick">
 
                                 <DataGrid.ColumnHeaderStyle>
                                     <Style TargetType="{x:Type DataGridColumnHeader}">

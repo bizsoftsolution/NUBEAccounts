@@ -23,6 +23,7 @@ namespace NUBEAccounts.BLL
 
         private string _AccountName;
         private string _VoucherNo;
+        private string _EType;
         #endregion
 
         #region Property
@@ -194,7 +195,24 @@ namespace NUBEAccounts.BLL
                 }
             }
         }
-        #endregion        
+
+        public string EType
+        {
+            get
+            {
+                return _EType;
+            }
+
+            set
+            {
+                if(_EType!=value)
+                {
+                    _EType = value;
+                    NotifyPropertyChanged(nameof(EType));
+                }
+            }
+        }
+        #endregion
 
         #region Property  Changed Event
 

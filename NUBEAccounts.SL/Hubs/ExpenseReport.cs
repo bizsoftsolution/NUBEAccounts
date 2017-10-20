@@ -31,7 +31,7 @@ namespace NUBEAccounts.SL.Hubs
                         if (pd.Amount != 0)
                         {
                             rp = new BLL.ExpenseReport();
-                            rp.Particulars = l.LedgerName;
+                            rp.Particulars = string.Format("{0}-{1}", pd.Ledger.AccountGroup.GroupCode, l.LedgerName);
                             lstExpenseReport.Add(rp);
 
                             if (rp.Payto == "" || rp.Payto == null)
@@ -47,6 +47,7 @@ namespace NUBEAccounts.SL.Hubs
                             rp.Particulars = pd.Particular;
                             rp.DrAmt = pd.Amount;
                             rp.CrAmt = 0;
+                            rp.EType = BLL.FormPrefix.Payment;
                             lstExpenseReport.Add(rp);
 
                             rp = new BLL.ExpenseReport();
@@ -67,7 +68,7 @@ namespace NUBEAccounts.SL.Hubs
                             foreach (var pd in p.PaymentDetails)
                             {
                                 rp = new BLL.ExpenseReport();
-                                rp.Particulars = l.LedgerName;
+                                rp.Particulars = string.Format("{0}-{1}", p.Ledger.AccountGroup.GroupCode, l.LedgerName);
 
                                 if (p.PayTo == "" || p.PayTo == null)
                                 {
@@ -80,6 +81,7 @@ namespace NUBEAccounts.SL.Hubs
                                 rp.EntryNo = pd.Payment.EntryNo;
                                 rp.VoucherNo = pd.Payment.VoucherNo;
                                 rp.Particulars = pd.Particular;
+                                rp.EType = BLL.FormPrefix.Payment;
                                 lstExpenseReport.Add(rp);
                             }
                         }
@@ -97,7 +99,7 @@ namespace NUBEAccounts.SL.Hubs
                             foreach (var rd in r.ReceiptDetails)
                             {
                                 rp = new BLL.ExpenseReport();
-                                rp.Particulars = r.Ledger.LedgerName;
+                                rp.Particulars = string.Format("{0}-{1}", r.Ledger.AccountGroup.GroupCode, r.Ledger.LedgerName);
                                 lstExpenseReport.Add(rp);
                                 rp = new BLL.ExpenseReport();
                                 if (rd.Receipt.ReceivedFrom == "" || rd.Receipt.ReceivedFrom == null)
@@ -113,6 +115,7 @@ namespace NUBEAccounts.SL.Hubs
                                 rp.CrAmt = r.Amount;
                                 rp.Particulars = r.Particulars;
                                 lstExpenseReport.Add(rp);
+                                rp.EType = BLL.FormPrefix.Receipt;
                                 rp = new BLL.ExpenseReport();
                                 lstExpenseReport.Add(rp);
                             }
@@ -131,7 +134,7 @@ namespace NUBEAccounts.SL.Hubs
                         {
 
                             rp = new BLL.ExpenseReport();
-                            rp.Particulars = rd.Ledger.LedgerName;
+                            rp.Particulars = string.Format("{0}-{1}", rd.Ledger.AccountGroup.GroupCode, rd.Ledger.LedgerName);
                             lstExpenseReport.Add(rp);
 
                             rp = new BLL.ExpenseReport();
@@ -147,6 +150,7 @@ namespace NUBEAccounts.SL.Hubs
                             rp.DrAmt = 0;
                             rp.CrAmt = rd.Amount;
                             rp.Particulars = rd.Particulars;
+                            rp.EType = BLL.FormPrefix.Receipt;
                             lstExpenseReport.Add(rp);
                             rp = new BLL.ExpenseReport();
                             lstExpenseReport.Add(rp);
@@ -163,7 +167,7 @@ namespace NUBEAccounts.SL.Hubs
                         {
 
                             rp = new BLL.ExpenseReport();
-                            rp.Particulars = rd.Ledger.LedgerName;
+                            rp.Particulars = string.Format("{0}-{1}", rd.Ledger.AccountGroup.GroupCode, rd.Ledger.LedgerName);
                             lstExpenseReport.Add(rp);
 
                             rp = new BLL.ExpenseReport();
@@ -206,7 +210,7 @@ namespace NUBEAccounts.SL.Hubs
                         if (pd.Amount != 0)
                         {
                             rp = new BLL.ExpenseReport();
-                            rp.Particulars = l.LedgerName;
+                            rp.Particulars = string.Format("{0}-{1}", pd.Ledger.AccountGroup.GroupCode, l.LedgerName);
                             rp.EntryNo = pd.Payment.EntryNo;
                             rp.VoucherNo = pd.Payment.VoucherNo;
                             rp.DrAmt = pd.Amount;
@@ -228,7 +232,7 @@ namespace NUBEAccounts.SL.Hubs
                             foreach (var pd in p.PaymentDetails)
                             {
                                 rp = new BLL.ExpenseReport();
-                                rp.Particulars = l.LedgerName;
+                                rp.Particulars = string.Format("{0}-{1}", p.Ledger.AccountGroup.GroupCode, l.LedgerName);
                                 rp.EntryNo = pd.Payment.EntryNo;
                                 rp.VoucherNo = pd.Payment.VoucherNo;
                                 rp.DrAmt = pd.Amount;
@@ -250,7 +254,7 @@ namespace NUBEAccounts.SL.Hubs
                             foreach (var rd in r.ReceiptDetails)
                             {
                                 rp = new BLL.ExpenseReport();
-                                rp.Particulars = r.Ledger.LedgerName;
+                                rp.Particulars = string.Format("{0}-{1}", r.Ledger.AccountGroup.GroupCode, r.Ledger.LedgerName);
                                 rp.EntryNo = r.EntryNo;
                                 rp.VoucherNo = r.VoucherNo;
                                 rp.DrAmt = 0;
@@ -272,7 +276,7 @@ namespace NUBEAccounts.SL.Hubs
                         {
 
                             rp = new BLL.ExpenseReport();
-                            rp.Particulars = rd.Ledger.LedgerName;
+                            rp.Particulars = string.Format("{0}-{1}", rd.Ledger.AccountGroup.GroupCode, rd.Ledger.LedgerName);
                             rp.EntryNo = rd.Receipt.EntryNo;
                             rp.VoucherNo = rd.Receipt.VoucherNo;
                             rp.DrAmt = 0;
@@ -291,7 +295,7 @@ namespace NUBEAccounts.SL.Hubs
                         if (rd.CrAmt != 0 || rd.DrAmt != 0)
                         {
                             rp = new BLL.ExpenseReport();
-                            rp.Particulars = rd.Ledger.LedgerName;
+                            rp.Particulars = string.Format("{0}-{1}", rd.Ledger.AccountGroup.GroupCode, rd.Ledger.LedgerName);
                             rp.EntryNo = rd.Journal.EntryNo;
                             rp.VoucherNo = rd.Journal.VoucherNo;
                             rp.DrAmt = rd.DrAmt;

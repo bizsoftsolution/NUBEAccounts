@@ -24,7 +24,7 @@ namespace NUBEAccounts.SL.Hubs
                     tb = new BLL.VoucherReport();
                     tb.Ledger = LedgerDAL_BLL(l);
 
-                    tb.Ledger.AccountName = d1.Ledger.LedgerName;
+                    tb.Ledger.AccountName = string.Format("{0}-{1}", d1.Ledger.LedgerCode, d1.Ledger.LedgerName);
                     tb.CrAmt = d1.Amount;
                     PTotCr += d1.Amount;
                     tb.EntryNo = d1.EntryNo;
@@ -38,7 +38,7 @@ namespace NUBEAccounts.SL.Hubs
                         tb = new BLL.VoucherReport();
                         tb.Ledger = LedgerDAL_BLL(d2.Ledger);
                         tb.VDate = null;
-                        tb.Ledger.AccountName = d2.Ledger.LedgerName;
+                        tb.Ledger.AccountName = string.Format("{0}-{1}", d2.Ledger.LedgerCode, d2.Ledger.LedgerName);
                         tb.EntryNo = "";
                         tb.Particulars = "";
                         tb.EType = "";
@@ -68,9 +68,9 @@ namespace NUBEAccounts.SL.Hubs
                     tb.Ledger = LedgerDAL_BLL(l);
 
                     decimal RTotDr = 0, RTotCr = 0;
-                    tb.Ledger.AccountName = d1.Ledger.LedgerName;
+                    tb.Ledger.AccountName = string.Format("{0}-{1}", d1.Ledger.LedgerCode, d1.Ledger.LedgerName);
                     tb.DrAmt = d1.Amount;
-                    TotDr += d1.Amount;
+                    RTotDr += d1.Amount;
                     tb.EntryNo = d1.EntryNo;
                     tb.VoucherNo = d1.VoucherNo;
                     tb.VDate = d1.ReceiptDate;
@@ -82,7 +82,7 @@ namespace NUBEAccounts.SL.Hubs
                         tb = new BLL.VoucherReport();
                         tb.Ledger = LedgerDAL_BLL(d2.Ledger);
                         tb.VDate = null;
-                        tb.Ledger.AccountName = d2.Ledger.LedgerName;
+                        tb.Ledger.AccountName = string.Format("{0}-{1}", d2.Ledger.LedgerCode, d2.Ledger.LedgerName);
                         tb.EntryNo = "";
                         tb.Particulars = "";
                         tb.EType = "";
@@ -111,7 +111,7 @@ namespace NUBEAccounts.SL.Hubs
                 {
                     tb = new BLL.VoucherReport();
                     tb.Ledger = LedgerDAL_BLL(l);
-                    tb.Ledger.AccountName = d1.Ledger.LedgerName;
+                    tb.Ledger.AccountName = string.Format("{0}-{1}", d1.Ledger.LedgerCode, d1.Ledger.LedgerName);
                     tb.DrAmt = d1.DrAmt;
                     JTotDr += d1.DrAmt;
                     tb.EntryNo = d1.Journal.EntryNo;

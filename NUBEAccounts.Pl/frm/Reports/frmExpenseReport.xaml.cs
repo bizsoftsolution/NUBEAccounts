@@ -253,6 +253,79 @@ namespace NUBEAccounts.Pl.frm.Reports
                 MessageBox.Show("Enter Account Name", "Expense Report", MessageBoxButton.OK, MessageBoxImage.Information);
             }
         }
+
+        private void dgvDetail_MouseDoubleClick(object sender, MouseButtonEventArgs e)
+        {
+            var gl = dgvDetail.SelectedItem as BLL.ExpenseReport;
+            if (gl != null && gl.EntryNo != null)
+            {
+                if (gl.EType != null)
+                {
+                    if (gl.EType.StartsWith(BLL.FormPrefix.Payment))
+                    {
+                        Transaction.frmPayment f = new Transaction.frmPayment();
+                        App.frmHome.ShowForm(f);
+                        System.Windows.Forms.Application.DoEvents();
+                        f.data.EntryNo = gl.EntryNo;
+                        System.Windows.Forms.Application.DoEvents();
+                        f.data.Find();
+                        f.btnPrint.IsEnabled = true;
+                        if (f.data.RefCode != null)
+                        {
+                            f.btnSave.IsEnabled = false;
+                            f.btnDelete.IsEnabled = false;
+                        }
+                    }
+                    else if (gl.EType.StartsWith(BLL.FormPrefix.Receipt))
+                    {
+                        Transaction.frmReceipt f = new Transaction.frmReceipt();
+                        App.frmHome.ShowForm(f);
+                        System.Windows.Forms.Application.DoEvents();
+                        f.data.EntryNo = gl.EntryNo;
+                        System.Windows.Forms.Application.DoEvents();
+                        f.data.Find();
+                        f.btnPrint.IsEnabled = true;
+                        if (f.data.RefCode != null)
+                        {
+                            f.btnSave.IsEnabled = false;
+                            f.btnDelete.IsEnabled = false;
+                        }
+                    }
+                    else if (gl.EType.StartsWith(BLL.FormPrefix.Journal))
+                    {
+                        Transaction.frmJournal f = new Transaction.frmJournal();
+                        App.frmHome.ShowForm(f);
+                        System.Windows.Forms.Application.DoEvents();
+                        f.data.EntryNo = gl.EntryNo;
+                        System.Windows.Forms.Application.DoEvents();
+                        f.data.Find();
+                        f.btnPrint.IsEnabled = true;
+                        if (f.data.RefCode != null)
+                        {
+                            f.btnSave.IsEnabled = false;
+                            f.btnDelete.IsEnabled = false;
+                        }
+                    }
+
+                }
+                else
+                {
+                    Transaction.frmJournal f = new Transaction.frmJournal();
+                    App.frmHome.ShowForm(f);
+                    System.Windows.Forms.Application.DoEvents();
+                    f.data.EntryNo = gl.EntryNo;
+                    System.Windows.Forms.Application.DoEvents();
+                    f.data.Find();
+                    f.btnPrint.IsEnabled = true;
+                    //if (f.data.RefCode != null)
+                    //{
+                    //    f.btnSave.IsEnabled = false;
+                    //    f.btnDelete.IsEnabled = false;
+                    //}
+                }
+            }
+        }
+    
     }
     #endregion
 }

@@ -26,6 +26,8 @@ namespace NUBEAccounts.BLL
         private decimal? _M12;
         private decimal? _Amount;
         private static UserTypeDetail _UserPermission;
+        private Ledger _LedgerList;
+        private int _LId;
 
 
         #endregion
@@ -48,6 +50,21 @@ namespace NUBEAccounts.BLL
                 if (_UserPermission != value)
                 {
                     _UserPermission = value;
+                }
+            }
+        }
+        public int  LId
+        {
+            get
+            {
+                return _LId;
+            }
+            set
+            {
+                if (_LId != value)
+                {
+                    _LId = value;
+                    NotifyPropertyChanged(nameof(LId));
                 }
             }
         }
@@ -266,6 +283,21 @@ namespace NUBEAccounts.BLL
         }
 
         public Ledger Ledger { get; set; }
+        public Ledger LedgerList
+        {
+            get
+            {
+                return _LedgerList;
+            }
+            set
+            {
+                if (_LedgerList != value)
+                {
+                    _LedgerList = value;
+                    NotifyPropertyChanged(nameof(LedgerList));
+                }
+            }
+        }
         #endregion
 
         #region Property  Changed Event

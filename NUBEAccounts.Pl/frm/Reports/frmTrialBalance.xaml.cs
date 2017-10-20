@@ -54,10 +54,9 @@ namespace NUBEAccounts.Pl.frm.Reports
         private void LoadReport()
         {
             List<BLL.TrialBalance> list = BLL.TrialBalance.ToList(dtpDateFrom.SelectedDate.Value, dtpDateTo.SelectedDate.Value);
-            dgvTrialBalance.ItemsSource = list;
             list = list.Select(x => new BLL.TrialBalance()
             { AccountName = x.Ledger.AccountName, CrAmt = x.CrAmt, DrAmt = x.DrAmt, CrAmtOP = x.CrAmtOP, DrAmtOP = x.DrAmtOP }).ToList();
-
+            dgvTrialBalance.ItemsSource = list;
             try
             {
                 rptViewer.Reset();

@@ -71,7 +71,7 @@
                                 </DataGrid.ColumnHeaderStyle>
 
                                 <DataGrid.Columns>
-                                    <DataGridTextColumn Header="Account Name" FontWeight="Bold" Width="400" Binding="{Binding  Ledger.AccountName,Mode=OneWay}" IsReadOnly="True"  EditingElementStyle="{StaticResource MaterialDesignDataGridTextColumnEditingStyle}" />
+                                    <DataGridTextColumn Header="Account Name" FontWeight="Bold" Width="400" Binding="{Binding  AccountName,Mode=OneWay}" IsReadOnly="True"  EditingElementStyle="{StaticResource MaterialDesignDataGridTextColumnEditingStyle}" />
                                     <DataGridTextColumn Header="Current Year Dr [RM]"  ElementStyle="{StaticResource RightCell}" FontWeight="Bold" Width="150" Binding="{Binding DrAmt, Mode=OneWay,StringFormat={}{0:N2}}" IsReadOnly="True"  EditingElementStyle="{StaticResource MaterialDesignDataGridTextColumnEditingStyle}"/>
                                     <DataGridTextColumn Header="Current Year Cr [RM]"  ElementStyle="{StaticResource RightCell}" FontWeight="Bold" Width="150" Binding="{Binding CrAmt, Mode=OneWay,StringFormat={}{0:N2}}" IsReadOnly="True"  EditingElementStyle="{StaticResource MaterialDesignDataGridTextColumnEditingStyle}"/>
                                     <DataGridTextColumn Header="Previous Year Dr [RM]"  ElementStyle="{StaticResource RightCell}" FontWeight="Bold" Width="150" Binding="{Binding DrAmtOP, Mode=OneWay,StringFormat={}{0:N2}}" IsReadOnly="True"  EditingElementStyle="{StaticResource MaterialDesignDataGridTextColumnEditingStyle}"/>

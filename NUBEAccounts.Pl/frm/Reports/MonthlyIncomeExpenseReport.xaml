@@ -66,7 +66,7 @@
 
                         <Grid Grid.Row="0"  >
 
-                            <DataGrid x:Name="dgvDetails" BorderBrush="Black" BorderThickness="1"  ScrollViewer.VerticalScrollBarVisibility="Auto" ScrollViewer.HorizontalScrollBarVisibility="Auto" CanUserSortColumns="True" CanUserAddRows="False"  AutoGenerateColumns="False"  Background="White" Foreground="Black" Margin="20,20,20,40" >
+                            <DataGrid x:Name="dgvDetails" BorderBrush="Black" BorderThickness="1"  ScrollViewer.VerticalScrollBarVisibility="Auto" ScrollViewer.HorizontalScrollBarVisibility="Auto" CanUserSortColumns="True" CanUserAddRows="False"  AutoGenerateColumns="False"  Background="White" Foreground="Black" Margin="20,20,20,40" MouseDoubleClick="dgvDetails_MouseDoubleClick">
 
                                 <DataGrid.ColumnHeaderStyle>
                                     <Style TargetType="{x:Type DataGridColumnHeader}">

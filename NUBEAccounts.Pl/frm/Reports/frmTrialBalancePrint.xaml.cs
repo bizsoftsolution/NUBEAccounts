@@ -23,20 +23,18 @@ namespace NUBEAccounts.Pl.frm.Reports
     {
         public static int yy = BLL.UserAccount.User.UserType.Fund.LoginAccYear;
 
-        DateTime? dtFrom = new DateTime(yy, 4, 1);
-        DateTime? dtTo = new DateTime(yy + 1, 3, 31);
-
+       
         public frmTrialBalancePrint()
         {
             InitializeComponent();
             rptViewer.SetDisplayMode(DisplayMode.PrintLayout);
 
-            LoadReport(Convert.ToDateTime(dtFrom), Convert.ToDateTime(dtTo)); ;
+            //LoadReport(Convert.ToDateTime(dtFrom), Convert.ToDateTime(dtTo)); ;
         }
 
         private void UserControl_Loaded(object sender, RoutedEventArgs e)
         {
-            LoadReport(Convert.ToDateTime(dtFrom), Convert.ToDateTime(dtTo)); ;
+           // LoadReport(Convert.ToDateTime(dtFrom), Convert.ToDateTime(dtTo)); ;
 
         }
 

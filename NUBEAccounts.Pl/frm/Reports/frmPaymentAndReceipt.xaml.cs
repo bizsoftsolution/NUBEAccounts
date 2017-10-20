@@ -66,7 +66,7 @@ namespace NUBEAccounts.Pl.frm.Reports
                     list = BLL.ReceiptAndPayment.ToList((int?)cmbAccountName.SelectedValue, dtpDateFrom.SelectedDate.Value, dtpDateTo.SelectedDate.Value, txtEntryNo.Text, cmbstatus.Text, false);
                 }
                 list = list.Select(x => new BLL.ReceiptAndPayment()
-                { AccountName = x.Ledger.AccountName, EntryNo = x.EntryNo, AmountCr=x.AmountCr, AmountDr=x.AmountDr, PayTo=x.PayTo,Particular=x.Particular }).ToList();
+                { AccountName = x.Ledger.AccountName, EntryNo = x.EntryNo,VoucherNo=x.VoucherNo, AmountCr=x.AmountCr, AmountDr=x.AmountDr, PayTo=x.PayTo,Particular=x.Particular }).ToList();
 
                 try
                 {
@@ -260,15 +260,15 @@ namespace NUBEAccounts.Pl.frm.Reports
                     list = BLL.ReceiptAndPayment.ToList((int?)cmbAccountName.SelectedValue, dtpDateFrom.SelectedDate.Value, dtpDateTo.SelectedDate.Value, txtEntryNo.Text, cmbstatus.Text, false);
                 }
                 list = list.Select(x => new BLL.ReceiptAndPayment()
-                { AccountName = x.Ledger.AccountName, EntryNo = x.EntryNo, AmountCr = x.AmountCr, AmountDr = x.AmountDr, PayTo = x.PayTo, Particular = x.Particular }).ToList();
+                { AccountName = x.Ledger.AccountName,VoucherNo=x.VoucherNo, EntryNo = x.EntryNo, AmountCr = x.AmountCr, AmountDr = x.AmountDr, PayTo = x.PayTo, Particular = x.Particular }).ToList();
                 frmPaymentReceiptPrint f = new frmPaymentReceiptPrint();
                 if (ckbAccountHead.IsChecked == true)
                 {
-                    f.LoadReport(list, true);
+                    f.LoadReport(list,dtpDateFrom.SelectedDate.Value, dtpDateTo.SelectedDate.Value, true);
                 }
                 else
                 {
-                    f.LoadReport(list, false);
+                    f.LoadReport(list,dtpDateFrom.SelectedDate.Value,dtpDateTo.SelectedDate.Value, false);
                 }
                 f.ShowDialog();
             }
@@ -292,7 +292,7 @@ namespace NUBEAccounts.Pl.frm.Reports
                     Transaction.frmPayment f = new Transaction.frmPayment();
                     App.frmHome.ShowForm(f);
                     System.Windows.Forms.Application.DoEvents();
-                    f.data.SearchText = rp.EntryNo;
+                    f.data.EntryNo = rp.EntryNo;
                     System.Windows.Forms.Application.DoEvents();
                     f.data.Find();
                 }
@@ -301,19 +301,11 @@ namespace NUBEAccounts.Pl.frm.Reports
                     Transaction.frmReceipt f = new Transaction.frmReceipt();
                     App.frmHome.ShowForm(f);
                     System.Windows.Forms.Application.DoEvents();
-                    f.data.SearchText = rp.EntryNo;
+                    f.data.EntryNo = rp.EntryNo;
                     System.Windows.Forms.Application.DoEvents();
                     f.data.Find();
                 }
-                else if (rp.EType == 'J')
-                {
-                    Transaction.frmJournal f = new Transaction.frmJournal();
-                    App.frmHome.ShowForm(f);
-                    System.Windows.Forms.Application.DoEvents();
-                    f.data.SearchText = rp.EntryNo;
-                    System.Windows.Forms.Application.DoEvents();
-                    f.data.Find();
-                }
+                
             }
         }
     }

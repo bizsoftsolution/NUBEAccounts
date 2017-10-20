@@ -31,12 +31,12 @@ namespace NUBEAccounts.Pl.frm.Reports
             InitializeComponent();
             RptViewer.SetDisplayMode(DisplayMode.PrintLayout);
 
-            LoadReport(Convert.ToDateTime(dtFrom), Convert.ToDateTime(dtTo)); ;
+            //LoadReport(Convert.ToDateTime(dtFrom), Convert.ToDateTime(dtTo)); ;
         }
 
         private void UserControl_Loaded(object sender, RoutedEventArgs e)
         {
-            LoadReport(Convert.ToDateTime(dtFrom), Convert.ToDateTime(dtTo)); ;
+           // LoadReport(Convert.ToDateTime(dtFrom), Convert.ToDateTime(dtTo)); ;
 
         }
 

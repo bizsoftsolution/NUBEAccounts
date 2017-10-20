@@ -81,7 +81,7 @@ namespace NUBEAccounts.SL.Hubs
             {
                 tb = new BLL.BalanceSheet();
                 tb.LedgerList = LedgerDAL_BLL(l);
-
+                
                 LedgerBalance(l, dtFrom, dtTo, ref OPDr, ref OPCr, ref Dr, ref Cr);
 
                 tb.DrAmt = Dr;

@@ -33,6 +33,7 @@ namespace NUBEAccounts.SL.Hubs
                         // pd.Ledger.toCopy<BLL.Ledger>(rp.Ledger);
 
                         rp.Ledger = LedgerDAL_BLL(pd.Ledger);
+                        rp.Ledger.AccountName = string.Format("{0}-{1}", pd.Ledger.LedgerCode, pd.Ledger.LedgerName);
                         rp.EId = pd.Payment.Id;
                         rp.EType = 'P';
                         rp.EDate = pd.Payment.PaymentDate;
@@ -43,6 +44,7 @@ namespace NUBEAccounts.SL.Hubs
                         rp.Status = pd.Payment.Status;
                         rp.PayTo = pd.Payment.PayTo;
                         rp.Particular = pd.Particular;
+                        rp.VoucherNo = pd.Payment.VoucherNo;
                         lstReceiptAndPayment.Add(rp);
                     }
                     #endregion
@@ -59,6 +61,7 @@ namespace NUBEAccounts.SL.Hubs
                             //p.Ledger.toCopy<BLL.Ledger>(rp.Ledger);
 
                             rp.Ledger = LedgerDAL_BLL(pd.Ledger);
+                            rp.Ledger.AccountName = string.Format("{0}-{1}", pd.Ledger.LedgerCode, pd.Ledger.LedgerName);
                             rp.EId = p.Id;
                             rp.EType = 'P';
                             rp.EDate = p.PaymentDate;
@@ -67,6 +70,7 @@ namespace NUBEAccounts.SL.Hubs
                             rp.AmountDr = pd.Amount;
                             AmountDr = AmountDr + pd.Amount;
                             rp.Particular = pd.Particular;
+                            rp.VoucherNo = pd.Payment.VoucherNo;
                             lstReceiptAndPayment.Add(rp);
                         }
                     }
@@ -82,6 +86,7 @@ namespace NUBEAccounts.SL.Hubs
                             rp = new BLL.ReceiptAndPayment();
                             rp.Ledger = new BLL.Ledger();
                             rp.Ledger = LedgerDAL_BLL(rd.Ledger);
+                            rp.Ledger.AccountName = string.Format("{0}-{1}", rd.Ledger.LedgerCode, rd.Ledger.LedgerName);
                             rp.EId = r.Id;
                             rp.EType = 'R';
                             rp.EDate = r.ReceiptDate;
@@ -92,6 +97,7 @@ namespace NUBEAccounts.SL.Hubs
                             rp.Status = rd.Receipt.Status;
                             rp.PayTo = rd.Receipt.ReceivedFrom;
                             rp.Particular = rd.Particulars;
+                            rp.VoucherNo = rd.Receipt.VoucherNo;
                             lstReceiptAndPayment.Add(rp);
                         }
                     }
@@ -106,6 +112,7 @@ namespace NUBEAccounts.SL.Hubs
                         rp = new BLL.ReceiptAndPayment();
                         rp.Ledger = new BLL.Ledger();
                         rp.Ledger = LedgerDAL_BLL(rd.Ledger);
+                        rp.Ledger.AccountName = string.Format("{0}-{1}", rd.Ledger.LedgerCode, rd.Ledger.LedgerName);
 
                         rp.EId = rd.Receipt.Id;
                         rp.EType = 'R';
@@ -117,6 +124,7 @@ namespace NUBEAccounts.SL.Hubs
                         rp.Status = rd.Receipt.Status;
                         rp.PayTo = rd.Receipt.ReceivedFrom;
                         rp.Particular = rd.Particulars;
+                        rp.VoucherNo=rd.Receipt.VoucherNo;
                         lstReceiptAndPayment.Add(rp);
                     }
                     #endregion
@@ -156,7 +164,9 @@ namespace NUBEAccounts.SL.Hubs
                     rp = new BLL.ReceiptAndPayment();
                     rp.Ledger = new BLL.Ledger();
                     rp.Ledger = LedgerDAL_BLL(l);
-                    foreach (var rd in l.Payments.Where(x => x.PaymentDate >= dtFrom && x.PaymentDate <= dtTo &&
+                    rp.Ledger.AccountName=string.Format("{0}-{1}", l.LedgerCode, l.LedgerName);
+
+                        foreach (var rd in l.Payments.Where(x => x.PaymentDate >= dtFrom && x.PaymentDate <= dtTo &&
                                             (EntryNo == "" || x.EntryNo.ToLower().Contains(EntryNo.ToLower()))
                                             && (Status == "" || x.Status == Status)))
                     {

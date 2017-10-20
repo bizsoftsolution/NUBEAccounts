@@ -82,7 +82,7 @@ namespace NUBEAccounts.SL.Hubs
             {
                 tb = new BLL.IncomeExpenditure();
                 tb.Ledger = LedgerDAL_BLL(l);
-
+                tb.Ledger.AccountName = string.Format(" {0}-{1}", l.LedgerCode, l.LedgerName);
                 LedgerBalance(l, dtFrom, dtTo, ref OPDr, ref OPCr, ref Dr, ref Cr);
 
                 tb.DrAmt = Dr-OPDr;
