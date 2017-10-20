@@ -151,7 +151,7 @@
     <None Include="DBNUBEAccountsModel.edmx.diagram">
       <DependentUpon>DBNUBEAccountsModel.edmx</DependentUpon>
     </None>
-    <None Include="DB\nube_new_1610.bak" />
+    <None Include="DB\nube_new_2010.bak" />
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>

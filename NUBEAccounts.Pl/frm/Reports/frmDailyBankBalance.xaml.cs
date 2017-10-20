@@ -59,57 +59,63 @@ namespace NUBEAccounts.Pl.frm.Reports
 
         private void btnSearch_Click(object sender, RoutedEventArgs e)
         {
-            busyIndicator.IsBusy = true;
-            var l1 = BLL.DailyBankBalance.ToList(dtpDateFrom.SelectedDate.Value, dtpDateTo.SelectedDate.Value);
-            var l2 = l1.Select(x => x.Ledger.LedgerName).Distinct();
-            var l3 = l1.Select(x => x.Date).Distinct();
-
-           BackgroundWorker worker = new BackgroundWorker();
-            worker.DoWork += (o, ea) =>
+            try
             {
-               
-                DataTable dt = new DataTable();
-                dt.Columns.Add("Date");
-                int j = 1;
-                foreach (var str in l2)
+                busyIndicator.IsBusy = true;
+                var l1 = BLL.DailyBankBalance.ToList(dtpDateFrom.SelectedDate.Value, dtpDateTo.SelectedDate.Value);
+                var l2 = l1.Select(x => x.Ledger.LedgerName).Distinct();
+                var l3 = l1.Select(x => x.Date).Distinct();
+
+                BackgroundWorker worker = new BackgroundWorker();
+                worker.DoWork += (o, ea) =>
                 {
 
-                    dt.Columns.Add(string.Format("Bank{0}", j++));
-                }
-                dt.Columns.Add("Total");
-
-                foreach (var d in l3)
-                {
-                    string[] arr = new string[l2.Count() + 2];
-                    arr[0] = string.Format("{0:dd/MM/yyyy}", d);
-                    int i = 1;
-                    decimal Tot = 0, Amount = 0;
-                    foreach (var b in l2)
+                    DataTable dt = new DataTable();
+                    dt.Columns.Add("Date");
+                    int j = 1;
+                    foreach (var str in l2)
                     {
-                        Amount = l1.Where(x => x.Date == d && x.Ledger.LedgerName == b).FirstOrDefault().Amount.Value;
-                        arr[i] = Amount.ToString();
-                        Tot += Amount;
-                        i++;
-                    }
-                    arr[i] = Tot.ToString();
-                    dt.Rows.Add(arr);
-                }
 
-                Dispatcher.Invoke((Action)(() => dgvDetails.ItemsSource = dt.AsDataView()));
-              
-            };
-            int k = 1;
-            foreach (var b in l2)
-            {
-                dgvDetails.Columns[k++].Header = b;
+                        dt.Columns.Add(string.Format("Bank{0}", j++));
+                    }
+                    dt.Columns.Add("Total");
+
+                    foreach (var d in l3)
+                    {
+                        string[] arr = new string[l2.Count() + 2];
+                        arr[0] = string.Format("{0:dd/MM/yyyy}", d);
+                        int i = 1;
+                        decimal Tot = 0, Amount = 0;
+                        foreach (var b in l2)
+                        {
+                            Amount = l1.Where(x => x.Date == d && x.Ledger.LedgerName == b).FirstOrDefault().Amount.Value;
+                            arr[i] = Amount.ToString();
+                            Tot += Amount;
+                            i++;
+                        }
+                        arr[i] = Tot.ToString();
+                        dt.Rows.Add(arr);
+                    }
+
+                    Dispatcher.Invoke((Action)(() => dgvDetails.ItemsSource = dt.AsDataView()));
+
+                };
+                int k = 1;
+                foreach (var b in l2)
+                {
+                    dgvDetails.Columns[k++].Header = b;
+                }
+                worker.RunWorkerCompleted += (o, ea) =>
+                {
+                    busyIndicator.IsBusy = false;
+                };
+                busyIndicator.IsBusy = true;
+                worker.RunWorkerAsync();
             }
-            worker.RunWorkerCompleted += (o, ea) =>
+            catch(Exception ex)
             {
-                busyIndicator.IsBusy = false;
-            };
-            busyIndicator.IsBusy = true;
-            worker.RunWorkerAsync();
-                                                      
+
+            }                                         
         }
 
     }

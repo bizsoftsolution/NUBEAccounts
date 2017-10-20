@@ -66,7 +66,7 @@ namespace NUBEAccounts.Pl.frm.Reports
                     list = BLL.ReceiptAndPayment.ToListNEC((int?)cmbAccountName.SelectedValue, dtpDateFrom.SelectedDate.Value, dtpDateTo.SelectedDate.Value, txtEntryNo.Text, cmbstatus.Text, false);
                 }
                 list = list.Select(x => new BLL.ReceiptAndPayment()
-                { AccountName = x.Ledger.AccountName, EntryNo = x.EntryNo, AmountCr = x.AmountCr, AmountDr = x.AmountDr, PayTo = x.PayTo, Particular = x.Particular }).ToList();
+                { AccountName = x.Ledger.AccountName, EntryNo = x.EntryNo,VoucherNo=x.VoucherNo, AmountCr = x.AmountCr, AmountDr = x.AmountDr, PayTo = x.PayTo, Particular = x.Particular }).ToList();
 
                 try
                 {
@@ -266,11 +266,11 @@ namespace NUBEAccounts.Pl.frm.Reports
                 frmNECReportPrint f = new frmNECReportPrint();
                 if (ckbAccountHead.IsChecked == true)
                 {
-                    f.LoadReport(list, true);
+                    f.LoadReport(list,dtpDateFrom.SelectedDate.Value, dtpDateTo.SelectedDate.Value, true);
                 }
                 else
                 {
-                    f.LoadReport(list, false);
+                    f.LoadReport(list, dtpDateFrom.SelectedDate.Value, dtpDateTo.SelectedDate.Value, false);
                 }
                 f.ShowDialog();
             }
