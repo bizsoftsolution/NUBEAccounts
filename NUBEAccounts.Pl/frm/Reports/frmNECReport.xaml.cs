@@ -107,8 +107,6 @@ namespace NUBEAccounts.Pl.frm.Reports
 
         }
 
-
-
         private void btnSearch_Click(object sender, RoutedEventArgs e)
         {
             if (ckbAccountHead.IsChecked != true)
