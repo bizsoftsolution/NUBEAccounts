@@ -10,10 +10,13 @@ delete from Receipt
 delete from JournalDetail
 delete from Journal
 
-delete from CustomFormat
+delete from ACYearLedgerBalance
+
 delete from Ledger
 
 delete from AccountGroup
+delete from ACYearMaster
+
 
 delete from DataKeyValue
 
