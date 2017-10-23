@@ -17,7 +17,7 @@ delete from Ledger
 delete from AccountGroup
 delete from ACYearMaster
 
-
+delete from CustomFormat
 delete from DataKeyValue
 
 delete from UserTypeDetail
