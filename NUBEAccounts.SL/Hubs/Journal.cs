@@ -16,7 +16,7 @@ namespace NUBEAccounts.SL.Hubs
 
         public string Journal_NewRefNoByFund(int FundMasterId, DateTime dt)
         {
-            string Prefix = string.Format("{0}/{1:X}/", BLL.FormPrefix.Journal, dt.Month);
+            string Prefix = string.Format("{0}/{1}/", BLL.FormPrefix.Journal, dt.Month);
             long No = 0;
 
             var d1 = DB.Journals.Where(x => x.JournalDetails.FirstOrDefault().Ledger.AccountGroup.FundMasterId == Caller.FundMasterId && x.VoucherNo.StartsWith(Prefix) && x.JournalDate.Year == dt.Year).Select(x => x.VoucherNo).ToList();

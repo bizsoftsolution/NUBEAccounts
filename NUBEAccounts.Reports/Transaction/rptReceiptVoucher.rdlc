@@ -151,14 +151,16 @@
                     </Style>
                   </TextRun>
                 </TextRuns>
-                <Style />
+                <Style>
+                  <TextAlign>Right</TextAlign>
+                </Style>
               </Paragraph>
             </Paragraphs>
             <rd:DefaultName>Textbox20</rd:DefaultName>
             <Top>1.02298in</Top>
             <Left>0.05821in</Left>
             <Height>0.25in</Height>
-            <Width>2.31944in</Width>
+            <Width>2.84283in</Width>
             <ZIndex>2</ZIndex>
             <Style>
               <Border>
@@ -172,9 +174,9 @@
           </Textbox>
           <Line Name="Line1">
             <Top>3.175cm</Top>
-            <Left>6.14507cm</Left>
+            <Left>7.67965cm</Left>
             <Height>0cm</Height>
-            <Width>7.1214cm</Width>
+            <Width>5.58682cm</Width>
             <ZIndex>3</ZIndex>
             <Style>
               <Border>
