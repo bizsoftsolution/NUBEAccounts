@@ -90,8 +90,10 @@ namespace NUBEAccounts.Pl.frm.Master
            
             else
             {
+                Common.AppLib.WriteLog("Ledger Save=>Begins");
                 if (data.Save() == true)
                 {
+                    Common.AppLib.WriteLog("Ledger Saved Successfully");
                     MessageBox.Show(Message.PL.Saved_Alert);
                     data.Clear();
                     Grid_Refresh();
@@ -116,8 +118,11 @@ namespace NUBEAccounts.Pl.frm.Master
                 {
                     if (MessageBox.Show(Message.PL.Delete_confirmation, "", MessageBoxButton.YesNo) != MessageBoxResult.No)
                     {
+                        Common.AppLib.WriteLog("Ledger Delete=>Begins");
                         if (data.Delete() == true)
                         {
+                            Common.AppLib.WriteLog(string.Format("Ledger Deleted Successfully==>Id{0}", data.Id));
+
                             MessageBox.Show(Message.PL.Delete_Alert);
                             data.Clear();
                             Grid_Refresh();
@@ -212,12 +217,9 @@ namespace NUBEAccounts.Pl.frm.Master
 
                 if (rptStartWith.IsChecked == true)
                 {                    
-                    if (
-                            (cbxCase.IsChecked == true ? d.LedgerCode : d.LedgerCode.ToLower()).StartsWith(strSearch) ||
+                    if ((cbxCase.IsChecked == true ? d.LedgerCode : d.LedgerCode.ToLower()).StartsWith(strSearch) ||
                             (cbxCase.IsChecked == true ? d.LedgerName : d.LedgerName.ToLower()).StartsWith(strSearch) ||
-                            (cbxCase.IsChecked == true ? d.AccountGroup.GroupName : d.AccountGroup.GroupName.ToLower()).StartsWith(strSearch) 
-
-                        ) RValue = true;                
+                            (cbxCase.IsChecked == true ? d.AccountGroup.GroupName : d.AccountGroup.GroupName.ToLower()).StartsWith(strSearch)) RValue = true;                
                 }
                 else if (rptContain.IsChecked == true)
                 {

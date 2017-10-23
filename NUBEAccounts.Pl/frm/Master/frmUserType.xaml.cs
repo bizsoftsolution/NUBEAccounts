@@ -56,7 +56,7 @@ namespace NUBEAccounts.Pl.frm.Master
 
         private void btnSave_Click(object sender, RoutedEventArgs e)
         {
-            if (data.Id == 0 && !BLL.UserAccount.AllowInsert(Common.Forms.frmUserType))
+           if (data.Id == 0 && !BLL.UserAccount.AllowInsert(Common.Forms.frmUserType))
             {
                 MessageBox.Show(string.Format(Message.PL.DenyInsert, FormName));
             }
@@ -66,8 +66,10 @@ namespace NUBEAccounts.Pl.frm.Master
             }
             else
             {
+                Common.AppLib.WriteLog("User type save=>Begins");
                 if (data.Save() == true)
                 {
+                    Common.AppLib.WriteLog("User type Saved Successfully");
                     MessageBox.Show("Saved");
                     this.Close();
                 }
@@ -83,8 +85,10 @@ namespace NUBEAccounts.Pl.frm.Master
                 if (!BLL.UserAccount.AllowDelete(Common.Forms.frmUserType)) MessageBox.Show(string.Format(Message.PL.DenyDelete, FormName));
                 else if (MessageBox.Show("Do you want to Delete this record?", "DELETE", MessageBoxButton.YesNo) != MessageBoxResult.No)
                 {
+                    Common.AppLib.WriteLog("User type Delete=>Begins");
                     if (data.Delete() == true)
                     {
+                        Common.AppLib.WriteLog("User type Deleted Successfully");
                         MessageBox.Show("Deleted");
                         this.Close();
                     }

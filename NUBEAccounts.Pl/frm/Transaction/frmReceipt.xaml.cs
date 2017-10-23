@@ -92,9 +92,11 @@ namespace NUBEAccounts.Pl.frm.Transaction
             }
             else
             {
+                Common.AppLib.WriteLog(string.Format("Receipt Save Begnis=>Id{0}", data.Id));
                 var rv = data.Save();
                 if (rv == true)
                 {
+                    Common.AppLib.WriteLog(string.Format("Receipt Saved Successfully=>Id{0}", data.Id));
                     MessageBox.Show(Message.PL.Saved_Alert);
                     if (ckxAutoPrint.IsChecked == true) Print();
                     data.Clear();

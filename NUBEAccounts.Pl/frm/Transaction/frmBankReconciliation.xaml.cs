@@ -44,7 +44,7 @@ namespace NUBEAccounts.Pl.frm.Transaction
             dtpDateTo.SelectedDate = dtTo;
 
             dtpDateFrom.DisplayDateStart = Common.AppLib.minDate;
-            dtpDateFrom.DisplayDateEnd = Common.AppLib.maxDate;
+           // dtpDateFrom.DisplayDateEnd = Common.AppLib.maxDate;
         }
 
         private void UserControl_Loaded(object sender, RoutedEventArgs e)
@@ -269,6 +269,7 @@ namespace NUBEAccounts.Pl.frm.Transaction
 
         private void btnSave_Click(object sender, RoutedEventArgs e)
         {
+            Common.AppLib.WriteLog("Bank reconciliation Save =>Begins");
             var l1 = dgvBankReconciliation.ItemsSource;
             if (l1 != null)
             {
@@ -295,6 +296,7 @@ namespace NUBEAccounts.Pl.frm.Transaction
                         }
                     }
                 }
+                Common.AppLib.WriteLog("Bank reconciliation Saved Successfully");
                 MessageBox.Show(Message.PL.Saved_Alert);
                 App.frmHome.ShowWelcome();
             }

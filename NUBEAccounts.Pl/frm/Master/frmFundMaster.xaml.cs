@@ -68,6 +68,7 @@ namespace NUBEAccounts.Pl.frm.Master
 
         private void btnSave_Click(object sender, RoutedEventArgs e)
         {
+            Common.AppLib.WriteLog("Fund Master Save=>Begins");
 
             if (data.Id==0&& !BLL.UserAccount.AllowInsert(Forms.frmFundMaster))
             {
@@ -79,8 +80,10 @@ namespace NUBEAccounts.Pl.frm.Master
             }
            
             else if (data.Save() == true)
-                {
-                    MessageBox.Show(string.Format(Message.PL.Saved_Alert), FormName, MessageBoxButton.OK, MessageBoxImage.Information);
+            {
+                Common.AppLib.WriteLog("Fund Master Saved Successfully");
+
+                MessageBox.Show(string.Format(Message.PL.Saved_Alert), FormName, MessageBoxButton.OK, MessageBoxImage.Information);
                     App.frmHome.ShowWelcome();
                 }
             
@@ -89,6 +92,7 @@ namespace NUBEAccounts.Pl.frm.Master
 
         private void btnDelete_Click(object sender, RoutedEventArgs e)
         {
+            
             if (!BLL.FundMaster.UserPermission.AllowDelete)
                 MessageBox.Show(string.Format(Message.PL.DenyDelete, lblHead.Text));
             //    else if (MessageBox.Show(Message.PL.Delete_confirmation, "", MessageBoxButton.YesNo) != MessageBoxResult.No)

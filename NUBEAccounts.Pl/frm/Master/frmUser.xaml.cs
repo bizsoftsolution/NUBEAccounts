@@ -49,6 +49,7 @@ namespace NUBEAccounts.Pl.frm.Master
 
         private void btnSave_Click(object sender, RoutedEventArgs e)
         {
+            Common.AppLib.WriteLog("user save=>Begins");
 
             if (data.Id==0 &&!BLL.UserAccount.AllowInsert(Forms.frmUser))
             {
@@ -61,6 +62,7 @@ namespace NUBEAccounts.Pl.frm.Master
 
             else if (data.Save() == true)
             {
+                Common.AppLib.WriteLog("user saved successfully");
                 MessageBox.Show(Message.PL.Saved_Alert);
                 if (BLL.UserAccount.User.Id == data.Id)
                 {
