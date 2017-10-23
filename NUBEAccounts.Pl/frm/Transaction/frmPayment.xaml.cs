@@ -63,11 +63,11 @@ namespace NUBEAccounts.Pl.frm.Transaction
 
         private void btnSave_Click(object sender, RoutedEventArgs e)
         {
-            if (data.Id == 0 && !BLL.UserAccount.AllowInsert(FormName))
+            if (data.Id == 0 && !BLL.UserAccount.AllowInsert(Forms.frmPayment))
             {
                 MessageBox.Show(string.Format(Message.PL.DenyInsert, FormName));
             }
-            else if (data.Id != 0 && !BLL.UserAccount.AllowUpdate(FormName))
+            else if (data.Id != 0 && !BLL.UserAccount.AllowUpdate(Forms.frmPayment))
             {
                 MessageBox.Show(string.Format(Message.PL.DenyUpdate, FormName));
             }
@@ -107,7 +107,7 @@ namespace NUBEAccounts.Pl.frm.Transaction
 
         private void btnDelete_Click(object sender, RoutedEventArgs e)
         {
-            if (!BLL.UserAccount.AllowDelete(FormName))
+            if (!BLL.UserAccount.AllowDelete(Forms.frmPayment))
             {
                 MessageBox.Show(string.Format(Message.PL.DenyDelete, FormName));
             }
@@ -252,8 +252,8 @@ namespace NUBEAccounts.Pl.frm.Transaction
             cmbDebitAC.SelectedValuePath = "Id";
             cmbDebitAC.DisplayMemberPath = "AccountName";
 
-            btnSave.Visibility = (BLL.FundMaster.UserPermission.AllowInsert || BLL.FundMaster.UserPermission.AllowUpdate) ? Visibility.Visible : Visibility.Collapsed;
-            btnDelete.Visibility = BLL.FundMaster.UserPermission.AllowDelete ? Visibility.Visible : Visibility.Collapsed;
+            btnSave.Visibility = (BLL.Payment.UserPermission.AllowInsert || BLL.Payment.UserPermission.AllowUpdate) ? Visibility.Visible : Visibility.Collapsed;
+            btnDelete.Visibility = BLL.Payment.UserPermission.AllowDelete ? Visibility.Visible : Visibility.Collapsed;
 
             data.Clear();
 

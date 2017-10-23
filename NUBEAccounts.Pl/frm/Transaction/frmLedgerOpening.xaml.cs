@@ -204,17 +204,25 @@ namespace NUBEAccounts.Pl.frm.Transaction
 
         private void btnSave_Click(object sender, RoutedEventArgs e)
         {
-            foreach (var l1 in BLL.Ledger.toList)
+            if (!BLL.UserAccount.AllowUpdate(Common.Forms.frmLedger))
             {
-                var l2 = lstLedgerOld.Where(x => x.Id == l1.Id).FirstOrDefault();
-                if (l1.OPDr != l2.OPDr || l1.OPCr != l2.OPCr)
-                {
-                    l1.Save();
-                }
+                MessageBox.Show(string.Format(Message.PL.DenyDelete, "Ledger Opening"));
             }
-            MessageBox.Show(Message.PL.Saved_Alert);
-            App.frmHome.ShowWelcome();
-            BLL.Ledger.Init();
+            else
+            {
+                foreach (var l1 in BLL.Ledger.toList)
+                {
+                    var l2 = lstLedgerOld.Where(x => x.Id == l1.Id).FirstOrDefault();
+                    if (l1.OPDr != l2.OPDr || l1.OPCr != l2.OPCr)
+                    {
+                        l1.Save();
+                    }
+                }
+                MessageBox.Show(Message.PL.Saved_Alert);
+                App.frmHome.ShowWelcome();
+                BLL.Ledger.Init();
+            }
+            
         }
 
         private void dgvLedger_CellEditEnding(object sender, DataGridCellEditEndingEventArgs e)

@@ -69,23 +69,21 @@ namespace NUBEAccounts.Pl.frm.Master
         private void btnSave_Click(object sender, RoutedEventArgs e)
         {
 
-            if (!BLL.UserAccount.AllowInsert(Forms.frmFundMaster))
+            if (data.Id==0&& !BLL.UserAccount.AllowInsert(Forms.frmFundMaster))
             {
                 MessageBox.Show(string.Format(Message.PL.DenyInsert, FormName));
             }
-            else if (!BLL.UserAccount.AllowUpdate(Forms.frmFundMaster))
+            else if (data.Id!=0&& !BLL.UserAccount.AllowUpdate(Forms.frmFundMaster))
             {
                 MessageBox.Show(string.Format(Message.PL.DenyUpdate, FormName));
             }
            
-            else
-            {
-                if (data.Save() == true)
+            else if (data.Save() == true)
                 {
                     MessageBox.Show(string.Format(Message.PL.Saved_Alert), FormName, MessageBoxButton.OK, MessageBoxImage.Information);
                     App.frmHome.ShowWelcome();
                 }
-            }
+            
 
         }
 
