@@ -26,7 +26,7 @@ namespace NUBEAccounts.SL.Hubs
         public string Receipt_NewEntryNo()
         {
             DateTime dt = DateTime.Now;
-            string Prefix = string.Format("{0}{1:yy}{2:X}", BLL.FormPrefix.Receipt, dt, dt.Month);
+            string Prefix = string.Format("{0}{1:yy}{2}", BLL.FormPrefix.Receipt, dt, dt.Month);
             long No = 0;
 
             var d = DB.Receipts.Where(x => x.Ledger.AccountGroup.FundMasterId == Caller.FundMasterId && x.EntryNo.StartsWith(Prefix))
@@ -35,7 +35,7 @@ namespace NUBEAccounts.SL.Hubs
 
             if (d != null) No = Convert.ToInt64(d.EntryNo.Substring(Prefix.Length), 16);
 
-            return string.Format("{0}{1:X5}", Prefix, No + 1);
+            return string.Format("{0}{1}", Prefix, No + 1);
         }
         public bool Receipt_Save(BLL.Receipt PO)
         {

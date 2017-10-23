@@ -45,6 +45,7 @@ namespace NUBEAccounts.Pl.frm.Reports
 
 
         }
+
         private void UserControl_Loaded(object sender, RoutedEventArgs e)
         {
             cmbAccountName.ItemsSource = BLL.Ledger.toList.ToList();
@@ -106,8 +107,6 @@ namespace NUBEAccounts.Pl.frm.Reports
             }
 
         }
-
-
 
         private void btnSearch_Click(object sender, RoutedEventArgs e)
         {

@@ -155,8 +155,8 @@
               </Paragraph>
             </Paragraphs>
             <rd:DefaultName>Textbox20</rd:DefaultName>
-            <Top>0.625in</Top>
-            <Left>0.09848in</Left>
+            <Top>1.02298in</Top>
+            <Left>0.05821in</Left>
             <Height>0.25in</Height>
             <Width>2.31944in</Width>
             <ZIndex>2</ZIndex>
@@ -171,8 +171,8 @@
             </Style>
           </Textbox>
           <Line Name="Line1">
-            <Top>2.16414cm</Top>
-            <Left>6.24735cm</Left>
+            <Top>3.175cm</Top>
+            <Left>6.14507cm</Left>
             <Height>0cm</Height>
             <Width>7.1214cm</Width>
             <ZIndex>3</ZIndex>
@@ -252,11 +252,77 @@
               <PaddingBottom>2pt</PaddingBottom>
             </Style>
           </Textbox>
+          <Textbox Name="AmountInwords">
+            <CanGrow>true</CanGrow>
+            <KeepTogether>true</KeepTogether>
+            <Paragraphs>
+              <Paragraph>
+                <TextRuns>
+                  <TextRun>
+                    <Value>=First(Fields!AmountInwords.Value, "Receipt")</Value>
+                    <Style>
+                      <FontSize>9pt</FontSize>
+                      <TextDecoration>Underline</TextDecoration>
+                    </Style>
+                  </TextRun>
+                </TextRuns>
+                <Style />
+              </Paragraph>
+            </Paragraphs>
+            <rd:DefaultName>AmountInwords</rd:DefaultName>
+            <Top>0.62225in</Top>
+            <Left>1.30822in</Left>
+            <Height>0.35416in</Height>
+            <Width>4.08052in</Width>
+            <ZIndex>6</ZIndex>
+            <Style>
+              <Border>
+                <Style>None</Style>
+              </Border>
+              <PaddingLeft>2pt</PaddingLeft>
+              <PaddingRight>2pt</PaddingRight>
+              <PaddingTop>2pt</PaddingTop>
+              <PaddingBottom>2pt</PaddingBottom>
+            </Style>
+          </Textbox>
+          <Textbox Name="Textbox21">
+            <CanGrow>true</CanGrow>
+            <KeepTogether>true</KeepTogether>
+            <Paragraphs>
+              <Paragraph>
+                <TextRuns>
+                  <TextRun>
+                    <Value>Amount In Words:</Value>
+                    <Style>
+                      <FontWeight>Bold</FontWeight>
+                    </Style>
+                  </TextRun>
+                </TextRuns>
+                <Style>
+                  <TextAlign>Right</TextAlign>
+                </Style>
+              </Paragraph>
+            </Paragraphs>
+            <rd:DefaultName>Textbox17</rd:DefaultName>
+            <Top>0.63888in</Top>
+            <Height>0.25in</Height>
+            <Width>1.28045in</Width>
+            <ZIndex>7</ZIndex>
+            <Style>
+              <Border>
+                <Style>None</Style>
+              </Border>
+              <PaddingLeft>2pt</PaddingLeft>
+              <PaddingRight>2pt</PaddingRight>
+              <PaddingTop>2pt</PaddingTop>
+              <PaddingBottom>2pt</PaddingBottom>
+            </Style>
+          </Textbox>
         </ReportItems>
         <KeepTogether>true</KeepTogether>
         <Top>3.4712cm</Top>
         <Left>0.46979cm</Left>
-        <Height>2.49956cm</Height>
+        <Height>3.71664cm</Height>
         <Width>13.95883cm</Width>
         <ZIndex>2</ZIndex>
         <Style>
@@ -477,7 +543,6 @@
                         <PaddingBottom>2pt</PaddingBottom>
                       </Style>
                     </Textbox>
-                    <rd:Selected>true</rd:Selected>
                   </CellContents>
                 </TablixCell>
               </TablixCells>
@@ -678,7 +743,7 @@
         </Style>
       </Textbox>
     </ReportItems>
-    <Height>2.41319in</Height>
+    <Height>2.93402in</Height>
     <Style />
   </Body>
   <Width>5.88565in</Width>

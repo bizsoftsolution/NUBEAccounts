@@ -30,7 +30,7 @@ namespace NUBEAccounts.Pl.frm.Transaction
             dtpDateFrom.SelectedDate =dtFrom;
             dtpDateTo.SelectedDate = DateTime.Now;
             dtpDateFrom.DisplayDateStart = Common.AppLib.minDate;
-            dtpDateFrom.DisplayDateEnd = Common.AppLib.maxDate;
+           
         }
 
         private void Window_Loaded(object sender, RoutedEventArgs e)
