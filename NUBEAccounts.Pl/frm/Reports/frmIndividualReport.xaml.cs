@@ -77,18 +77,8 @@ namespace NUBEAccounts.Pl.frm.Reports
                     }
                 
                 dgvDetails.ItemsSource = dt.AsDataView();
-
             }
-
-
-
-
-
-
-
-        }
-
-       
+        }      
     }
 }
 public class LedgerListItem
@@ -98,4 +88,12 @@ public class LedgerListItem
     public int LedgerId { get; set; }
     public string LedgerName { get; set; }
     public bool IsChecked { get; set; }
+}
+
+
+public class TestClass
+{
+    public string P1 { get; set; }
+    public string P2 { get; set; }
+    public int amt { get; set; }
 }

@@ -14,11 +14,12 @@ namespace NUBEAccounts.Common
                                         frmUserType = "NUBEAccounts.Pl.frm.Master.frmUserType",
                                         frmAccountGroup = "NUBEAccounts.Pl.frm.Master.frmAccountGroup",
                                         frmLedger = "NUBEAccounts.Pl.frm.Master.frmLedger",
-
+            
                                         frmPayment = "NUBEAccounts.Pl.frm.Transaction.frmPayment",
                                         frmReceipt = "NUBEAccounts.Pl.frm.Transaction.frmReceipt",
                                         frmJournal = "NUBEAccounts.Pl.frm.Transaction.frmJournal",
                                         frmBankReconciliation = "NUBEAccounts.Pl.frm.Transaction.frmBankReconciliation",
+             frmLedgerOpening = "NUBEAccounts.Pl.frm.Transaction.frmLedgerOpening",
 
                                         frmTrialBalance = "NUBEAccounts.Pl.frm.Reports.frmTrialBalance",
                                         frmBalanceSheet = "NUBEAccounts.Pl.frm.Reports.frmBalanceSheet",

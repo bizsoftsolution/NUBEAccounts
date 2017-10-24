@@ -113,7 +113,13 @@ namespace NUBEAccounts.Pl.frm
 
         private void MetroWindow_Closing(object sender, System.ComponentModel.CancelEventArgs e)
         {
-            if (!IsForcedClose && MessageBox.Show("Are you sure to Exit?", "Exit", MessageBoxButton.YesNo) != MessageBoxResult.Yes) e.Cancel = true;
+            dynamic frm = ccContent.Content;
+            if (frm.GetType().Name != "frmWelcome")
+            {
+                ShowWelcome();
+                e.Cancel = true;
+            }
+            else if (!IsForcedClose && MessageBox.Show("Are you sure to Exit?", "Exit", MessageBoxButton.YesNo) != MessageBoxResult.Yes) e.Cancel = true;
         }
     }
 }

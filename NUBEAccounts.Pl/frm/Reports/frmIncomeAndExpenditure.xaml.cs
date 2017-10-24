@@ -55,7 +55,7 @@ namespace NUBEAccounts.Pl.frm.Reports
         {
             List<BLL.IncomeExpenditure> list = BLL.IncomeExpenditure.ToList(dtpDateFrom.SelectedDate.Value, dtpDateTo.SelectedDate.Value);
             list = list.Select(x => new BLL.IncomeExpenditure()
-            { AccountName = x.Ledger.AccountName, DrAmt = x.DrAmt + x.CrAmt, DrAmtOP = x.DrAmtOP + x.CrAmtOP }).ToList();
+            { AccountName = x.Ledger.AccountName, DrAmt = x.DrAmt + x.CrAmt, DrAmtOP = x.DrAmtOP + x.CrAmtOP, Ledger=x.Ledger }).ToList();
             dgvIncomeExpenditure.ItemsSource = list;
             try
             {

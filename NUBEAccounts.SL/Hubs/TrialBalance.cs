@@ -134,10 +134,10 @@ namespace NUBEAccounts.SL.Hubs
                 tb.CrAmtOP = OPCr;
 
                 tb.DrAmt = Dr;
-                tb.CrAmt = Cr;
+                tb.CrAmt = Cr;                
 
 
-                if (tb.DrAmt != 0 || tb.CrAmt != 0)
+                if (tb.DrAmt != 0 || tb.CrAmt != 0||tb.DrAmtOP!=0||tb.CrAmtOP!=0)
                 {
                     lstTrialBalance.Add(tb);
                     TotDr += tb.DrAmt;

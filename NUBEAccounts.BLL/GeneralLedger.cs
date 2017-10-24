@@ -21,6 +21,7 @@ namespace NUBEAccounts.BLL
         private decimal? _BalAmt;
         private string _AccountName;
         private string _Particular;
+        private string _PayeeName;
         private string _RefEntryNo;
         private string _RefCode;
         private int? _SNo;
@@ -237,6 +238,21 @@ namespace NUBEAccounts.BLL
                 {
                     _Particular = value;
                     NotifyPropertyChanged(nameof(Particular));
+                }
+            }
+        }
+        public string PayeeName
+        {
+            get
+            {
+                return _PayeeName;
+            }
+            set
+            {
+                if (_PayeeName != value)
+                {
+                    _PayeeName = value;
+                    NotifyPropertyChanged(nameof(PayeeName));
                 }
             }
         }

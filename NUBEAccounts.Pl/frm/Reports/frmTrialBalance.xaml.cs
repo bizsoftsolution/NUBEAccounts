@@ -55,7 +55,7 @@ namespace NUBEAccounts.Pl.frm.Reports
         {
             List<BLL.TrialBalance> list = BLL.TrialBalance.ToList(dtpDateFrom.SelectedDate.Value, dtpDateTo.SelectedDate.Value);
             list = list.Select(x => new BLL.TrialBalance()
-            { AccountName = x.Ledger.AccountName, CrAmt = x.CrAmt, DrAmt = x.DrAmt, CrAmtOP = x.CrAmtOP, DrAmtOP = x.DrAmtOP }).ToList();
+            { AccountName = x.Ledger.AccountName, CrAmt = x.CrAmt, DrAmt = x.DrAmt, CrAmtOP = x.CrAmtOP, DrAmtOP = x.DrAmtOP,Ledger=x.Ledger }).ToList();
             dgvTrialBalance.ItemsSource = list;
             try
             {

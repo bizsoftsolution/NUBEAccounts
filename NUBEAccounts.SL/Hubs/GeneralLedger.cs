@@ -51,6 +51,7 @@ namespace NUBEAccounts.SL.Hubs
 
                 gl.Ledger = new BLL.Ledger();
                 gl.Particular = string.Format("Balance {0}", l.LedgerName);
+                gl.PayeeName = string.Format("Balance {0}", l.LedgerName);
                 lstGeneralLedger.Add(gl);
 
                 foreach (var pd in l.PaymentDetails.Where(x => x.Payment.PaymentDate >= dtFrom && x.Payment.PaymentDate <= dtTo).ToList())
@@ -59,6 +60,7 @@ namespace NUBEAccounts.SL.Hubs
                     gl.Ledger = new BLL.Ledger();
                     gl.Ledger = LedgerDAL_BLL(pd.Payment.Ledger);
                     gl.Particular = pd.Particular;
+                    gl.PayeeName = pd.Payment.PayTo;
                     gl.EId = pd.Payment.Id;
                     gl.EType = BLL.FormPrefix.Payment;
                     gl.EDate = pd.Payment.PaymentDate;
@@ -81,6 +83,7 @@ namespace NUBEAccounts.SL.Hubs
                         gl.Ledger = new BLL.Ledger();
                         gl.Ledger = LedgerDAL_BLL(pd.Ledger);
                         gl.Particular = pd.Particular;
+                        gl.PayeeName = p.PayTo;
                         gl.EId = p.Id;
                         gl.EType = BLL.FormPrefix.Payment;
                         gl.EDate = p.PaymentDate;
@@ -103,6 +106,7 @@ namespace NUBEAccounts.SL.Hubs
                         gl.Ledger = new BLL.Ledger();
                         gl.Ledger = LedgerDAL_BLL(rd.Ledger);
                         gl.Particular = rd.Particulars;
+                        gl.PayeeName = r.ReceivedFrom;
                         gl.EId = r.Id;
                         gl.EType = BLL.FormPrefix.Receipt;
                         gl.EDate = r.ReceiptDate;
@@ -123,6 +127,7 @@ namespace NUBEAccounts.SL.Hubs
                     gl.Ledger = new BLL.Ledger();
                     gl.Ledger = LedgerDAL_BLL(rd.Receipt.Ledger);
                     gl.Particular = rd.Particulars;
+                    gl.PayeeName = rd.Receipt.ReceivedFrom;
                     gl.EId = rd.Receipt.Id;
                     gl.EType = BLL.FormPrefix.Receipt;
                     gl.EDate = rd.Receipt.ReceiptDate;
@@ -143,6 +148,7 @@ namespace NUBEAccounts.SL.Hubs
 
                     gl.Ledger = LedgerDAL_BLL(jd.Journal.JournalDetails.Where(x => (jd.DrAmt != 0 && x.CrAmt != 0) || (jd.CrAmt != 0 && x.DrAmt != 0)).FirstOrDefault().Ledger);
                     gl.Particular = jd.Particulars;
+                    gl.PayeeName = jd.Particulars;
                     gl.EId = jd.Journal.Id;
                     gl.EDate = jd.Journal.JournalDate;
                     gl.RefNo = "";
@@ -157,6 +163,7 @@ namespace NUBEAccounts.SL.Hubs
                 gl = new BLL.GeneralLedger();
                 gl.Ledger = new BLL.Ledger();
                 gl.Particular = "Total";
+                gl.PayeeName = "Total";
                 gl.DrAmt = lstGeneralLedger.Sum(x => x.DrAmt);
                 gl.CrAmt = lstGeneralLedger.Sum(x => x.CrAmt);
                 gl.BalAmt = Math.Abs(BalAmt.Value);
@@ -193,7 +200,7 @@ namespace NUBEAccounts.SL.Hubs
                     gl.Ledger = LedgerDAL_BLL(l);
                     gl.Ledger = new BLL.Ledger();
                     gl.SNo = null;
-                    gl.Particular = string.Format("{0}-{1}", l.LedgerCode,l.LedgerName);                    
+                    gl.Particular = string.Format("{0}-{1}", l.LedgerCode,l.LedgerName);
                     lstActivity_ToList.Add(gl);
 
                     foreach (var pd in l.PaymentDetails.Where(x => x.Payment.PaymentDate >= dtFrom && x.Payment.PaymentDate <= dtTo).ToList())
@@ -206,6 +213,7 @@ namespace NUBEAccounts.SL.Hubs
                         gl.Ledger = LedgerDAL_BLL(pd.Payment.Ledger);
 
                         gl.Particular = pd.Particular;
+                        gl.Particular = pd.Payment.PayTo;
                         gl.EId = pd.Payment.Id;
                         gl.EType = BLL.FormPrefix.Payment;
                         gl.EDate = pd.Payment.PaymentDate;
@@ -234,6 +242,7 @@ namespace NUBEAccounts.SL.Hubs
                             gl.SNo = i; gl.Ledger = new BLL.Ledger();
                             gl.Ledger = LedgerDAL_BLL(pd.Ledger);
                             gl.Particular = pd.Particular;
+                            gl.PayeeName = pd.Payment.PayTo;
                             gl.EId = p.Id;
                             gl.EType = BLL.FormPrefix.Payment;
                             gl.EDate = p.PaymentDate;
@@ -262,6 +271,7 @@ namespace NUBEAccounts.SL.Hubs
                                 gl.SNo = i; gl.Ledger = new BLL.Ledger();
                                 gl.Ledger = LedgerDAL_BLL(rd.Ledger);
                                 gl.Particular = rd.Particulars;
+                                gl.PayeeName = rd.Receipt.ReceivedFrom;
                                 gl.EId = r.Id;
                                 gl.EType = BLL.FormPrefix.Receipt;
                                 gl.EDate = r.ReceiptDate;
@@ -290,6 +300,7 @@ namespace NUBEAccounts.SL.Hubs
                             gl.Ledger = new BLL.Ledger();
                             gl.Ledger = LedgerDAL_BLL(rd.Receipt.Ledger);
                             gl.Particular = rd.Particulars;
+                            gl.PayeeName = rd.Receipt.ReceivedFrom;
                             gl.EId = rd.Receipt.Id;
                             gl.EType = BLL.FormPrefix.Receipt;
                             gl.EDate = rd.Receipt.ReceiptDate;
@@ -317,6 +328,7 @@ namespace NUBEAccounts.SL.Hubs
                             gl.SNo = i; gl.Ledger = new BLL.Ledger();
                             gl.Ledger = LedgerDAL_BLL(jd.Journal.JournalDetails.Where(x => (jd.DrAmt != 0 && x.CrAmt != 0) || (jd.CrAmt != 0 && x.DrAmt != 0)).FirstOrDefault().Ledger);
                             gl.Particular = jd.Particulars;
+                            gl.PayeeName = jd.Journal.Particular;
                             gl.EId = jd.Journal.Id;
                             gl.EDate = jd.Journal.JournalDate;
                             gl.RefNo = "";
