@@ -90,10 +90,10 @@ namespace NUBEAccounts.Pl.frm.Master
            
             else
             {
-                Common.AppLib.WriteLog("Ledger Save=>Begins");
+                Common.AppLib.WriteLog(string.Format("Ledger Save=>Begins=>Id=>{0}", data.Id));
                 if (data.Save() == true)
                 {
-                    Common.AppLib.WriteLog("Ledger Saved Successfully");
+                    Common.AppLib.WriteLog(string.Format("Ledger Saved Successfully=>Id=>{0}", data.Id));
                     MessageBox.Show(Message.PL.Saved_Alert);
                     data.Clear();
                     Grid_Refresh();

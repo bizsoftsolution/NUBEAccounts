@@ -68,7 +68,7 @@ namespace NUBEAccounts.Pl.frm.Master
 
         private void btnSave_Click(object sender, RoutedEventArgs e)
         {
-            Common.AppLib.WriteLog("Fund Master Save=>Begins");
+            Common.AppLib.WriteLog(string.Format("Fund Master Save=>Begins=>Id=>{0}", data.Id));
 
             if (data.Id==0&& !BLL.UserAccount.AllowInsert(Forms.frmFundMaster))
             {
@@ -81,7 +81,7 @@ namespace NUBEAccounts.Pl.frm.Master
            
             else if (data.Save() == true)
             {
-                Common.AppLib.WriteLog("Fund Master Saved Successfully");
+                Common.AppLib.WriteLog(string.Format("Fund Master Saved Successfully=>Id=>{0}", data.Id));
 
                 MessageBox.Show(string.Format(Message.PL.Saved_Alert), FormName, MessageBoxButton.OK, MessageBoxImage.Information);
                     App.frmHome.ShowWelcome();

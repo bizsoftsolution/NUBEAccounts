@@ -92,11 +92,11 @@ namespace NUBEAccounts.Pl.frm.Transaction
             }
             else
             {
-                Common.AppLib.WriteLog(string.Format("Receipt Save Begnis=>Id{0}", data.Id));
+                Common.AppLib.WriteLog(string.Format("Receipt Save Begnis=>Id=>{0}", data.Id));
                 var rv = data.Save();
                 if (rv == true)
                 {
-                    Common.AppLib.WriteLog(string.Format("Receipt Saved Successfully=>Id{0}", data.Id));
+                    Common.AppLib.WriteLog(string.Format("Receipt Saved Successfully=>Id=>{0}", data.Id));
                     MessageBox.Show(Message.PL.Saved_Alert);
                     if (ckxAutoPrint.IsChecked == true) Print();
                     data.Clear();
@@ -115,9 +115,11 @@ namespace NUBEAccounts.Pl.frm.Transaction
             {
                 if (MessageBox.Show("Do you want to delete?", "DELETE", MessageBoxButton.YesNo) == MessageBoxResult.Yes)
                 {
+                    Common.AppLib.WriteLog(string.Format("Receipt Delete Begnis=>Id=>{0}", data.Id));
                     var rv = data.Delete();
                     if (rv == true)
                     {
+                        Common.AppLib.WriteLog(string.Format("Receipt deleted=>Id=>{0}", data.Id));
                         MessageBox.Show(Message.PL.Delete_Alert);
                         data.Clear();
                         if (data.Id != 0)

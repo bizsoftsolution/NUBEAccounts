@@ -64,12 +64,16 @@ namespace NUBEAccounts.Pl.frm.Master
             {
                 MessageBox.Show(string.Format(Message.PL.DenyUpdate, FormName));
             }
+            else if (data.TypeOfUser=="")
+            {
+                MessageBox.Show(string.Format(Message.PL.Empty_Record, "User type"));
+            }
             else
             {
-                Common.AppLib.WriteLog("User type save=>Begins");
+                Common.AppLib.WriteLog(string.Format("User type save=>Begins=>Id=>{0}", data.Id));
                 if (data.Save() == true)
                 {
-                    Common.AppLib.WriteLog("User type Saved Successfully");
+                    Common.AppLib.WriteLog(string.Format("User type Saved Successfully=>Id=>{0}", data.Id));
                     MessageBox.Show("Saved");
                     this.Close();
                 }
@@ -85,10 +89,10 @@ namespace NUBEAccounts.Pl.frm.Master
                 if (!BLL.UserAccount.AllowDelete(Common.Forms.frmUserType)) MessageBox.Show(string.Format(Message.PL.DenyDelete, FormName));
                 else if (MessageBox.Show("Do you want to Delete this record?", "DELETE", MessageBoxButton.YesNo) != MessageBoxResult.No)
                 {
-                    Common.AppLib.WriteLog("User type Delete=>Begins");
+                    Common.AppLib.WriteLog(string.Format("User type Delete=>Begins=>Id=>{0}", data.Id));
                     if (data.Delete() == true)
                     {
-                        Common.AppLib.WriteLog("User type Deleted Successfully");
+                        Common.AppLib.WriteLog(string.Format("User type Deleted Successfully=>Id=>{0}", data.Id));
                         MessageBox.Show("Deleted");
                         this.Close();
                     }

@@ -95,10 +95,10 @@ namespace NUBEAccounts.Pl.frm.Transaction
             else
             {
                 var rv = data.Save();
-                Common.AppLib.WriteLog(string.Format("Payment Save Begins"));
+                Common.AppLib.WriteLog(string.Format("Payment Save Begins=>Id=>{0}",data.Id));
                 if (rv == true)
                 {
-                    Common.AppLib.WriteLog(string.Format("Payment Saved Successfully=>Id{0}", data.Id));
+                    Common.AppLib.WriteLog(string.Format("Payment Saved Successfully=>Id=>{0}", data.Id));
 
                     MessageBox.Show(Message.PL.Saved_Alert);
                     if (ckxAutoPrint.IsChecked == true) Print();
@@ -118,11 +118,11 @@ namespace NUBEAccounts.Pl.frm.Transaction
             {
                 if (MessageBox.Show("Do you want to delete?", "DELETE", MessageBoxButton.YesNo) == MessageBoxResult.Yes)
                 {
-                    Common.AppLib.WriteLog(string.Format("Payment Delete Begins=>Id{0}", data.Id));
+                    Common.AppLib.WriteLog(string.Format("Payment Delete Begins=>Id=>{0}", data.Id));
                     var rv = data.Delete();
                     if (rv == true)
                     {
-                        Common.AppLib.WriteLog(string.Format("Payment Deleted Successfully=>Id{0}", data.Id));
+                        Common.AppLib.WriteLog(string.Format("Payment Deleted Successfully=>Id=>{0}", data.Id));
                         MessageBox.Show(Message.PL.Delete_Alert);
                         data.Clear();
                         if (data.Id != 0)

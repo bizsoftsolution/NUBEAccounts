@@ -68,10 +68,10 @@ namespace NUBEAccounts.Pl.frm.Master
             }
             else
             {
-                Common.AppLib.WriteLog("Account Group Save=>Begin");
+                Common.AppLib.WriteLog(string.Format("Account Group Save=>Begin=Id=>{0}",data.Id) );
                 if (data.Save() == true)
                 {
-                    Common.AppLib.WriteLog("Account Group Saved Successfully");
+                    Common.AppLib.WriteLog(string.Format("Account Group Saved Successfully=Id=>{0}",data.Id));
                     MessageBox.Show(Message.PL.Saved_Alert);
                     clear();
                     Grid_Refresh();
