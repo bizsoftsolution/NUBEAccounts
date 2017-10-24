@@ -54,6 +54,7 @@ namespace NUBEAccounts.Pl.frm.Transaction
                 App.frmHome.ShowForm(f);
                 System.Windows.Forms.Application.DoEvents();
                 f.data.EntryNo = rp.EntryNo;
+                f.btnPrint.IsEnabled = true;
                 f.data.Find();
                 System.Windows.Forms.Application.DoEvents();
                 this.Close();
