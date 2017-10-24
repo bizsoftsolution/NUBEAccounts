@@ -43,6 +43,8 @@ namespace NUBEAccounts.Pl.frm.Reports
         }
         void SetHeading(DateTime dtFrom, DateTime dtTo)
         {
+            try
+            {            
             var lst = BLL.Ledger.toList.Where(x => x.AccountGroup.GroupName == BLL.DataKeyValue.BankAccounts_Key).OrderBy(x=>x.AccountGroup.GroupCode).ToList();
             int i = 0;
             foreach (var l in lst)
@@ -52,7 +54,9 @@ namespace NUBEAccounts.Pl.frm.Reports
                 dgvDetails.Columns[i + 1].Visibility = Visibility.Visible;
                 i++;
             }
-            
+            }
+            catch(Exception ex)
+            { }
 
         }
 
