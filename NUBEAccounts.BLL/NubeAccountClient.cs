@@ -58,6 +58,10 @@ namespace NUBEAccounts.BLL
                 Common.AppLib.WriteLog("Hub Created");
                 _hubCon.Start(new LongPollingTransport()).Wait();
                 Common.AppLib.WriteLog("Hub Started");
+                if (UserAccount.User.Id != 0)
+                {
+                   var r = NubeAccountClient.NubeAccountHub.Invoke<UserAccount>("UserAccount_ReLogin", UserAccount.LoginedACYear, UserAccount.User.UserType.Fund.FundName, UserAccount.User.LoginId, UserAccount.User.Password).Result;
+                }
 
             }
             catch (Exception ex)

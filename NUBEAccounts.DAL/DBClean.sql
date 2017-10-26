@@ -1,6 +1,4 @@
 ﻿
-
-
 delete from PaymentDetail
 delete from Payment
 
