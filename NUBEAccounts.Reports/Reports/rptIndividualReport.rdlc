@@ -45,15 +45,15 @@
         <TablixBody>
           <TablixColumns>
             <TablixColumn>
-              <Width>5.22521cm</Width>
+              <Width>4.03049cm</Width>
             </TablixColumn>
             <TablixColumn>
-              <Width>2.5cm</Width>
+              <Width>2.87924cm</Width>
             </TablixColumn>
           </TablixColumns>
           <TablixRows>
             <TablixRow>
-              <Height>0.70583cm</Height>
+              <Height>0.6548cm</Height>
               <TablixCells>
                 <TablixCell>
                   <CellContents>
@@ -118,7 +118,7 @@
               </TablixCells>
             </TablixRow>
             <TablixRow>
-              <Height>0.6cm</Height>
+              <Height>0.54897cm</Height>
               <TablixCells>
                 <TablixCell>
                   <CellContents>
@@ -196,7 +196,7 @@
                 </SortExpression>
               </SortExpressions>
               <TablixHeader>
-                <Size>0.70583cm</Size>
+                <Size>0.6548cm</Size>
                 <CellContents>
                   <Textbox Name="LedgerName">
                     <CanGrow>true</CanGrow>
@@ -232,7 +232,7 @@
             </TablixMember>
             <TablixMember>
               <TablixHeader>
-                <Size>0.70583cm</Size>
+                <Size>0.6548cm</Size>
                 <CellContents>
                   <Textbox Name="Textbox2">
                     <CanGrow>true</CanGrow>
@@ -282,7 +282,7 @@
                 </SortExpression>
               </SortExpressions>
               <TablixHeader>
-                <Size>5.22521cm</Size>
+                <Size>4.94299cm</Size>
                 <CellContents>
                   <Textbox Name="PayeeName">
                     <CanGrow>true</CanGrow>
@@ -318,7 +318,7 @@
             </TablixMember>
             <TablixMember>
               <TablixHeader>
-                <Size>5.22521cm</Size>
+                <Size>4.94299cm</Size>
                 <CellContents>
                   <Textbox Name="Textbox4">
                     <CanGrow>true</CanGrow>
@@ -359,10 +359,10 @@
         <FixedColumnHeaders>true</FixedColumnHeaders>
         <FixedRowHeaders>true</FixedRowHeaders>
         <DataSetName>IndividualReport</DataSetName>
-        <Top>0.57891cm</Top>
-        <Left>1.38291cm</Left>
-        <Height>2.01166cm</Height>
-        <Width>12.95042cm</Width>
+        <Top>0.17639cm</Top>
+        <Left>0.43041cm</Left>
+        <Height>1.85856cm</Height>
+        <Width>11.85271cm</Width>
         <Style>
           <Border>
             <Style>Solid</Style>
@@ -370,10 +370,10 @@
         </Style>
       </Tablix>
     </ReportItems>
-    <Height>2in</Height>
+    <Height>0.90625in</Height>
     <Style />
   </Body>
-  <Width>6.5in</Width>
+  <Width>5.35417in</Width>
   <Page>
     <PageHeader>
       <Height>2.09021cm</Height>
@@ -400,8 +400,8 @@
             </Paragraph>
           </Paragraphs>
           <rd:DefaultName>Textbox1</rd:DefaultName>
-          <Top>1.26559cm</Top>
-          <Left>2.21604cm</Left>
+          <Top>1.00101cm</Top>
+          <Left>1.73979cm</Left>
           <Height>0.67938cm</Height>
           <Width>11.23125cm</Width>
           <Style>
@@ -434,8 +434,8 @@
             </Paragraph>
           </Paragraphs>
           <rd:DefaultName>Fund</rd:DefaultName>
-          <Top>0.59503cm</Top>
-          <Left>2.21604cm</Left>
+          <Top>0.33045cm</Top>
+          <Left>1.73979cm</Left>
           <Height>0.67056cm</Height>
           <Width>11.23125cm</Width>
           <ZIndex>1</ZIndex>
