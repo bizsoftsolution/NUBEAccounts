@@ -11,26 +11,43 @@ namespace NUBEAccounts.BLL
     public class PayeeList : INotifyPropertyChanged
     {
 
-        private int _Id;
-        private string _PayName;
-        private static ObservableCollection<PayeeList> _PayList;
-        public string PayName
+        
+        private string _PayeeName;
+        private static ObservableCollection<PayeeList> _toList;
+        private bool _IsChecked;
+
+        public string PayeeName
         {
             get
             {
-                return _PayName;
+                return _PayeeName;
             }
 
             set
             {
-                if (_PayName != value)
+                if (_PayeeName != value)
                 {
-                    _PayName = value;
-                    NotifyPropertyChanged(nameof(PayName));
+                    _PayeeName = value;
+                    NotifyPropertyChanged(nameof(PayeeName));
                 }
             }
         }
+        public bool IsChecked
+        {
+            get
+            {
+                return _IsChecked;
+            }
 
+            set
+            {
+                if (_IsChecked != value)
+                {
+                    _IsChecked = value;
+                    NotifyPropertyChanged(nameof(IsChecked));
+                }
+            }
+        }
         #region Property  Changed Event
 
         public event PropertyChangedEventHandler PropertyChanged;
@@ -46,16 +63,16 @@ namespace NUBEAccounts.BLL
             foreach (var p in this.GetType().GetProperties()) NotifyPropertyChanged(p.Name);
         }
 
-        public static ObservableCollection<PayeeList> PayList
+        public static ObservableCollection<PayeeList> toList
         {
             get
             {
-                if (_PayList == null) _PayList = new ObservableCollection<PayeeList>(NubeAccountClient.NubeAccountHub.Invoke<List<PayeeList>>("PayeeList").Result);
-                return _PayList;
+                if (_toList == null) _toList = new ObservableCollection<PayeeList>(NubeAccountClient.NubeAccountHub.Invoke<List<PayeeList>>("PayeeList").Result);
+                return _toList;
             }
             set
             {
-                _PayList = value;
+                _toList = value;
             }
         }
 

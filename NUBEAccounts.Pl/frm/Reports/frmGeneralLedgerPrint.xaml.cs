@@ -37,7 +37,7 @@ namespace NUBEAccounts.Pl.frm.Reports
             {
                 List<BLL.GeneralLedger> list = BLL.GeneralLedger.ToList((int)LID, dtFrom, dtTo);
                 list = list.Select(x => new BLL.GeneralLedger()
-                { AccountName = x.Ledger.AccountName,VoucherNo=x.VoucherNo, Particular = x.Particular, CrAmt = x.CrAmt, DrAmt = x.DrAmt, BalAmt = x.BalAmt, EDate = x.EDate, EntryNo = x.EntryNo, EType = x.EType, Ledger = x.Ledger, RefNo = x.RefNo }).ToList();
+                { AccountName = x.Ledger.AccountName,VoucherNo=x.VoucherNo, Particular = x.Particular,PayeeName=x.PayeeName, CrAmt = x.CrAmt, DrAmt = x.DrAmt, BalAmt = x.BalAmt, EDate = x.EDate, EntryNo = x.EntryNo, EType = x.EType, Ledger = x.Ledger, RefNo = x.RefNo }).ToList();
 
                 try
                 {

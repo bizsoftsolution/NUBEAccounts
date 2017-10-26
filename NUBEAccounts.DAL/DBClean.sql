@@ -1,6 +1,4 @@
 ﻿
-
-
 delete from PaymentDetail
 delete from Payment
 
@@ -11,7 +9,6 @@ delete from JournalDetail
 delete from Journal
 
 delete from ACYearLedgerBalance
-
 delete from Ledger
 
 delete from AccountGroup

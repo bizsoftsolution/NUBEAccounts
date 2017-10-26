@@ -292,6 +292,7 @@ namespace NUBEAccounts.Pl.frm.Master
         {
             ViewForm();
         }
+
         void ViewForm()
         {
             var d = dgvDetail.SelectedItem as BLL.UserType;

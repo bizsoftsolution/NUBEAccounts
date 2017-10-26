@@ -50,8 +50,8 @@ namespace NUBEAccounts.SL.Hubs
                 gl.BalAmt = Math.Abs(BalAmt.Value);
 
                 gl.Ledger = new BLL.Ledger();
-                gl.Particular = string.Format("Balance {0}", l.LedgerName);
-                gl.PayeeName = string.Format("Balance {0}", l.LedgerName);
+                gl.Ledger.AccountName = string.Format("Balance {0}", l.LedgerName);
+                //gl.PayeeName = string.Format("Balance {0}", l.LedgerName);
                 lstGeneralLedger.Add(gl);
 
                 foreach (var pd in l.PaymentDetails.Where(x => x.Payment.PaymentDate >= dtFrom && x.Payment.PaymentDate <= dtTo).ToList())
@@ -160,6 +160,7 @@ namespace NUBEAccounts.SL.Hubs
                     gl.BalAmt = Math.Abs(BalAmt.Value);
                     lstGeneralLedger.Add(gl);
                 }
+                lstGeneralLedger= lstGeneralLedger.OrderBy(x => x.EDate).ToList();
                 gl = new BLL.GeneralLedger();
                 gl.Ledger = new BLL.Ledger();
                 gl.Particular = "Total";

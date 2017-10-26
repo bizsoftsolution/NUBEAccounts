@@ -30,7 +30,7 @@ namespace NUBEAccounts.Common
                                         frmIncomeAndExpenditure = "NUBEAccounts.Pl.frm.Reports.frmIncomeAndExpenditure",
                                         frmSubsidaryAccounts = "NUBEAccounts.Pl.frm.Reports.frmSubsidaryAccounts",
                                         frmDailyBankBalance = "NUBEAccounts.Pl.frm.Reports.frmDailyBankBalance",
-                                        IndividualReport= "NUBEAccounts.Pl.frm.Reports.IndividualReport",
+                                        IndividualReport= "NUBEAccounts.Pl.frm.Reports.frmIndividualReport",
                                         IncomeReport = "NUBEAccounts.Pl.frm.Reports.IncomeReport",
                                         frmExpenseReport = "NUBEAccounts.Pl.frm.Reports.frmExpenseReport"
                                         ;
