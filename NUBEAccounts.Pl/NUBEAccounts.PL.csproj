@@ -461,6 +461,7 @@
     </Compile>
     <Compile Include="frm\Reports\frmIndividualReport.xaml.cs">
       <DependentUpon>frmIndividualReport.xaml</DependentUpon>
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Compile>
     <Compile Include="frm\Reports\frmNECReport.xaml.cs">
       <DependentUpon>frmNECReport.xaml</DependentUpon>

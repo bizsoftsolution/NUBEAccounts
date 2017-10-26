@@ -244,6 +244,7 @@
     <Compile Include="Hubs\GeneralLedger.cs" />
     <Compile Include="Hubs\IncomeExpenditure.cs" />
     <Compile Include="Hubs\IncomeReport.cs" />
+    <Compile Include="Hubs\IndividualReport.cs" />
     <Compile Include="Hubs\Journal.cs" />
     <Compile Include="Hubs\Ledger.cs" />
     <Compile Include="Hubs\MonthlyReport.cs" />

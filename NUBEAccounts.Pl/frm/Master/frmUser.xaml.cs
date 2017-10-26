@@ -12,6 +12,7 @@ using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
+using NUBEAccounts.Common;
 
 namespace NUBEAccounts.Pl.frm.Master
 {
@@ -48,9 +49,20 @@ namespace NUBEAccounts.Pl.frm.Master
 
         private void btnSave_Click(object sender, RoutedEventArgs e)
         {
-           
-            if (data.Save() == true)
+            Common.AppLib.WriteLog(string.Format("user save=>Begins=>Id=>{0}", data.Id));
+
+            if (data.Id==0 &&!BLL.UserAccount.AllowInsert(Forms.frmUser))
             {
+                MessageBox.Show(string.Format(Message.PL.DenyInsert, "Users"));
+            }
+            else if (data.Id!=0&&!BLL.UserAccount.AllowUpdate(Forms.frmUser))
+            {
+                MessageBox.Show(string.Format(Message.PL.DenyUpdate, "Users"));
+            }
+
+            else if (data.Save() == true)
+            {
+                Common.AppLib.WriteLog(string.Format("user saved successfully=>Id=>{0}", data.Id));
                 MessageBox.Show(Message.PL.Saved_Alert);
                 if (BLL.UserAccount.User.Id == data.Id)
                 {

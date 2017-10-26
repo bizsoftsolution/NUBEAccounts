@@ -63,14 +63,22 @@ namespace NUBEAccounts.Pl.frm.Master
             cmbAccountGroupId.SelectedValuePath = "Id";
             
 
-            btnSave.Visibility = (BLL.FundMaster.UserPermission.AllowInsert || BLL.FundMaster.UserPermission.AllowUpdate) ? Visibility.Visible : Visibility.Collapsed;
-            btnDelete.Visibility = BLL.FundMaster.UserPermission.AllowDelete ? Visibility.Visible : Visibility.Collapsed;
+            btnSave.Visibility = (BLL.Ledger.UserPermission.AllowInsert || BLL.Ledger.UserPermission.AllowUpdate) ? Visibility.Visible : Visibility.Collapsed;
+            btnDelete.Visibility = BLL.Ledger.UserPermission.AllowDelete ? Visibility.Visible : Visibility.Collapsed;
 
         }
 
         private void btnSave_Click(object sender, RoutedEventArgs e)
         {
-            if (data.LedgerName == null)
+            if (data.Id == 0 && !BLL.UserAccount.AllowInsert(Common.Forms.frmLedger))
+            {
+                MessageBox.Show(string.Format(Message.PL.DenyInsert, FormName));
+            }
+            else if (data.Id != 0 && !BLL.UserAccount.AllowUpdate(Common.Forms.frmLedger))
+            {
+                MessageBox.Show(string.Format(Message.PL.DenyUpdate, FormName));
+            }
+           else if (data.LedgerName == null)
             {
                 MessageBox.Show(string.Format(Message.PL.Empty_Record, "LedgerName"));
             }
@@ -79,18 +87,13 @@ namespace NUBEAccounts.Pl.frm.Master
                 MessageBox.Show("Please Enter the Valid Email or Leave Empty");
 
             }
-            else if (data.Id == 0 && !BLL.UserAccount.AllowInsert(FormName))
-            {
-                MessageBox.Show(string.Format(Message.PL.DenyInsert, FormName));
-            }
-            else if (data.Id != 0 && !BLL.UserAccount.AllowUpdate(FormName))
-            {
-                MessageBox.Show(string.Format(Message.PL.DenyUpdate, FormName));
-            }
+           
             else
             {
+                Common.AppLib.WriteLog(string.Format("Ledger Save=>Begins=>Id=>{0}", data.Id));
                 if (data.Save() == true)
                 {
+                    Common.AppLib.WriteLog(string.Format("Ledger Saved Successfully=>Id=>{0}", data.Id));
                     MessageBox.Show(Message.PL.Saved_Alert);
                     data.Clear();
                     Grid_Refresh();
@@ -107,7 +110,7 @@ namespace NUBEAccounts.Pl.frm.Master
         {
             if (data.Id != 0)
             {
-                if (!BLL.UserAccount.AllowDelete(FormName))
+                if (!BLL.UserAccount.AllowDelete(Common.Forms.frmLedger))
                 {
                     MessageBox.Show(string.Format(Message.PL.DenyDelete, FormName));
                 }
@@ -115,8 +118,11 @@ namespace NUBEAccounts.Pl.frm.Master
                 {
                     if (MessageBox.Show(Message.PL.Delete_confirmation, "", MessageBoxButton.YesNo) != MessageBoxResult.No)
                     {
+                        Common.AppLib.WriteLog("Ledger Delete=>Begins");
                         if (data.Delete() == true)
                         {
+                            Common.AppLib.WriteLog(string.Format("Ledger Deleted Successfully==>Id{0}", data.Id));
+
                             MessageBox.Show(Message.PL.Delete_Alert);
                             data.Clear();
                             Grid_Refresh();
@@ -211,12 +217,9 @@ namespace NUBEAccounts.Pl.frm.Master
 
                 if (rptStartWith.IsChecked == true)
                 {                    
-                    if (
-                            (cbxCase.IsChecked == true ? d.LedgerCode : d.LedgerCode.ToLower()).StartsWith(strSearch) ||
+                    if ((cbxCase.IsChecked == true ? d.LedgerCode : d.LedgerCode.ToLower()).StartsWith(strSearch) ||
                             (cbxCase.IsChecked == true ? d.LedgerName : d.LedgerName.ToLower()).StartsWith(strSearch) ||
-                            (cbxCase.IsChecked == true ? d.AccountGroup.GroupName : d.AccountGroup.GroupName.ToLower()).StartsWith(strSearch) 
-
-                        ) RValue = true;                
+                            (cbxCase.IsChecked == true ? d.AccountGroup.GroupName : d.AccountGroup.GroupName.ToLower()).StartsWith(strSearch)) RValue = true;                
                 }
                 else if (rptContain.IsChecked == true)
                 {

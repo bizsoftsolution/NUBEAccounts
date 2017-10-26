@@ -56,18 +56,24 @@ namespace NUBEAccounts.Pl.frm.Master
 
         private void btnSave_Click(object sender, RoutedEventArgs e)
         {
-            if (data.Id == 0 && !BLL.UserAccount.AllowInsert(FormName))
+           if (data.Id == 0 && !BLL.UserAccount.AllowInsert(Common.Forms.frmUserType))
             {
                 MessageBox.Show(string.Format(Message.PL.DenyInsert, FormName));
             }
-            else if (data.Id != 0 && !BLL.UserAccount.AllowUpdate(FormName))
+            else if (data.Id != 0 && !BLL.UserAccount.AllowUpdate(Common.Forms.frmUserType))
             {
                 MessageBox.Show(string.Format(Message.PL.DenyUpdate, FormName));
             }
+            else if (data.TypeOfUser=="")
+            {
+                MessageBox.Show(string.Format(Message.PL.Empty_Record, "User type"));
+            }
             else
             {
+                Common.AppLib.WriteLog(string.Format("User type save=>Begins=>Id=>{0}", data.Id));
                 if (data.Save() == true)
                 {
+                    Common.AppLib.WriteLog(string.Format("User type Saved Successfully=>Id=>{0}", data.Id));
                     MessageBox.Show("Saved");
                     this.Close();
                 }
@@ -80,11 +86,13 @@ namespace NUBEAccounts.Pl.frm.Master
             if (data.Id == 0) MessageBox.Show("No Records to Delete");
             else
             {
-                if (!BLL.UserAccount.AllowDelete(FormName)) MessageBox.Show(string.Format(Message.PL.DenyDelete, FormName));
+                if (!BLL.UserAccount.AllowDelete(Common.Forms.frmUserType)) MessageBox.Show(string.Format(Message.PL.DenyDelete, FormName));
                 else if (MessageBox.Show("Do you want to Delete this record?", "DELETE", MessageBoxButton.YesNo) != MessageBoxResult.No)
                 {
+                    Common.AppLib.WriteLog(string.Format("User type Delete=>Begins=>Id=>{0}", data.Id));
                     if (data.Delete() == true)
                     {
+                        Common.AppLib.WriteLog(string.Format("User type Deleted Successfully=>Id=>{0}", data.Id));
                         MessageBox.Show("Deleted");
                         this.Close();
                     }
@@ -284,6 +292,7 @@ namespace NUBEAccounts.Pl.frm.Master
         {
             ViewForm();
         }
+
         void ViewForm()
         {
             var d = dgvDetail.SelectedItem as BLL.UserType;

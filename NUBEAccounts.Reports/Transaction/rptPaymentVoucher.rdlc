@@ -125,7 +125,7 @@
             </Paragraphs>
             <rd:DefaultName>Textbox16</rd:DefaultName>
             <Top>0.1007in</Top>
-            <Left>0.5382in</Left>
+            <Left>0.35417in</Left>
             <Height>0.25in</Height>
             <Width>1in</Width>
             <Style>
@@ -158,7 +158,7 @@
             </Paragraphs>
             <rd:DefaultName>Textbox17</rd:DefaultName>
             <Top>0.39236in</Top>
-            <Left>0.19792in</Left>
+            <Left>0.01389in</Left>
             <Height>0.25in</Height>
             <Width>1.34028in</Width>
             <ZIndex>1</ZIndex>
@@ -190,7 +190,7 @@
             </Paragraphs>
             <rd:DefaultName>PayTo</rd:DefaultName>
             <Top>0.12848in</Top>
-            <Left>1.55209in</Left>
+            <Left>1.36806in</Left>
             <Height>0.25in</Height>
             <Width>3.1632in</Width>
             <ZIndex>2</ZIndex>
@@ -225,6 +225,7 @@
             </Paragraphs>
             <rd:DefaultName>Textbox20</rd:DefaultName>
             <Top>1.10764in</Top>
+            <Left>2.81501cm</Left>
             <Height>0.25in</Height>
             <Width>2.31944in</Width>
             <ZIndex>3</ZIndex>
@@ -240,7 +241,7 @@
           </Textbox>
           <Line Name="Line1">
             <Top>1.3125in</Top>
-            <Left>2.38889in</Left>
+            <Left>3.50757in</Left>
             <Height>0in</Height>
             <Width>1.7882in</Width>
             <ZIndex>4</ZIndex>
@@ -270,7 +271,7 @@
             </Paragraphs>
             <rd:DefaultName>Amount1</rd:DefaultName>
             <Top>0.40626in</Top>
-            <Left>1.56597in</Left>
+            <Left>1.38194in</Left>
             <Height>0.25in</Height>
             <Width>3.13542in</Width>
             <ZIndex>5</ZIndex>
@@ -305,7 +306,7 @@
             </Paragraphs>
             <rd:DefaultName>AmountInwords</rd:DefaultName>
             <Top>0.68403in</Top>
-            <Left>1.56598in</Left>
+            <Left>1.38195in</Left>
             <Height>0.35416in</Height>
             <Width>3.91382in</Width>
             <ZIndex>6</ZIndex>
@@ -339,7 +340,7 @@
             </Paragraphs>
             <rd:DefaultName>Textbox17</rd:DefaultName>
             <Top>0.68403in</Top>
-            <Left>0.19792in</Left>
+            <Left>0.01389in</Left>
             <Height>0.25in</Height>
             <Width>1.34028in</Width>
             <ZIndex>7</ZIndex>
@@ -356,9 +357,9 @@
         </ReportItems>
         <KeepTogether>true</KeepTogether>
         <Top>1.53in</Top>
-        <Left>0.06472in</Left>
+        <Left>0.24875in</Left>
         <Height>1.46528in</Height>
-        <Width>5.71528in</Width>
+        <Width>5.53125in</Width>
         <ZIndex>3</ZIndex>
         <Style>
           <Border>

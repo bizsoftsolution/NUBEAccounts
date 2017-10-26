@@ -25,17 +25,17 @@ namespace NUBEAccounts.SL.Hubs
 
             }
 
+            //BLL.IncomeExpenditure tb = new BLL.IncomeExpenditure();
+            //tb.Ledger = new BLL.Ledger();
+            //tb.Ledger.AccountName = "Total ";
+            //tb.CrAmt = GTotalCr;
+            //tb.DrAmt = GTotalDr;
+            //tb.CrAmtOP = GTotalCrOP;
+            //tb.DrAmtOP = GTotalDrOP;
+            //lstIncomeExpenditure.Add(tb);
+
+
             BLL.IncomeExpenditure tb = new BLL.IncomeExpenditure();
-            tb.Ledger = new BLL.Ledger();
-            tb.Ledger.AccountName = "Total ";
-            tb.CrAmt = GTotalCr;
-            tb.DrAmt = GTotalDr;
-            tb.CrAmtOP = GTotalCrOP;
-            tb.DrAmtOP = GTotalDrOP;
-            lstIncomeExpenditure.Add(tb);
-
-
-
             tb = new BLL.IncomeExpenditure();
             tb.Ledger = new BLL.Ledger();
             tb.Ledger.AccountName = "Surplus/Deficit ";

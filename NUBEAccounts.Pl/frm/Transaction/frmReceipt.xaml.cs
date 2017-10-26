@@ -61,11 +61,11 @@ namespace NUBEAccounts.Pl.frm.Transaction
 
         private void btnSave_Click(object sender, RoutedEventArgs e)
         {
-            if (data.Id == 0 && !BLL.UserAccount.AllowInsert(FormName))
+            if (data.Id == 0 && !BLL.UserAccount.AllowInsert(Forms.frmReceipt))
             {
                 MessageBox.Show(string.Format(Message.PL.DenyInsert, FormName));
             }
-            else if (data.Id != 0 && !BLL.UserAccount.AllowUpdate(FormName))
+            else if (data.Id != 0 && !BLL.UserAccount.AllowUpdate(Forms.frmReceipt))
             {
                 MessageBox.Show(string.Format(Message.PL.DenyUpdate, FormName));
             }
@@ -92,9 +92,11 @@ namespace NUBEAccounts.Pl.frm.Transaction
             }
             else
             {
+                Common.AppLib.WriteLog(string.Format("Receipt Save Begnis=>Id=>{0}", data.Id));
                 var rv = data.Save();
                 if (rv == true)
                 {
+                    Common.AppLib.WriteLog(string.Format("Receipt Saved Successfully=>Id=>{0}", data.Id));
                     MessageBox.Show(Message.PL.Saved_Alert);
                     if (ckxAutoPrint.IsChecked == true) Print();
                     data.Clear();
@@ -105,7 +107,7 @@ namespace NUBEAccounts.Pl.frm.Transaction
 
         private void btnDelete_Click(object sender, RoutedEventArgs e)
         {
-            if (!BLL.UserAccount.AllowDelete(FormName))
+            if (!BLL.UserAccount.AllowDelete(Forms.frmReceipt))
             {
                 MessageBox.Show(string.Format(Message.PL.DenyDelete, FormName));
             }
@@ -113,9 +115,11 @@ namespace NUBEAccounts.Pl.frm.Transaction
             {
                 if (MessageBox.Show("Do you want to delete?", "DELETE", MessageBoxButton.YesNo) == MessageBoxResult.Yes)
                 {
+                    Common.AppLib.WriteLog(string.Format("Receipt Delete Begnis=>Id=>{0}", data.Id));
                     var rv = data.Delete();
                     if (rv == true)
                     {
+                        Common.AppLib.WriteLog(string.Format("Receipt deleted=>Id=>{0}", data.Id));
                         MessageBox.Show(Message.PL.Delete_Alert);
                         data.Clear();
                         if (data.Id != 0)
@@ -181,9 +185,7 @@ namespace NUBEAccounts.Pl.frm.Transaction
 
         private void Print()
         {
-
             frm.Vouchers.frmQuickReceipt f = new Vouchers.frmQuickReceipt();
-
             f.LoadReport(data);
             f.ShowDialog();
         }
@@ -248,8 +250,8 @@ namespace NUBEAccounts.Pl.frm.Transaction
             cmbCreditAC.SelectedValuePath = "Id";
             cmbCreditAC.DisplayMemberPath = "AccountName";
 
-            btnSave.Visibility = (BLL.FundMaster.UserPermission.AllowInsert || BLL.FundMaster.UserPermission.AllowUpdate) ? Visibility.Visible : Visibility.Collapsed;
-            btnDelete.Visibility = BLL.FundMaster.UserPermission.AllowDelete ? Visibility.Visible : Visibility.Collapsed;
+            btnSave.Visibility = (BLL.Receipt.UserPermission.AllowInsert || BLL.Receipt.UserPermission.AllowUpdate) ? Visibility.Visible : Visibility.Collapsed;
+            btnDelete.Visibility = BLL.Receipt.UserPermission.AllowDelete ? Visibility.Visible : Visibility.Collapsed;
 
             data.Clear();
 

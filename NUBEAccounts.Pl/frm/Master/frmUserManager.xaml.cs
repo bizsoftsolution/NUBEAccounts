@@ -58,35 +58,50 @@ namespace NUBEAccounts.Pl.frm.Master
 
         private void btnEditUser_Click(object sender, RoutedEventArgs e)
         {
-            var u = dgvUsers.SelectedItem as BLL.UserAccount;
+            if(!(BLL.UserAccount.AllowUpdate(Forms.frmUser)))
+            {
+                MessageBox.Show(string.Format(Message.PL.DenyUpdate, "User"), "User", MessageBoxButton.OK);
+            }
+            else
+            {
+                var u = dgvUsers.SelectedItem as BLL.UserAccount;
 
-            frmUser f = new frmUser();
-            f.LoadWindow();
-            u.toCopy<BLL.UserAccount>(f.data);             
-            f.ShowDialog();
-            LoadWindow();
+                frmUser f = new frmUser();
+                f.LoadWindow();
+                u.toCopy<BLL.UserAccount>(f.data);
+                f.ShowDialog();
+                LoadWindow();
+            }
+           
 
         }
 
         private void btnDeleteUser_Click(object sender, RoutedEventArgs e)
         {
-            var u = dgvUsers.SelectedItem as BLL.UserAccount;
-            if (u != null)
+            if (!(BLL.UserAccount.AllowDelete(Forms.frmUser)))
             {
-                if (BLL.UserAccount.toList.Count() == 1)
+                MessageBox.Show(string.Format(Message.PL.DenyDelete, "User"), "User", MessageBoxButton.OK);
+            }
+            else
+            {
+                var u = dgvUsers.SelectedItem as BLL.UserAccount;
+
+                if (u != null)
                 {
-                    MessageBox.Show(string.Format("You can not delete this user. atleast one user required"));
-                }
-                else if (MessageBox.Show("Do you Delete this?", "", MessageBoxButton.YesNo) == MessageBoxResult.Yes)
-                {
-                    if (u.Delete() == true)
+                    if (BLL.UserAccount.toList.Count() == 1)
                     {
-                        MessageBox.Show(Message.PL.Delete_Alert);
-                        LoadWindow();
+                        MessageBox.Show(string.Format("You can not delete this user. atleast one user required"));
+                    }
+                    else if (MessageBox.Show("Do you Delete this?", "", MessageBoxButton.YesNo) == MessageBoxResult.Yes)
+                    {
+                        if (u.Delete() == true)
+                        {
+                            MessageBox.Show(Message.PL.Delete_Alert);
+                            LoadWindow();
+                        }
                     }
                 }
             }
-
         }
 
         private void Window_Loaded(object sender, RoutedEventArgs e)

@@ -26,9 +26,8 @@ namespace NUBEAccounts.Pl.frm.Master
     {
         #region Field
 
-        public static string FormName = "Account Group";
         BLL.AccountGroup data = new BLL.AccountGroup();
-    
+
         #endregion
 
         #region Constructor
@@ -39,7 +38,7 @@ namespace NUBEAccounts.Pl.frm.Master
             this.DataContext = data;
             data.Clear();
             rptAccountGroup.SetDisplayMode(DisplayMode.PrintLayout);
-        
+
             onClientEvents();
         }
 
@@ -59,18 +58,20 @@ namespace NUBEAccounts.Pl.frm.Master
             {
                 MessageBox.Show(String.Format(Message.BLL.Required_Data, "Group Name"));
             }
-            else if (data.Id == 0 && !BLL.UserAccount.AllowInsert(FormName))
+            else if (data.Id == 0 && !BLL.UserAccount.AllowInsert(Common.Forms.frmAccountGroup))
             {
-                MessageBox.Show(string.Format(Message.PL.DenyInsert, FormName));
+                MessageBox.Show(string.Format(Message.PL.DenyInsert, "Account Group"));
             }
-            else if (data.Id != 0 && !BLL.UserAccount.AllowUpdate(FormName))
+            else if (data.Id != 0 && !BLL.UserAccount.AllowUpdate(Common.Forms.frmAccountGroup))
             {
-                MessageBox.Show(string.Format(Message.PL.DenyUpdate, FormName));
+                MessageBox.Show(string.Format(Message.PL.DenyUpdate, "Account Group"));
             }
             else
             {
+                Common.AppLib.WriteLog(string.Format("Account Group Save=>Begin=Id=>{0}",data.Id) );
                 if (data.Save() == true)
                 {
+                    Common.AppLib.WriteLog(string.Format("Account Group Saved Successfully=Id=>{0}",data.Id));
                     MessageBox.Show(Message.PL.Saved_Alert);
                     clear();
                     Grid_Refresh();
@@ -87,16 +88,18 @@ namespace NUBEAccounts.Pl.frm.Master
         {
             if (data.Id != 0)
             {
-                if (!BLL.UserAccount.AllowDelete(FormName))
+                if (!BLL.UserAccount.AllowDelete(Common.Forms.frmAccountGroup))
                 {
-                    MessageBox.Show(string.Format(Message.PL.DenyDelete, FormName));
+                    MessageBox.Show(string.Format(Message.PL.DenyDelete, "Account Group"));
                 }
                 else
                 {
                     if (MessageBox.Show(Message.PL.Delete_confirmation, "", MessageBoxButton.YesNo) != MessageBoxResult.No)
                     {
+                        Common.AppLib.WriteLog("Account Group Delete=>Begin");
                         if (data.Delete() == true)
                         {
+                            Common.AppLib.WriteLog(string.Format("Account Group deleted Successfully==>Id{0}", data.Id)); ;
                             MessageBox.Show(Message.PL.Delete_Alert);
                             clear();
                             Grid_Refresh();
@@ -179,169 +182,174 @@ namespace NUBEAccounts.Pl.frm.Master
 
         private bool AccountGroup_Filter(object obj)
         {
-            bool RValue = false;
-            var d = obj as BLL.AccountGroup;
+            
+                bool RValue = false;
+                var d = obj as BLL.AccountGroup;
 
-            if (!string.IsNullOrEmpty(txtSearch.Text))
-            {
-                string strSearch = cbxCase.IsChecked == true ? txtSearch.Text : txtSearch.Text.ToLower();
-                string strValue = "";
-
-                foreach (var p in d.GetType().GetProperties())
+                if (!string.IsNullOrEmpty(txtSearch.Text))
                 {
-                    if (p.Name.ToLower().Contains("id") ||
-                            p.GetValue(d) == null ||
-                            (p.Name != nameof(d.GroupName) &&
-                                p.Name != nameof(d.UnderAccountGroup.GroupName) &&
-                                p.Name != nameof(d.GroupCode)
+                    string strSearch = cbxCase.IsChecked == true ? txtSearch.Text : txtSearch.Text.ToLower();
+                    string strValue = "";
+
+                    foreach (var p in d.GetType().GetProperties())
+                    {
+                        if (p.Name.ToLower().Contains("id") ||
+                                p.GetValue(d) == null ||
+                                (p.Name != nameof(d.GroupName) &&
+                                    p.Name != nameof(d.UnderAccountGroup.GroupName) &&
+                                    p.Name != nameof(d.GroupCode)
 
 
-                             )
-                        ) continue;
-                    strValue = p.GetValue(d).ToString();
-                    if (cbxCase.IsChecked == false)
-                    {
-                        strValue = strValue.ToLower();
-                    }
-                    if (rptStartWith.IsChecked == true && strValue.StartsWith(strSearch))
-                    {
-                        RValue = true;
-                        break;
-                    }
-                    else if (rptContain.IsChecked == true && strValue.Contains(strSearch))
-                    {
-                        RValue = true;
-                        break;
-                    }
-                    else if (rptEndWith.IsChecked == true && strValue.EndsWith(strSearch))
-                    {
-                        RValue = true;
-                        break;
+                                 )
+                            ) continue;
+                        strValue = p.GetValue(d).ToString();
+                        if (cbxCase.IsChecked == false)
+                        {
+                            strValue = strValue.ToLower();
+                        }
+                        if (rptStartWith.IsChecked == true && strValue.StartsWith(strSearch))
+                        {
+                            RValue = true;
+                            break;
+                        }
+                        else if (rptContain.IsChecked == true && strValue.Contains(strSearch))
+                        {
+                            RValue = true;
+                            break;
+                        }
+                        else if (rptEndWith.IsChecked == true && strValue.EndsWith(strSearch))
+                        {
+                            RValue = true;
+                            break;
+                        }
                     }
                 }
-            }
-            else
-            {
-                RValue = true;
-            }
-            return RValue;
-        }
-
-        private void Grid_Refresh()
-        {
-            try
-            {
-                CollectionViewSource.GetDefaultView(dgvAccount.ItemsSource).Refresh();
-            }
-            catch (Exception ex) { };
-
-        }
-
-        private void LoadReport()
-        {
-            try
-            {
-                rptAccountGroup.Reset();
-                ReportDataSource data = new ReportDataSource("AccountGroup", BLL.AccountGroup.toList.Where(x => AccountGroup_Filter(x)).Select(x => new { x.GroupCode, x.GroupName, underGroupName= x.underGroupName }).OrderBy(x => x.GroupCode).ToList());
-                ReportDataSource data1 = new ReportDataSource("FundMaster", BLL.FundMaster.toList.Where(x => x.Id == BLL.UserAccount.User.UserType.Fund.Id).ToList());
-                rptAccountGroup.LocalReport.DataSources.Add(data);
-                rptAccountGroup.LocalReport.DataSources.Add(data1);
-                rptAccountGroup.LocalReport.ReportPath = @"Master\rptAccountGroup.rdlc";
-
-                ReportParameter[] rp = new ReportParameter[1];
-                rp[0] = new ReportParameter("Fund", BLL.UserAccount.User.UserType.Fund.FundName);
-                rptAccountGroup.LocalReport.SetParameters(rp);
-
-                rptAccountGroup.RefreshReport();
-
-            }
-            catch (Exception ex)
-            {
-
-            }
-
-
-        }
-
-        private void onClientEvents()
-        {
-            BLL.NubeAccountClient.NubeAccountHub.On<BLL.AccountGroup>("AccountGroup_Save", (Account) =>
-            {
-
-                this.Dispatcher.Invoke(() =>
+                else
                 {
-                    Account.Save(true);
-                });
+                    RValue = true;
+                }
+                return RValue;
+           
+        }
+    
 
+    private void Grid_Refresh()
+    {
+        try
+        {
+            CollectionViewSource.GetDefaultView(dgvAccount.ItemsSource).Refresh();
+        }
+        catch (Exception ex) { };
+
+    }
+
+    private void LoadReport()
+    {
+        try
+        {
+            rptAccountGroup.Reset();
+                var list1 = BLL.AccountGroup.toList.Where(x => AccountGroup_Filter(x)).Select(x => new { x.GroupCode, x.GroupName, underGroupName = x.UnderAccountGroup.GroupName }).OrderBy(x => x.GroupCode).ToList();
+
+                ReportDataSource data = new ReportDataSource("AccountGroup", list1); 
+                    ReportDataSource data1 = new ReportDataSource("FundMaster", BLL.FundMaster.toList.Where(x => x.Id == BLL.UserAccount.User.UserType.Fund.Id).ToList());
+            rptAccountGroup.LocalReport.DataSources.Add(data);
+            rptAccountGroup.LocalReport.DataSources.Add(data1);
+            rptAccountGroup.LocalReport.ReportPath = @"Master\rptAccountGroup.rdlc";
+
+            ReportParameter[] rp = new ReportParameter[1];
+            rp[0] = new ReportParameter("Fund", BLL.UserAccount.User.UserType.Fund.FundName);
+            rptAccountGroup.LocalReport.SetParameters(rp);
+
+            rptAccountGroup.RefreshReport();
+
+        }
+        catch (Exception ex)
+        {
+
+        }
+
+
+    }
+
+    private void onClientEvents()
+    {
+        BLL.NubeAccountClient.NubeAccountHub.On<BLL.AccountGroup>("AccountGroup_Save", (Account) =>
+        {
+
+            this.Dispatcher.Invoke(() =>
+            {
+                Account.Save(true);
             });
 
-            BLL.NubeAccountClient.NubeAccountHub.On("AccountGroup_Delete", (Action<int>)((pk) =>
-            {
-                this.Dispatcher.Invoke((Action)(() =>
-                {
-                    BLL.AccountGroup agp = new BLL.AccountGroup();
-                    agp.Find((int)pk);
-                    agp.Delete((bool)true);
-                }));
+        });
 
+        BLL.NubeAccountClient.NubeAccountHub.On("AccountGroup_Delete", (Action<int>)((pk) =>
+        {
+            this.Dispatcher.Invoke((Action)(() =>
+            {
+                BLL.AccountGroup agp = new BLL.AccountGroup();
+                agp.Find((int)pk);
+                agp.Delete((bool)true);
             }));
-        }
 
-        #endregion
-
-        private void dgvAccount_MouseDoubleClick(object sender, MouseButtonEventArgs e)
-        {
-            var d = dgvAccount.SelectedItem as BLL.AccountGroup;
-            if (d != null)
-            {
-                data.Find(d.Id);
-            }
-        }
-
-      
-        //private void trvAccount_MouseDoubleClick(object sender, MouseButtonEventArgs e)
-        //{
-        //    try
-        //    {
-        //        var d = trvAccount.SelectedItem as BLL.AccountGroup;
-        //        if (d != null)
-        //        {
-        //            data.Find(d.Id);
-        //        }
-        //    }
-        //    catch (Exception ex) { }
-
-
-        //}
-        void clear()
-        {
-            data.Clear();
-          //  trvAccount.ItemsSource = BLL.AccountGroup.toGroup(BLL.DataKeyValue.Primary_Value);
-        }
-        private void cmbUnder_GotFocus(object sender, RoutedEventArgs e)
-        {
-            //   var LAGIds = BLL.Ledger.toList.Select(x => x.AccountGroupId).ToList();
-            // cmbUnder.ItemsSource = BLL.AccountGroup.toList.Where(x => !LAGIds.Contains(x.Id)).ToList();
-            cmbUnder.ItemsSource = BLL.AccountGroup.toList.ToList();
-            cmbUnder.SelectedValuePath = "Id";
-            cmbUnder.DisplayMemberPath = "GroupNameWithCode";
-        }
-
-        
-        private void LoadWindow()
-        {
-            BLL.AccountGroup.Init();
-
-            dgvAccount.ItemsSource = BLL.AccountGroup.toList;
-
-            CollectionViewSource.GetDefaultView(dgvAccount.ItemsSource).Filter = AccountGroup_Filter;
-            CollectionViewSource.GetDefaultView(dgvAccount.ItemsSource).SortDescriptions.Add(new System.ComponentModel.SortDescription(nameof(data.GroupCode), System.ComponentModel.ListSortDirection.Ascending));
-
-            rptContain.IsChecked = true;
-            btnSave.Visibility = (BLL.FundMaster.UserPermission.AllowInsert || BLL.FundMaster.UserPermission.AllowUpdate) ? Visibility.Visible : Visibility.Collapsed;
-            btnDelete.Visibility = BLL.FundMaster.UserPermission.AllowDelete ? Visibility.Visible : Visibility.Collapsed;
-
-        }
-      
+        }));
     }
+
+    #endregion
+
+    private void dgvAccount_MouseDoubleClick(object sender, MouseButtonEventArgs e)
+    {
+        var d = dgvAccount.SelectedItem as BLL.AccountGroup;
+        if (d != null)
+        {
+            data.Find(d.Id);
+        }
+    }
+
+
+    //private void trvAccount_MouseDoubleClick(object sender, MouseButtonEventArgs e)
+    //{
+    //    try
+    //    {
+    //        var d = trvAccount.SelectedItem as BLL.AccountGroup;
+    //        if (d != null)
+    //        {
+    //            data.Find(d.Id);
+    //        }
+    //    }
+    //    catch (Exception ex) { }
+
+
+    //}
+    void clear()
+    {
+        data.Clear();
+        //  trvAccount.ItemsSource = BLL.AccountGroup.toGroup(BLL.DataKeyValue.Primary_Value);
+    }
+    private void cmbUnder_GotFocus(object sender, RoutedEventArgs e)
+    {
+        //   var LAGIds = BLL.Ledger.toList.Select(x => x.AccountGroupId).ToList();
+        // cmbUnder.ItemsSource = BLL.AccountGroup.toList.Where(x => !LAGIds.Contains(x.Id)).ToList();
+        cmbUnder.ItemsSource = BLL.AccountGroup.toList.ToList();
+        cmbUnder.SelectedValuePath = "Id";
+        cmbUnder.DisplayMemberPath = "GroupNameWithCode";
+    }
+
+
+    private void LoadWindow()
+    {
+        BLL.AccountGroup.Init();
+
+        dgvAccount.ItemsSource = BLL.AccountGroup.toList;
+
+        CollectionViewSource.GetDefaultView(dgvAccount.ItemsSource).Filter = AccountGroup_Filter;
+        CollectionViewSource.GetDefaultView(dgvAccount.ItemsSource).SortDescriptions.Add(new System.ComponentModel.SortDescription(nameof(data.GroupCode), System.ComponentModel.ListSortDirection.Ascending));
+
+        rptContain.IsChecked = true;
+        btnSave.Visibility = (BLL.AccountGroup.UserPermission.AllowInsert || BLL.AccountGroup.UserPermission.AllowUpdate) ? Visibility.Visible : Visibility.Collapsed;
+        btnDelete.Visibility = BLL.AccountGroup.UserPermission.AllowDelete ? Visibility.Visible : Visibility.Collapsed;
+
+    }
+
+}
 }

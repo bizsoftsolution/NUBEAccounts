@@ -67,6 +67,7 @@
     <Compile Include="Journal.cs" />
     <Compile Include="JournalDetail.cs" />
     <Compile Include="Ledger.cs" />
+    <Compile Include="LedgerList.cs" />
     <Compile Include="MonthlyReport.cs" />
     <Compile Include="NubeAccountClient.cs" />
     <Compile Include="PayeeList.cs" />

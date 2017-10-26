@@ -8,22 +8,14 @@ namespace NUBEAccounts.SL.Hubs
     public partial class NubeServerHub
     {
         public List<BLL.PayeeList> PayeeList()
+        {            
+            var l1 = DB.Payments.Where(x => x.Ledger.AccountGroup.FundMasterId == Caller.FundMasterId).Select(x=> x.PayTo).Distinct().ToList();
+            var l2 = DB.Receipts.Where(x => x.Ledger.AccountGroup.FundMasterId == Caller.FundMasterId).Select(x => x.ReceivedFrom).Distinct().ToList();
+            return l1.Union(l2).OrderBy(x=> x).ToList().Select(x=> new BLL.PayeeList() { PayeeName=x,IsChecked=false }).ToList();
+        }
+        public List<BLL.LedgerList> LedgerList()
         {
-            List<BLL.PayeeList> pl = new List<BLL.PayeeList>();
-            BLL.PayeeList pl1 = new BLL.PayeeList();
-             foreach(var p in DB.Payments.Select(x => x.PayTo).Distinct().ToList())
-            {
-                pl1 = new BLL.PayeeList();
-                pl1.PayName = p;
-                pl.Add(pl1);
-            }
-            foreach (var p in DB.Receipts.Select(x => x.ReceivedFrom).Distinct().ToList())
-            {
-                pl1 = new BLL.PayeeList();
-                pl1.PayName = p;
-                pl.Add(pl1);
-            }
-            return pl;
+            return DB.Ledgers.Where(x => x.AccountGroup.FundMasterId == Caller.FundMasterId).OrderBy(x=> x.LedgerCode).Select(x => new BLL.LedgerList() { LedgerId=x.Id,LedgerName=x.LedgerName,IsChecked=false }).ToList();
         }
     }
 }

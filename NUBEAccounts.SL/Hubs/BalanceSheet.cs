@@ -12,38 +12,50 @@ namespace NUBEAccounts.SL.Hubs
         public List<BLL.BalanceSheet> Balancesheet_List(DateTime dtFrom, DateTime dtTo)
         {
             List<BLL.BalanceSheet> lstBalanceSheet = new List<BLL.BalanceSheet>();
-            var l1 = DB.AccountGroups.Where(x => x.FundMasterId == Caller.FundMasterId && (x.GroupName == "Assets" || x.GroupName == "Liabilities"|| x.GroupName=="Equity")).ToList();
+            var l1 = DB.AccountGroups.Where(x => x.FundMasterId == Caller.FundMasterId && (x.GroupName == "Assets" || x.GroupName == "Liabilities"|| x.GroupName=="Equity")).ToList().OrderBy(x=>x.GroupCode);
             decimal GTotalDr = 0, GTotalCr = 0, GTotalDrOP = 0, GTotalCrOP = 0;
             foreach (var ag in l1)
             {
                 decimal TotalDr = 0, TotalCr = 0, TotalDrOP = 0, TotalCrOP = 0;
                 lstBalanceSheet.AddRange(BalanceSheetByGroupName(ag, dtFrom, dtTo, "", ref TotalDr, ref TotalCr, ref TotalDrOP, ref TotalCrOP));
-
-                GTotalDr += TotalDr;
-                GTotalCr += TotalCr;
-                GTotalDrOP += TotalDrOP;
-                GTotalCrOP += TotalCrOP;
-
+                if (ag.GroupName != "Assets")
+                {
+                    GTotalDr += TotalDr;
+                    GTotalCr += TotalCr;
+                    GTotalDrOP += TotalDrOP;
+                    GTotalCrOP += TotalCrOP;
+                }
             }
 
 
             BLL.BalanceSheet tb = new BLL.BalanceSheet();
             tb.LedgerList = new BLL.Ledger();
-            tb.LedgerList.AccountName = "Total ";
+            tb.LedgerList.AccountName = "Total Liabilities and Equity";
             tb.CrAmt = GTotalCr;
             tb.DrAmt = GTotalDr;
-            tb.CrAmtOP = GTotalCrOP;
-            tb.DrAmtOP = GTotalDrOP;
+
+            if (GTotalCrOP > GTotalDrOP)
+            {
+                tb.CrAmtOP = GTotalCrOP- GTotalDrOP;
+                tb.DrAmtOP = 0;
+            }
+            else
+            {
+                tb.CrAmtOP = 0;
+                tb.DrAmtOP = GTotalDrOP- GTotalCrOP;
+            }
+           
             lstBalanceSheet.Add(tb);
 
-            tb = new BLL.BalanceSheet();
-            tb.LedgerList = new BLL.Ledger();
-            tb.LedgerList.AccountName = "Balance";
-            tb.CrAmt = GTotalCr > GTotalDr ? Math.Abs(GTotalDr - GTotalCr) : 0;
-            tb.DrAmt = GTotalCr < GTotalDr ? Math.Abs(GTotalDr - GTotalCr) : 0; ;
-            tb.CrAmtOP = GTotalCrOP > GTotalDrOP ? Math.Abs(GTotalDrOP - GTotalCrOP) : 0;
-            tb.DrAmtOP = GTotalCrOP < GTotalDrOP ? Math.Abs(GTotalDrOP - GTotalCrOP) : 0;
-            lstBalanceSheet.Add(tb);
+
+            //tb = new BLL.BalanceSheet();
+            //tb.LedgerList = new BLL.Ledger();
+            //tb.LedgerList.AccountName = "Balance";
+            //tb.CrAmt = GTotalCr > GTotalDr ? Math.Abs(GTotalDr - GTotalCr) : 0;
+            //tb.DrAmt = GTotalCr < GTotalDr ? Math.Abs(GTotalDr - GTotalCr) : 0; ;
+            //tb.CrAmtOP = GTotalCrOP > GTotalDrOP ? Math.Abs(GTotalDrOP - GTotalCrOP) : 0;
+            //tb.DrAmtOP = GTotalCrOP < GTotalDrOP ? Math.Abs(GTotalDrOP - GTotalCrOP) : 0;
+            //lstBalanceSheet.Add(tb);
 
 
             return lstBalanceSheet;
@@ -89,7 +101,7 @@ namespace NUBEAccounts.SL.Hubs
                 tb.DrAmtOP = OPDr;
                 tb.CrAmtOP = OPCr;
 
-                if (tb.DrAmt != 0 || tb.CrAmt != 0)
+                if (tb.DrAmt != 0 || tb.CrAmt != 0||tb.DrAmtOP!=0||tb.CrAmtOP!=0)
                 {
                     tb.LedgerList.AccountGroup.GroupCode = Prefix + "     " + tb.LedgerList.AccountGroup.GroupCode;
                     lstBalanceSheet.Add(tb);
@@ -102,7 +114,30 @@ namespace NUBEAccounts.SL.Hubs
 
               
             }
+            if (ag.GroupName == "Equity")
+            {
+                var l1 = IncomeExpenditure_List(dtFrom, dtTo);
+                var ie = l1.Where(x => x.Ledger.AccountName == "Surplus/Deficit ").FirstOrDefault();
+                if (ie != null)
+                {
+                    tb = new BLL.BalanceSheet();
+                    tb.LedgerList = new BLL.Ledger();
+                    tb.LedgerList.AccountName = Prefix + "Net Income";
+                    tb.CrAmt = ie.CrAmt;
+                    tb.DrAmt = ie.DrAmt;
+                    tb.CrAmtOP = ie.CrAmtOP;
+                    tb.DrAmtOP = ie.DrAmtOP;
+                    GTotalDr += tb.DrAmt ?? 0;
+                    GTotalCr += tb.CrAmt ?? 0;
 
+                    GTotalDrOP += tb.DrAmtOP ?? 0;
+                    GTotalCrOP += tb.CrAmtOP ?? 0;
+
+                    lstBalanceSheet.Add(tb);
+                    
+                }
+
+            }
             if (GTotalDr > GTotalCr)
             {
                 GTotalDr = Math.Abs(GTotalDr - GTotalCr);

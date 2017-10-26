@@ -32,7 +32,7 @@ namespace NUBEAccounts.Pl.frm.Transaction
             data.Clear();
 
             dtpJournalDate.DisplayDateStart = Common.AppLib.minDate;
-            dtpJournalDate.DisplayDateEnd = Common.AppLib.maxDate;
+           // dtpJournalDate.DisplayDateEnd = Common.AppLib.maxDate;
 
             onClientEvents();
         }
@@ -77,11 +77,11 @@ namespace NUBEAccounts.Pl.frm.Transaction
         private void btnSave_Click(object sender, RoutedEventArgs e)
         {
             DiffAmt = Math.Abs(drAmt - crAmt);
-            if (data.Id == 0 && !BLL.UserAccount.AllowInsert(FormName))
+            if (data.Id == 0 && !BLL.UserAccount.AllowInsert(Common.Forms.frmJournal))
             {
                 MessageBox.Show(string.Format(Message.PL.DenyInsert, FormName));
             }
-            else if (data.Id != 0 && !BLL.UserAccount.AllowUpdate(FormName))
+            else if (data.Id != 0 && !BLL.UserAccount.AllowUpdate(Common.Forms.frmJournal))
             {
                 MessageBox.Show(string.Format(Message.PL.DenyUpdate, FormName));
             }
@@ -106,12 +106,15 @@ namespace NUBEAccounts.Pl.frm.Transaction
 
             else
             {
+                Common.AppLib.WriteLog(string.Format("Journal Save=>Begins=>Id={0}", data.Id));
                 var rv = data.Save();
                 if (rv == true)
                 {
+                    Common.AppLib.WriteLog(string.Format("Journal Saved Successfully=>Id={0}", data.Id));
                     MessageBox.Show(Message.PL.Saved_Alert);
                     if (ckxAutoPrint.IsChecked == true) Print();
                     data.Clear();
+                    lblMsg.Text = "";
                 }
             }
         }
@@ -119,7 +122,7 @@ namespace NUBEAccounts.Pl.frm.Transaction
         private void btnDelete_Click(object sender, RoutedEventArgs e)
         {
 
-            if (!BLL.UserAccount.AllowDelete(FormName))
+            if (!BLL.UserAccount.AllowDelete(Common.Forms.frmJournal))
             {
                 MessageBox.Show(string.Format(Message.PL.DenyDelete, FormName));
             }
@@ -127,9 +130,11 @@ namespace NUBEAccounts.Pl.frm.Transaction
             {
                 if (MessageBox.Show("Do you want to delete?", "DELETE", MessageBoxButton.YesNo) == MessageBoxResult.Yes)
                 {
+                    Common.AppLib.WriteLog(string.Format("Journal Delete=>Begins={0}", data.Id));
                     var rv = data.Delete();
                     if (rv == true)
                     {
+                        Common.AppLib.WriteLog(string.Format("Journal Deleted Successfully=>Id={0}", data.Id));
                         MessageBox.Show(Message.PL.Delete_Alert);
                         data.Clear();
                         if (data.Id != 0)
@@ -235,8 +240,8 @@ namespace NUBEAccounts.Pl.frm.Transaction
 
         private void UserControl_Loaded(object sender, RoutedEventArgs e)
         {
-            btnSave.Visibility = (BLL.FundMaster.UserPermission.AllowInsert || BLL.FundMaster.UserPermission.AllowUpdate) ? Visibility.Visible : Visibility.Collapsed;
-            btnDelete.Visibility = BLL.FundMaster.UserPermission.AllowDelete ? Visibility.Visible : Visibility.Collapsed;
+            btnSave.Visibility = (BLL.Journal.UserPermission.AllowInsert || BLL.Journal.UserPermission.AllowUpdate) ? Visibility.Visible : Visibility.Collapsed;
+            btnDelete.Visibility = BLL.Journal.UserPermission.AllowDelete ? Visibility.Visible : Visibility.Collapsed;
 
             data.Clear();
 
