@@ -341,6 +341,7 @@ namespace NUBEAccounts.SL.Hubs
                             gl.BalAmt = Math.Abs(BalAmt.Value);
 
                             lstActivity_ToList.Add(gl);
+                            lstActivity_ToList.OrderBy(x => x.EDate);
                         }
                         TotDr += gl.DrAmt;
                         TotCr += gl.CrAmt;

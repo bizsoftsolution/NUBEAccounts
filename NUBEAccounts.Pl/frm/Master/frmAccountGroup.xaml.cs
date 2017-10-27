@@ -248,7 +248,7 @@ namespace NUBEAccounts.Pl.frm.Master
         try
         {
             rptAccountGroup.Reset();
-                var list1 = BLL.AccountGroup.toList.Where(x => AccountGroup_Filter(x)).Select(x => new { x.GroupCode, x.GroupName, underGroupName = x.UnderAccountGroup.GroupName }).OrderBy(x => x.GroupCode).ToList();
+                var list1 = BLL.AccountGroup.toList.Where(x => AccountGroup_Filter(x)).Select(x => new { x.GroupCode, x.GroupName, underGroupName = x.underGroupName }).OrderBy(x => x.GroupCode).ToList();
 
                 ReportDataSource data = new ReportDataSource("AccountGroup", list1); 
                     ReportDataSource data1 = new ReportDataSource("FundMaster", BLL.FundMaster.toList.Where(x => x.Id == BLL.UserAccount.User.UserType.Fund.Id).ToList());

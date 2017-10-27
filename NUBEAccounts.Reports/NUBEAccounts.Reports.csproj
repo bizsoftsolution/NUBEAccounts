@@ -58,6 +58,7 @@
     <None Include="Properties\DataSources\NUBEAccounts.BLL.GeneralLedger.datasource" />
     <None Include="Properties\DataSources\NUBEAccounts.BLL.IncomeExpenditure.datasource" />
     <None Include="Properties\DataSources\NUBEAccounts.BLL.IncomeReport.datasource" />
+    <None Include="Properties\DataSources\NUBEAccounts.BLL.IndividualReport1.datasource" />
     <None Include="Properties\DataSources\NUBEAccounts.BLL.Journal.datasource" />
     <None Include="Properties\DataSources\NUBEAccounts.BLL.Ledger.datasource" />
     <None Include="Properties\DataSources\NUBEAccounts.BLL.Payment.datasource" />
@@ -97,6 +98,9 @@
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </EmbeddedResource>
     <EmbeddedResource Include="Reports\rptIndividualReport.rdlc">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Reports\rptIndividualReportPayee.rdlc">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </EmbeddedResource>
     <EmbeddedResource Include="Reports\rptPaymentReceipt.rdlc">
