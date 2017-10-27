@@ -57,6 +57,47 @@ namespace NUBEAccounts.SL.Hubs
 
         }
 
+        public BLL.UserAccount UserAccount_ReLogin(string AccYear, String CompanyName, String LoginId, String Password)
+        {
+            var rv = new BLL.UserAccount();
+            try
+            {
+                DAL.UserAccount ua = DB.UserAccounts
+                                  .Where(x => x.UserType.FundMaster.FundName == CompanyName
+                                    && x.LoginId == LoginId
+                                    && x.Password == Password && x.UserType.FundMaster.IsActive != false)
+                                    .FirstOrDefault();
+                if (ua != null)
+                {
+                    Groups.Add(Context.ConnectionId, ua.UserType.FundMasterId.ToString());
+                    Caller.FundMasterId = ua.UserType.FundMasterId;
+
+                    Caller.UserId = ua.Id;
+                    Caller.AccYear = AccYear;
+                    rv = UserAccountDAL_BLL(ua);
+                    int yy = DateTime.Now.Month < 4 ? DateTime.Now.Year - 1 : DateTime.Now.Year;
+                    if (AccYear.Length > 4) int.TryParse(AccYear.Substring(0, 4), out yy);
+                    rv.UserType.Fund.LoginAccYear = yy;
+                    return rv;
+
+                }
+                else
+                {
+                    return rv;
+                }
+
+            }
+            catch (Exception ex)
+            {
+
+                WriteErrorLog("Login", "UserAccount_Login", rv.Id, Caller.FundMasterId, ex.Message);
+                return rv;
+            }
+
+
+        }
+
+
         public List<BLL.UserAccount> UserAccount_List()
         {
             var l1 = DB.UserAccounts.Where(x => x.UserType.FundMaster.Id == Caller.FundMasterId).ToList()
