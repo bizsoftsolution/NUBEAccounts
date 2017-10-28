@@ -12,7 +12,7 @@ namespace NUBEAccounts.SL.Hubs
         public string Payment_NewRefNo(DateTime dt)
         {
             //  string Prefix = string.Format("{0}{1:yy}{2:X}", BLL.FormPrefix.Payment, dt, dt.Month);
-            string Prefix = string.Format("{0}/{1}/", BLL.FormPrefix.Payment, dt.Month);
+            string Prefix = string.Format("{0}{1:yyMM}", BLL.FormPrefix.Payment, dt);
             long No = 0;
            
             var d1 = DB.Payments.Where(x => x.Ledger.AccountGroup.FundMasterId == Caller.FundMasterId && x.VoucherNo.StartsWith(Prefix) && x.PaymentDate.Year == dt.Year).Select(x => x.VoucherNo).ToList();
@@ -21,21 +21,21 @@ namespace NUBEAccounts.SL.Hubs
                 No = d1.Select(x => Convert.ToInt64(x.Substring(Prefix.Length), 10)).Max();
             }
 
-            return string.Format("{0}{1}", Prefix, No + 1);
+            return string.Format("{0}{1:d3}", Prefix, No + 1);
         }
         public string Payment_NewEntryNo()
         {
             DateTime dt = DateTime.Now;
-            string Prefix = string.Format("{0}{1:yy}{2}", BLL.FormPrefix.Payment, dt, dt.Month);
+            string Prefix = string.Format("{0}{1:yyMM}", BLL.FormPrefix.Payment, dt);
             long No = 0;
 
             var d = DB.Payments.Where(x => x.Ledger.AccountGroup.FundMasterId == Caller.FundMasterId && x.EntryNo.StartsWith(Prefix))
                                      .OrderByDescending(x => x.EntryNo)
                                      .FirstOrDefault();
 
-            if (d != null) No = Convert.ToInt64(d.EntryNo.Substring(Prefix.Length), 16);
+            if (d != null) No = Convert.ToInt64(d.EntryNo.Substring(Prefix.Length), 10);
 
-            return string.Format("{0}{1}", Prefix, No + 1);
+            return string.Format("{0}{1:d3}", Prefix, No + 1);
         }
 
         public bool Payment_Save(BLL.Payment PO)
