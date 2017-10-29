@@ -354,6 +354,18 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="FK_DataKeyValue_FundMaster">
+          <End Role="FundMaster" Type="Self.FundMaster" Multiplicity="1" />
+          <End Role="DataKeyValue" Type="Self.DataKeyValue" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="FundMaster">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="DataKeyValue">
+              <PropertyRef Name="FundMasterId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="FK_JournalDetail_Journal">
           <End Role="Journal" Type="Self.Journal" Multiplicity="1" />
           <End Role="JournalDetail" Type="Self.JournalDetail" Multiplicity="*" />
@@ -622,6 +634,10 @@
             <End Role="FundMaster" EntitySet="FundMaster" />
             <End Role="CustomFormat" EntitySet="CustomFormat" />
           </AssociationSet>
+          <AssociationSet Name="FK_DataKeyValue_FundMaster" Association="Self.FK_DataKeyValue_FundMaster">
+            <End Role="FundMaster" EntitySet="FundMaster" />
+            <End Role="DataKeyValue" EntitySet="DataKeyValue" />
+          </AssociationSet>
           <AssociationSet Name="FK_JournalDetail_Journal" Association="Self.FK_JournalDetail_Journal">
             <End Role="Journal" EntitySet="Journal" />
             <End Role="JournalDetail" EntitySet="JournalDetail" />
@@ -754,6 +770,10 @@
           <AssociationSet Name="FK_CustomFormat_CompanyDetail" Association="DBNUBEAccountsModel.FK_CustomFormat_CompanyDetail">
             <End Role="FundMaster" EntitySet="FundMasters" />
             <End Role="CustomFormat" EntitySet="CustomFormats" />
+          </AssociationSet>
+          <AssociationSet Name="FK_DataKeyValue_FundMaster" Association="DBNUBEAccountsModel.FK_DataKeyValue_FundMaster">
+            <End Role="FundMaster" EntitySet="FundMasters" />
+            <End Role="DataKeyValue" EntitySet="DataKeyValues" />
           </AssociationSet>
           <AssociationSet Name="FK_LogMaster_EntityType" Association="DBNUBEAccountsModel.FK_LogMaster_EntityType">
             <End Role="EntityType" EntitySet="EntityTypes" />
@@ -900,6 +920,7 @@
           <Property Name="DataKey" Type="String" Nullable="false" MaxLength="250" FixedLength="false" Unicode="true" />
           <Property Name="DataValue" Type="Int32" Nullable="false" />
           <Property Name="FundMasterId" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="FundMaster" Relationship="DBNUBEAccountsModel.FK_DataKeyValue_FundMaster" FromRole="DataKeyValue" ToRole="FundMaster" />
         </EntityType>
         <EntityType Name="EntityType">
           <Key>
@@ -929,6 +950,7 @@
           <NavigationProperty Name="AccountGroups" Relationship="DBNUBEAccountsModel.FK_AccountGroup_CompanyDetail" FromRole="FundMaster" ToRole="AccountGroup" />
           <NavigationProperty Name="ACYearMasters" Relationship="DBNUBEAccountsModel.FK_ACYearMaster_CompanyDetail" FromRole="FundMaster" ToRole="ACYearMaster" />
           <NavigationProperty Name="CustomFormats" Relationship="DBNUBEAccountsModel.FK_CustomFormat_CompanyDetail" FromRole="FundMaster" ToRole="CustomFormat" />
+          <NavigationProperty Name="DataKeyValues" Relationship="DBNUBEAccountsModel.FK_DataKeyValue_FundMaster" FromRole="FundMaster" ToRole="DataKeyValue" />
           <NavigationProperty Name="UserTypes" Relationship="DBNUBEAccountsModel.FK_UserType_CompanyDetail" FromRole="FundMaster" ToRole="UserType" />
         </EntityType>
         <EntityType Name="Journal">
@@ -1231,6 +1253,18 @@
               <PropertyRef Name="Id" />
             </Principal>
             <Dependent Role="CustomFormat">
+              <PropertyRef Name="FundMasterId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_DataKeyValue_FundMaster">
+          <End Type="DBNUBEAccountsModel.FundMaster" Role="FundMaster" Multiplicity="1" />
+          <End Type="DBNUBEAccountsModel.DataKeyValue" Role="DataKeyValue" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="FundMaster">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="DataKeyValue">
               <PropertyRef Name="FundMasterId" />
             </Dependent>
           </ReferentialConstraint>

@@ -20,6 +20,7 @@ namespace NUBEAccounts.DAL
             this.AccountGroups = new HashSet<AccountGroup>();
             this.ACYearMasters = new HashSet<ACYearMaster>();
             this.CustomFormats = new HashSet<CustomFormat>();
+            this.DataKeyValues = new HashSet<DataKeyValue>();
             this.UserTypes = new HashSet<UserType>();
         }
     
@@ -33,6 +34,8 @@ namespace NUBEAccounts.DAL
         public virtual ICollection<ACYearMaster> ACYearMasters { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<CustomFormat> CustomFormats { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<DataKeyValue> DataKeyValues { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<UserType> UserTypes { get; set; }
     }

@@ -17,12 +17,13 @@ delete from ACYearMaster
 delete from CustomFormat
 delete from DataKeyValue
 
-delete from UserTypeDetail
-delete from UserAccount
-delete from UserType
-
 delete from LogDetail
 delete from LogMaster
 
 delete from ErrorLog
+
+delete from UserTypeDetail
+delete from UserAccount
+delete from UserType
+
 delete from FundMaster

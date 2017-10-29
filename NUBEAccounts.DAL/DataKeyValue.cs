@@ -18,5 +18,7 @@ namespace NUBEAccounts.DAL
         public string DataKey { get; set; }
         public int DataValue { get; set; }
         public int FundMasterId { get; set; }
+    
+        public virtual FundMaster FundMaster { get; set; }
     }
 }
