@@ -28,75 +28,82 @@
             <Grid Grid.Row="0"  Grid.Column="0" Grid.ColumnSpan="2" Background="{DynamicResource bgFormHead}">
                 <TextBlock Foreground="{DynamicResource fgFormHead}" HorizontalAlignment="Center"  VerticalAlignment="Center" FontFamily="{DynamicResource ftfFormHead}" FontSize="{DynamicResource fnsFormHead}"><Run Text="Individual Report"/></TextBlock>
             </Grid>
-            <Border BorderBrush="Black" BorderThickness="1" Grid.RowSpan="2" />
+            <Border BorderBrush="Black" BorderThickness="1" Grid.RowSpan="2" Grid.ColumnSpan="2"/>
+            <Border BorderBrush="Black" BorderThickness="1"  Grid.ColumnSpan="2"/>
             <Grid Grid.Column="0" Grid.Row="1" Margin="5">
                 <Grid.RowDefinitions>
                     <RowDefinition Height="50*"></RowDefinition>
                     <RowDefinition Height="50*"></RowDefinition>
                 </Grid.RowDefinitions>
-                <DataGrid Grid.Row="0" x:Name="dgvLedger" IsReadOnly="{Binding IsReadOnly}"  CanUserSortColumns="True" CanUserAddRows="False" ScrollViewer.HorizontalScrollBarVisibility="Auto" ScrollViewer.VerticalScrollBarVisibility="Auto"  AutoGenerateColumns="False" BorderBrush="Black" Background="White" Foreground="Black"  Margin="10"  >
-                    <DataGrid.ColumnHeaderStyle>
-                        <Style TargetType="{x:Type DataGridColumnHeader}">
-                            <Setter Property="FontWeight" Value="Bold" />
-                            <Setter Property="HorizontalContentAlignment" Value="Center"/>
-                        </Style>
-                    </DataGrid.ColumnHeaderStyle>
-                    <DataGrid.Effect>
-                        <DropShadowEffect/>
-                    </DataGrid.Effect>
-                    <DataGrid.Columns>
+                <Grid Grid.Row="0" >
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="20*"></RowDefinition>
+                        <RowDefinition Height="75*"></RowDefinition>
+                    </Grid.RowDefinitions>
+                    <TextBox Grid.Row="0" Name="txtLedgerName" Width="350"  Style="{StaticResource MaterialDesignFloatingHintTextBox}" TextChanged="txtLedgerName_TextChanged"  Margin="5">
+                        <materialDesign:HintAssist.Hint>
+                            <StackPanel Orientation="Horizontal">
+                                <materialDesign:PackIcon  Kind="FileFind" Foreground="{Binding BorderBrush}" Height="25" Width="25" />
+                                <TextBlock Text="Ledger Name" FontWeight="Bold"/>
+                            </StackPanel>
+                        </materialDesign:HintAssist.Hint>
+                    </TextBox>
+                    <DataGrid Grid.Row="1" x:Name="dgvLedger" IsReadOnly="{Binding IsReadOnly}"  CanUserSortColumns="True" CanUserAddRows="False" ScrollViewer.HorizontalScrollBarVisibility="Auto" ScrollViewer.VerticalScrollBarVisibility="Auto"  AutoGenerateColumns="False" BorderBrush="Black" Background="White" Foreground="Black"  Margin="10"  >
+                        <DataGrid.ColumnHeaderStyle>
+                            <Style TargetType="{x:Type DataGridColumnHeader}">
+                                <Setter Property="FontWeight" Value="Bold" />
+                                <Setter Property="HorizontalContentAlignment" Value="Center"/>
+                            </Style>
+                        </DataGrid.ColumnHeaderStyle>
+                        <DataGrid.Effect>
+                            <DropShadowEffect/>
+                        </DataGrid.Effect>
+                        <DataGrid.Columns>
+                            <DataGridTemplateColumn TextBlock.TextAlignment="Center"  >
+                                <DataGridTemplateColumn.CellTemplate>
+                                    <DataTemplate>
+                                        <CheckBox  Tag="{Binding}" Content="{Binding LedgerName,Mode=TwoWay}" IsChecked="{Binding IsChecked}"   Foreground="#FF3D66BE" x:Name="chkLedgerName" Checked="chkLedgerName_Checked" Unchecked="chkLedgerName_Unchecked"/>
+                                    </DataTemplate>
+                                </DataGridTemplateColumn.CellTemplate>
+                            </DataGridTemplateColumn>
+                        </DataGrid.Columns>
+                    </DataGrid>
 
-                        <DataGridTemplateColumn TextBlock.TextAlignment="Center"  >
-                            <DataGridTemplateColumn.Header>
-                                <TextBlock   HorizontalAlignment="Left" VerticalAlignment="Top" Width="150" Text="Ledger Name" />
-                            </DataGridTemplateColumn.Header>
-                            <DataGridTemplateColumn.CellTemplate>
-                                <DataTemplate>
-                                    <CheckBox  Tag="{Binding}" Content="{Binding LedgerName,Mode=TwoWay}"   Foreground="#FF3D66BE" x:Name="chkLedgerName" Checked="chkLedgerName_Checked" Unchecked="chkLedgerName_Unchecked"/>
-                                </DataTemplate>
-                            </DataGridTemplateColumn.CellTemplate>
-                        </DataGridTemplateColumn>
-                    </DataGrid.Columns>
-                </DataGrid>
-                <DataGrid x:Name="dgvPayeeName" Grid.Row="1" IsReadOnly="{Binding IsReadOnly}"  CanUserSortColumns="True" CanUserAddRows="False" ScrollViewer.HorizontalScrollBarVisibility="Auto" ScrollViewer.VerticalScrollBarVisibility="Auto"  AutoGenerateColumns="False" BorderBrush="Black" Background="White" Foreground="Black" Margin="10" >
-                    <DataGrid.ColumnHeaderStyle>
-                        <Style TargetType="{x:Type DataGridColumnHeader}">
-                            <Setter Property="FontWeight" Value="Bold" />
-                            <Setter Property="HorizontalContentAlignment" Value="Center"/>
-                        </Style>
-                    </DataGrid.ColumnHeaderStyle>
-                    <DataGrid.Effect>
-                        <DropShadowEffect/>
-                    </DataGrid.Effect>
-                    <DataGrid.Columns>
-                        <DataGridTemplateColumn TextBlock.TextAlignment="Center" >
-                            <DataGridTemplateColumn.Header>
-                                <TextBlock  HorizontalAlignment="Left" VerticalAlignment="Top"  Text="PayeeName" />
-                            </DataGridTemplateColumn.Header>
-                            <DataGridTemplateColumn.CellTemplate>
-                                <DataTemplate>
-                                    <CheckBox x:Name="chkPayName"  Tag="{Binding}" Content="{Binding PayeeName,Mode=TwoWay}"  Foreground="#FF3D66BE"  Checked="chkPayName_Checked" Unchecked="chkPayName_Unchecked"/>
-                                </DataTemplate>
-                            </DataGridTemplateColumn.CellTemplate>
-                        </DataGridTemplateColumn>
-                    </DataGrid.Columns>
-                </DataGrid>
-                <!--<ListBox Grid.Row="0" x:Name="lstLedgerName" Margin="10" ScrollViewer.VerticalScrollBarVisibility="Auto" ItemsSource="{Binding _checked}">
-                                <ListBox.ItemTemplate>
-                                    <HierarchicalDataTemplate>
-                                        <CheckBox  Tag="{Binding LedgerId, Mode=TwoWay}" Content="{Binding LedgerName,Mode=TwoWay}" IsChecked="{Binding IsChecked}"  Foreground="#FF3D66BE" x:Name="chkLedgerName" Checked="chkLedgerName_Checked" Unchecked="chkLedgerName_Unchecked"/>
-                                    </HierarchicalDataTemplate>
-                                </ListBox.ItemTemplate>
-                            </ListBox>
-                            <ListBox Grid.Row="1" x:Name="lstPayName" Margin="10" ScrollViewer.VerticalScrollBarVisibility="Auto">
-                                <ListBox.ItemTemplate>
-                                    <HierarchicalDataTemplate>
-                                        <CheckBox  Tag="{Binding LedgerId}" Content="{Binding PayName}"  Foreground="#FF3D66BE" x:Name="chkPayName" Checked="chkPayName_Checked" Unchecked="chkPayName_Unchecked"/>
-                                    </HierarchicalDataTemplate>
-                                </ListBox.ItemTemplate>
-                            </ListBox>-->
-
-
+                </Grid>
+                <Grid Grid.Row="1" >
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="20*"></RowDefinition>
+                        <RowDefinition Height="75*"></RowDefinition>
+                    </Grid.RowDefinitions>
+                    <TextBox Grid.Row="0" Name="txtPayeeName" Width="350"  Style="{StaticResource MaterialDesignFloatingHintTextBox}" TextChanged="txtPayeeName_TextChanged"  Margin="5">
+                        <materialDesign:HintAssist.Hint>
+                            <StackPanel Orientation="Horizontal">
+                                <materialDesign:PackIcon  Kind="FileFind" Foreground="{Binding BorderBrush}" Height="25" Width="25" />
+                                <TextBlock Text="Payee Name" FontWeight="Bold"/>
+                            </StackPanel>
+                        </materialDesign:HintAssist.Hint>
+                    </TextBox>
+                    <DataGrid Grid.Row="1" x:Name="dgvPayeeName"  IsReadOnly="{Binding IsReadOnly}"  CanUserSortColumns="True" CanUserAddRows="False" ScrollViewer.HorizontalScrollBarVisibility="Auto" ScrollViewer.VerticalScrollBarVisibility="Auto"  AutoGenerateColumns="False" BorderBrush="Black" Background="White" Foreground="Black" Margin="10" >
+                        <DataGrid.ColumnHeaderStyle>
+                            <Style TargetType="{x:Type DataGridColumnHeader}">
+                                <Setter Property="FontWeight" Value="Bold" />
+                                <Setter Property="HorizontalContentAlignment" Value="Center"/>
+                            </Style>
+                        </DataGrid.ColumnHeaderStyle>
+                        <DataGrid.Effect>
+                            <DropShadowEffect/>
+                        </DataGrid.Effect>
+                        <DataGrid.Columns>
+                            <DataGridTemplateColumn TextBlock.TextAlignment="Center" >
+                                <DataGridTemplateColumn.CellTemplate>
+                                    <DataTemplate>
+                                        <CheckBox x:Name="chkPayName"  Tag="{Binding}" IsChecked="{Binding IsChecked}" Content="{Binding PayeeName,Mode=TwoWay}"  Foreground="#FF3D66BE"  Checked="chkPayName_Checked" Unchecked="chkPayName_Unchecked"/>
+                                    </DataTemplate>
+                                </DataGridTemplateColumn.CellTemplate>
+                            </DataGridTemplateColumn>
+                        </DataGrid.Columns>
+                    </DataGrid>
+                </Grid>
             </Grid>
 
             <Grid Grid.Row="1" Grid.Column="1" >
@@ -109,11 +116,10 @@
                     </Grid.RowDefinitions>
                     <Grid Grid.Row="0" Margin="0,0,0,30">
                         <Grid.RowDefinitions>
-                            <RowDefinition Height="75"></RowDefinition>
-                            <RowDefinition Height="75"></RowDefinition>
+                            <RowDefinition Height="70*"></RowDefinition>
+                            <RowDefinition Height="30*"></RowDefinition>
                         </Grid.RowDefinitions>
                         <StackPanel Grid.Row="0" Orientation="Horizontal" HorizontalAlignment="Center" VerticalAlignment="Top" Margin="10"  >
-
                             <DatePicker Name="dtpDateFrom"  Style="{StaticResource MaterialDesignFloatingHintDatePicker}" Margin="5,20,5,5" >
                                 <materialDesign:HintAssist.Hint>
                                     <StackPanel Orientation="Horizontal" >
@@ -130,11 +136,12 @@
                                     </StackPanel>
                                 </materialDesign:HintAssist.Hint>
                             </DatePicker>
-                            <StackPanel Orientation="Horizontal" Margin="10"/>
                             <Button Width="98" Height="30" x:Name="btnSearch" VerticalAlignment="Bottom" Content="SEARCH" Click="btnSearch_Click" Margin="5 5" />
                         </StackPanel>
-
-
+                        <StackPanel Grid.Row="1" Orientation="Horizontal" HorizontalAlignment="Center" VerticalAlignment="Top" Margin="200,5,251,0" Width="249"  >
+                            <RadioButton x:Name="rdbInverse"  Checked="Inverse_Checked" Margin="0,0,10,0">Ledgerwise</RadioButton>
+                            <RadioButton x:Name="rdbNoInverse" Checked="rdbNoInverse_Checked" IsChecked="True">PayeeName wise</RadioButton>
+                        </StackPanel>
                     </Grid>
                     <Grid Grid.Row="1">
                         

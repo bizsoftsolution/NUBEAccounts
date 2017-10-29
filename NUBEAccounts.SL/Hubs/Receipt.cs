@@ -12,7 +12,7 @@ namespace NUBEAccounts.SL.Hubs
         public string Receipt_NewRefNo(DateTime dt)
         {
             //string Prefix = string.Format("{0}{1:yy}{2:X}", BLL.FormPrefix.Receipt, dt, dt.Month);
-            string Prefix = string.Format("{0}/{1}/", BLL.FormPrefix.Receipt,  dt.Month);
+            string Prefix = string.Format("{0}{1:yyMM}", BLL.FormPrefix.Receipt,  dt);
             long No = 0;
 
             var d1 = DB.Receipts.Where(x => x.Ledger.AccountGroup.FundMasterId == Caller.FundMasterId && x.VoucherNo.StartsWith(Prefix) && x.ReceiptDate.Year == dt.Year).Select(x => x.VoucherNo).ToList();
@@ -21,12 +21,12 @@ namespace NUBEAccounts.SL.Hubs
                 No = d1.Select(x => Convert.ToInt64(x.Substring(Prefix.Length), 10)).Max();
             }
 
-            return string.Format("{0}{1}", Prefix, No + 1);
+            return string.Format("{0}{1:d3}", Prefix, No + 1);
         }
         public string Receipt_NewEntryNo()
         {
             DateTime dt = DateTime.Now;
-            string Prefix = string.Format("{0}{1:yy}{2}", BLL.FormPrefix.Receipt, dt, dt.Month);
+            string Prefix = string.Format("{0}{1:yyMM}", BLL.FormPrefix.Receipt, dt);
             long No = 0;
 
             var d = DB.Receipts.Where(x => x.Ledger.AccountGroup.FundMasterId == Caller.FundMasterId && x.EntryNo.StartsWith(Prefix))
@@ -35,7 +35,7 @@ namespace NUBEAccounts.SL.Hubs
 
             if (d != null) No = Convert.ToInt64(d.EntryNo.Substring(Prefix.Length), 16);
 
-            return string.Format("{0}{1}", Prefix, No + 1);
+            return string.Format("{0}{1:d3}", Prefix, No + 1);
         }
         public bool Receipt_Save(BLL.Receipt PO)
         {
