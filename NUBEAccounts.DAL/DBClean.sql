@@ -19,6 +19,7 @@ delete from DataKeyValue
 
 delete from LogDetail
 delete from LogMaster
+delete from EntityType
 
 delete from ErrorLog
 
